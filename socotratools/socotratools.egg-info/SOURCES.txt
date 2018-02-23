@@ -1,0 +1,12 @@
+MANIFEST.in
+README.md
+VERSION
+setup.py
+socotratools/__init__.py
+socotratools/client.py
+socotratools/dates.py
+socotratools.egg-info/PKG-INFO
+socotratools.egg-info/SOURCES.txt
+socotratools.egg-info/dependency_links.txt
+socotratools.egg-info/requires.txt
+socotratools.egg-info/top_level.txt
