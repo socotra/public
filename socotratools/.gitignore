@@ -1,11 +1,4 @@
 *.pyc
-/build
 /dist
 /MANIFEST
 /VERSION
-/.coverage
-/coverage.xml
-/htmlcov
-/tests/__pycache__
-bin/socotraadminc
-/.idea
