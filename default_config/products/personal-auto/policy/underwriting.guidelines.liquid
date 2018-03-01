@@ -1,0 +1,37 @@
+
+{% assign policy_v = data.policy.characteristics[0].field_values %}
+{% assign policy_felony = policy_v.preliminary_question_10_year_felony_conviction %}
+{% assign policy_fraud = policy_v.preliminary_question_insurance_fraud_conviction %}
+{% assign five_year_claims_history = policy_v.preliminary_question_atfault_claims_past_5_years %}
+
+
+{% assign exposure_c = data.policy.exposures[0].characteristics[0] %}
+{% assign vehicle_value = exposure_c.field_values.vehicle_value %}
+
+{% if five_year_claims_history contains 'None' %}
+    {{ "accept" | set_underwriting_decision }}
+    {{ "Premium includes credit for being claims free." | add_underwriting_note }}
+{% endif %}
+
+{% if five_year_claims_history !=  'None' %}
+    {{ "accept" | set_underwriting_decision }}
+    {{ "Premium has been increased based on the number of at-fault losses in the last 5 year." | add_underwriting_note }}
+{% endif %}
+
+
+   {% if policy_felony contains 'Yes' %} 
+    {{ "reject" | set_underwriting_decision }}
+    {{ "Due to the Felony Conviction(s) this Policy Cannot be Bound." | add_underwriting_note }}       
+{% endif %}
+
+{% if policy_fraud contains 'Yes' %} 
+    {{ "reject" | set_underwriting_decision }}
+    {{ "Due to the Fraud Conviction(s) this Policy Cannot be Bound." | add_underwriting_note }}   
+{% endif %}
+
+
+   {% if vehicle_value >= 100000 %}
+	{{ "reject" | set_underwriting_decision }}
+	{{ "Cars valued at $100,000 and over cannot be covered through this program." | add_underwriting_note }}  
+{% endif %}
+  

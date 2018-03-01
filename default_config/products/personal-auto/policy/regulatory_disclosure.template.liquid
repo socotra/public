@@ -1,0 +1,17 @@
+{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} != "CA" or "FL" or "MO"  %}
+{{ "Static PDF example.pdf"| render_static_document }}
+{% endif %}
+
+{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} contains "FL" %}
+	{{ "Uninsured Motorists Coverage FL.pdf" | render_static_document }}
+{% endif %}
+
+{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} contains "MO" %}
+	{{ "Uninsured Motorists Coverage MO.pdf" | render_static_document }}
+{% endif %}
+
+{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} contains "CA" %}
+	{{ "Uninsured Motorists Coverage CA.pdf" | render_static_document }}
+{% endif %}
+
+

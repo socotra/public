@@ -1,0 +1,42 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Damage Details",
+          "description": "Please provide information about the incident",
+          "fields": [
+            {
+              "name": "damage_type_term_life",
+              "prompt": "Damage Type",
+              "required": true
+            },
+            {
+              "name": "reserve",
+              "prompt": "Reserve",
+              "required": true,
+              "updateable": true
+            },
+            {
+              "name": "reserve_reason",
+              "prompt": "Reason (set to initial reserve unless estimate has been received)",
+              "updateable": true
+            },
+            {
+              "name": "damage_status",
+              "prompt": "Damage Status",
+              "required": true,
+              "updateable": true
+            }
+          ]
+        },
+        {
+          "description": "Upload death certificate and other supporting documents",
+          "uploads": {
+            "name": "damage_image_advanced"
+          }
+        }
+      ]
+    }
+  ]
+}

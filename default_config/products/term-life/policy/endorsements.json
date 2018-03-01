@@ -1,0 +1,16 @@
+{
+  "endorsements": [
+    {
+      "name": "generic",
+      "displayName": "Generic Endorsement",
+      "reprice": "always",
+      "documents": [
+        {
+          "displayName": "Generic Endorsement",
+          "fileName": "endorsement.pdf",
+          "templateName": "endt.template.liquid"
+        }
+      ]
+    }
+  ]
+}

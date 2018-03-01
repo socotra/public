@@ -1,0 +1,189 @@
+{
+  "name": "insured",
+  "displayName": "Insured Person",
+  "fields": [
+    {
+      "name": "first_name",
+      "title": "Given name",
+      "type": "string"
+    },
+    {
+      "name": "last_name",
+      "title": "Surname",
+      "type": "string"
+    },
+    {
+      "name": "dob",
+      "title": "Date of Birth",
+      "type": "date",
+      "precision": "day",
+      "minimumOffset": {
+        "field": "year",
+        "amount": -90,
+        "roundToDay": true
+      },
+      "maximumOffset": {
+        "field": "day",
+        "amount": 0,
+        "roundToDay": true
+      }
+    },
+    {
+      "name": "sex",
+      "title": "Sex",
+      "type": "select",
+      "values": [
+        "Male",
+        "Female"
+      ]
+    },
+    {
+      "name": "existing_life_insurance",
+      "title": "Currently a holder of life insurance?",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "newline": true
+    },
+    {
+      "name": "existing_life_insurance_amount",
+      "title": "Sum assured of existing life policy (USD)",
+      "type": "number",
+      "decimalPlaces": 0,
+      "condition": {
+        "existing_life_insurance": [
+          "Yes"
+        ]
+      },
+      "newline": true
+    },
+    {
+      "name": "existing_life_insurance_company",
+      "title": "Current life insurance company",
+      "type": "string",
+      "condition": {
+        "existing_life_insurance": [
+          "Yes"
+        ]
+      }
+    },
+    {
+      "name": "ever_declined",
+      "title": "Has any proposal on your life ever been declined, postponed, deferred, withdrawn, or accepted on special terms?",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "newline": true
+    },
+    {
+      "name": "ever_declined_explanation",
+      "title": "Please provide more details about these terms",
+      "type": "string",
+      "multiline": true,
+      "condition": {
+        "ever_declined": [
+          "Yes"
+        ]
+      }
+    },
+    {
+      "name": "has_aids",
+      "title": "Has HIV/AIDS",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "newline": true
+    },
+    {
+      "name": "aids_detail",
+      "title": "Provide details",
+      "type": "string",
+      "condition": {
+        "has_aids": [
+          "Yes"
+        ]
+      }
+    },
+    {
+      "name": "has_cancer",
+      "title": "Has Cancer",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "newline": true
+    },
+    {
+      "name": "cancer_detail",
+      "title": "Provide details",
+      "type": "string",
+      "condition": {
+        "has_cancer": [
+          "Yes"
+        ]
+      }
+    },
+    {
+      "name": "has_heart_problem",
+      "title": "Has heart problem",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "newline": true
+    },
+    {
+      "name": "heart_details",
+      "title": "Provide details",
+      "type": "string",
+      "condition": {
+        "has_heart_problem": [
+          "Yes"
+        ]
+      }
+    },
+    {
+      "name": "high_risk_sports",
+      "title": "Plays high risk sports",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "newline": true
+    },
+    {
+      "name": "smoker",
+      "title": "Smokes",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "newline": true
+    },
+    {
+      "name": "drinks_per_week",
+      "title": "Drinks consumed per week",
+      "type": "number",
+      "decimalPlaces": 0,
+      "newline": true
+    },
+    {
+      "name": "medical_documents",
+      "title": "Medical Documents",
+      "type": "media",
+      "width": 12,
+      "repeatable": true,
+      "optional": true
+    }
+  ]
+}

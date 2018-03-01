@@ -1,0 +1,4 @@
+{
+    "leftText": "Reporter {{reporter_fn}} {{reporter_ln}}",
+    "rightText": "{{reporting_method}}"
+}
