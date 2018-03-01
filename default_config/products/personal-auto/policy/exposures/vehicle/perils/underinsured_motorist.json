@@ -1,0 +1,9 @@
+{
+  "name": "underinsured_motorist",
+  "displayName": "Underinsured Motorist Insurance",
+  "fields": [],
+  "indemnityPerItem": "100000",
+  "indemnityPerEvent": "300000",
+  "deductible": "0",
+  "lumpSumPayment": "0"
+}

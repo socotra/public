@@ -1,0 +1,9 @@
+{
+  "name": "collision",
+  "displayName": "Collision - Actual Cash Value",
+  "fields": [],
+  "indemnityPerEvent": "unlimited",
+  "indemnityInAggregate": "0",
+  "deductible": "1000",
+  "lumpSumPayment": "0"
+}

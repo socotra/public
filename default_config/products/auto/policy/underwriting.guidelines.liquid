@@ -1,0 +1,11 @@
+{% assign exposure_c = data.policy.exposures[0].characteristics[0] %}
+{% assign vehicle_value = exposure_c.field_values.vehicle_value %}
+
+{{ "reject" | set_underwriting_decision }}
+
+{% if vehicle_value < 150000 %}
+	{{ "accept" | set_underwriting_decision }}
+	{{ "Policy meets guidelines for automatic acceptance" | add_underwriting_note }}
+{% else %}
+	{{ "Exotic cars cannot be insured" | add_underwriting_note }}
+{% endif %}

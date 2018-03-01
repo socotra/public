@@ -1,0 +1,10 @@
+{
+  "name": "a_third_party_liability",
+  "displayName": "Third Party Liability",
+  "fields": [],
+  "indemnityPerItem": "100000",
+  "indemnityPerEvent": "100000",
+  "indemnityInAggregate": "300000",
+  "deductible": "0",
+  "lumpSumPayment": "0"
+}

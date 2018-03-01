@@ -1,0 +1,71 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Reporter",
+          "object": {
+            "prompt": "reporter",
+            "name": "reporter",
+            "required": false,
+            "updateable": true
+          }
+        },
+        {
+          "title": "Incident Details",
+          "fields": [
+            {
+              "name": "incident_date_advanced",
+              "prompt": "Incident Date (If exact date is not known, record when the incident was discovered)",
+              "width": 4,
+              "required": true
+            },
+            {
+              "name": "incident_district",
+              "prompt": "District",
+              "width": 3
+            },
+            {
+              "name": "incident_location",
+              "prompt": "Incident Location",
+              "width": 3,
+              "required": true,
+              "updateable": true
+            },
+            {
+              "name": "incident_desc",
+              "prompt": "Incident Description",
+              "width": 12,
+              "required": true,
+              "updateable": true
+            }
+          ]
+        },
+        {
+          "description": "Fraud Questions",
+          "fields": [
+            {
+              "name": "is_credible",
+              "prompt": "Is the claim credible?",
+              "width": 4
+            },
+            {
+              "name": "fraud_indicators",
+              "prompt": "What are the indicators that this might be a fradulent claim?",
+              "width": 8,
+              "visibleIf": {
+                "is_credible": "No"
+              }
+            }
+          ]
+        },
+        {
+          "description": "Upload supporting documents or photographs",
+          "uploads": {
+            "name": "claim_image_advanced"
+          }
+        }
+      ]
+    }
+  ]
+}

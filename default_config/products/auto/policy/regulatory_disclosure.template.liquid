@@ -1,0 +1,5 @@
+{% if {{data.policy.exposures[0].characteristics[0].field_values.make}} contains "Toyota" %}
+	<b>Your HTML here. Generated instead of the regulatory disclosure because the vehicle make is Honda</b>
+{% else %}
+    {{ "Static PDF example.pdf" | render_static_document }}
+{% endif %}

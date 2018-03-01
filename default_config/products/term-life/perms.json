@@ -1,0 +1,14 @@
+{
+  "policy": {
+    "create": [
+      "underwriter1",
+      "underwriter2"
+    ]
+  },
+  "claim": {
+    "create": [
+      "claim1",
+      "claim2"
+    ]
+  }
+}

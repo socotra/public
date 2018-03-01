@@ -1,0 +1,20 @@
+{
+  "policyCharacteristics": {
+    "policyStartTimestamp": 1502755200000,
+    "policyEndTimestamp": 1534291200000,
+    "fieldValues": {
+      "channel": "Agent"
+    }
+  },
+  "exposureName": "vehicle",
+  "exposureCharacteristics": {
+    "fieldValues": {
+      "vehicle_type": "Motorcycle"
+    }
+  },
+  "perilName": "bodily_injury",
+  "perilCharacteristics": {
+    "indemnityInAggregate": 10,
+    "deductible": 1
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "fields": [
+    {
+      "name": "channel",
+      "title": "Sales Channel",
+      "type": "select",
+      "values":[
+        "Direct",
+        "Agent",
+        "Broker"
+      ]
+    },
+   {
+     "name": "email",
+     "title": "Email",
+     "type": "email",
+     "optional": true
+   }
+  ],
+  "documents": [
+    {
+      "displayName": "Policy Schedule",
+      "fileName": "schedule.pdf",
+      "templateName": "schedule.template.liquid"
+    },
+    {
+      "displayName": "Policy Schedule Email",
+      "fileName": "schedule_email.html",
+      "templateName": "schedule.template.liquid",
+      "type": "html"
+    },
+    {
+      "displayName": "Regulatory Disclosure",
+      "fileName": "regulatory_disclosure.pdf",
+      "templateName": "regulatory_disclosure.template.liquid"
+    }
+  ],
+  "defaultPaymentTerms": {
+    "amount": 0,
+    "unit": "day"
+  },
+  "paymentSchedules": [
+    {
+      "type": "total",
+      "name": "upfront",
+      "displayName": "Up Front"
+    },
+    {
+      "type": "monthly",
+      "name": "monthly",
+      "displayName": "Monthly"
+    }
+  ]
+}

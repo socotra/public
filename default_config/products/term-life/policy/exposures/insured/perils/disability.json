@@ -1,0 +1,9 @@
+{
+  "name": "disability",
+  "displayName": "Permanent Disability",
+  "fields": [],
+  "indemnityPerItem": "0",
+  "indemnityPerEvent": "0",
+  "indemnityInAggregate": "0",
+  "deductible": "0"
+}
