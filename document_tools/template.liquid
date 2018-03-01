@@ -1,0 +1,8 @@
+<h1> Policy {{ data.policy.display_id }} </h1>
+
+{% for exposure in data.policy.exposures %}
+	<h2> {{exposure.name}} </h2>
+        {% for peril in exposure.perils %}
+            <h3> {{ peril.name }} </h3>
+        {% endfor %}
+{% endfor %}
