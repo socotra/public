@@ -1,0 +1,66 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Reporter Information",
+          "fields": [
+            {
+              "name": "reporting_method",
+              "prompt": "Reporting Method",
+              "required": true
+            },
+            {
+              "name": "reporting_user",
+              "prompt": "Reported by Policyholder?",
+              "required": true
+            },
+            {
+              "name": "reporter_title",
+              "prompt": "Title",
+              "width": 2,
+              "visibleIf":{
+                "reporting_user": "No"
+              }
+            },
+            {
+              "name": "reporter_fn",
+              "prompt": "First Name",
+              "required": true,
+              "width": 5,
+              "visibleIf":{
+                "reporting_user": "No"
+              }
+            },
+            {
+              "name": "reporter_ln",
+              "prompt": "Last Name",
+              "required": true,
+              "width": 5,
+              "visibleIf":{
+                "reporting_user": "No"
+              }
+            },
+            {
+              "name": "reporter_relationship",
+              "prompt": "Reporter Relationship",
+              "width": 6,
+              "visibleIf":{
+                "reporting_user": "No"
+              }
+            },
+            {
+              "name": "reporter_phone",
+              "prompt": "Phone Number (10 digit)",
+              "required": true,
+              "width": 6,
+              "visibleIf":{
+                "reporting_user": "No"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

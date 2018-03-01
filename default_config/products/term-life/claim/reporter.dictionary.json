@@ -1,0 +1,56 @@
+[
+  {
+    "name": "reporting_method",
+    "type": "select",
+    "values": [
+      "Claim Declaration Form",
+      "Letter",
+      "Visit to the head office",
+      "Visit to a branch",
+      "Phone call",
+      "E-mail"
+    ]
+  },
+  {
+    "name": "reporting_user",
+    "type": "select",
+    "values":[
+      "Yes",
+      "No"
+    ]
+  },
+  {
+    "name": "reporter_fn",
+    "type": "string"
+  },
+  {
+    "name": "reporter_ln",
+    "type": "string"
+  },
+  {
+    "name": "reporter_title",
+    "type": "select",
+    "values": [
+      "Mr.",
+      "Mrs.",
+      "Ms."
+    ]
+  },
+  {
+    "name": "reporter_relationship",
+    "type": "select",
+    "values":[
+      "Spouse",
+      "Sibling",
+      "Child",
+      "Parent",
+      "Grandparent",
+      "Relative"
+    ]
+  },
+  {
+    "name": "reporter_phone",
+    "type": "string",
+    "regex": "^(([(]?[0-9]{3}[)][ -]?)|([0-9]{3}([-. ])?))[0-9]{3}[-. ]?[0-9]{4}$"
+  }
+]

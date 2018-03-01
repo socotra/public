@@ -1,0 +1,46 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "fields": [
+            {
+              "name": "adjuster_report_date",
+              "prompt": "Date of Report",
+              "updateable": true
+            },
+            {
+              "name": "reserve",
+              "prompt": "Recommended Reserve (USD)",
+              "required": true,
+              "updateable": true
+            }
+          ]
+        },
+        {
+          "description": "Adjuster Information",
+          "fields": [
+            {
+              "name": "adjuster_first_name",
+              "prompt": "First Name",
+              "required": true,
+              "updateable": true
+            },
+            {
+              "name": "adjuster_last_name",
+              "prompt": "Last Name",
+              "required": true,
+              "updateable": true
+            }
+          ]
+        },
+        {
+          "description": "Inspection Report",
+          "uploads": {
+            "name": "adjuster_report"
+          }
+        }
+      ]
+    }
+  ]
+}

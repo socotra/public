@@ -1,0 +1,42 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Incident Details",
+          "description": "Please provide information about the incident",
+          "fields": [
+            {
+              "name": "pa_incident_date",
+              "prompt": "Incident Date",
+              "width": 4
+            },
+            {
+              "name": "pa_incident_type",
+              "prompt": "Incident Type",
+              "width": 4
+            },
+            {
+              "name": "pa_incident_location",
+              "prompt": "Incident Location",
+              "width": 4,
+              "updateable": true
+            },
+            {
+              "name": "pa_claim_desc",
+              "prompt": "Claim Description",
+              "width": 12,
+              "updateable": true
+            }
+          ]
+        },
+        {
+          "description": "Media and Documents",
+          "uploads": {
+            "name": "pa_claim_image"
+          }
+        }
+      ]
+    }
+  ]
+}
