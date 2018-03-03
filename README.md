@@ -18,10 +18,11 @@ Visit docs2.socotra.com or contact us at support@socotra.com
 
 **[premium_test]:** These tools allow you to quickly iterate to develop your ratings engine using an existing policy/peril or by creating a peril from JSON files.
 
+**[general_ledger]:** A common operation is to take the Soctora standard reports and import them into general ledger software systems for financial reporting.  This example uses PeopleSoft's import format but journal entries should be similar in other systems.
+
 ##### Coming Soon
   - Stripe Integration
   - Data Dictionary Generation
-  - Peoplesoft Integration
   - Consumer Website Example
 
 
@@ -41,3 +42,4 @@ GNU Lesser General Public License
    [create_policy]: <https://github.com/socotra/public/tree/master/create_policy>
    [document_tools]: <https://github.com/socotra/public/tree/master/document_tools>
    [premium_test]: <https://github.com/socotra/public/tree/master/premium_test>
+   [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
