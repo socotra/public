@@ -20,9 +20,10 @@ Visit docs2.socotra.com or contact us at support@socotra.com
 
 **[general_ledger]:** A common operation is to take the Soctora standard reports and import them into general ledger software systems for financial reporting.  This example uses PeopleSoft's import format but journal entries should be similar in other systems.
 
+**[data_dictionary]:** When developing against the API, it's helpful to have a reference of all the product fields configured in an instance.  This script generates a CSV of all fields and associated data types.
+
 ##### Coming Soon
   - Stripe Integration
-  - Data Dictionary Generation
   - Consumer Website Example
 
 
@@ -43,3 +44,4 @@ GNU Lesser General Public License
    [document_tools]: <https://github.com/socotra/public/tree/master/document_tools>
    [premium_test]: <https://github.com/socotra/public/tree/master/premium_test>
    [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
+   [data_dictionary]: <https://github.com/socotra/public/tree/master/gen_data_dictionary.py>
