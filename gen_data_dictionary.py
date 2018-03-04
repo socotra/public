@@ -3,7 +3,6 @@ import json
 import csv
 import os
 import sys
-# from socotratools.client import SocotraClient
 
 
 def write_fields(writer, fields, product, exposure='-', peril='-'):
@@ -30,7 +29,8 @@ def write_fields(writer, fields, product, exposure='-', peril='-'):
             field_row['type'] = subfield['type']
             writer.writerow(field_row)
 
-# Example:  gen_data_dictionary.py -d ~/socotra_config
+
+# Example:  python gen_data_dictionary.py -d ~/socotra_config
 def main(argv):
 
     parser = argparse.ArgumentParser(
@@ -38,15 +38,7 @@ def main(argv):
     parser.add_argument('-o', '--output', default='output.csv',
                         required=False)
     parser.add_argument('-d', '--directory', help='Config folder')
-    parser.add_argument('-n', '--hostname', required=True)
-    parser.add_argument('-u', '--username',
-                        default='alice.lee', required=False)
-    parser.add_argument('-p', '--password', default='socotra', required=False)
     args = parser.parse_args(argv)
-
-    # print 'Authenticating with tenant: ' + args.hostname
-    # client = SocotraClient.get_authenticated_client_for_hostname(
-    #     args.hostname, args.username, args.password)
 
     base_dir = args.directory
     output_file = open(args.output, 'w')
