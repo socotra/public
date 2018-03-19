@@ -52,9 +52,10 @@ class SocotraClient:
                 'Client already authenticated. Please create a new client and authenticate again')
 
     @classmethod
-    def get_authenticated_client_for_hostname(cls, host_name, username, password, debug=False):
-        base_url = cls.__get_api_url_from_host_name(host_name)
-        client = cls(base_url, debug=debug)
+    def get_authenticated_client_for_hostname(cls, host_name, username, password, api_url=None, debug=False):
+        if api_url is None:
+            api_url = cls.__get_api_url_from_host_name(host_name)
+        client = cls(api_url, debug=debug)
         client.authenticate(username, password, host_name=host_name)
         return client
 
