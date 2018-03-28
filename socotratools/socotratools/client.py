@@ -29,7 +29,8 @@ class SocotraClient:
     def __post(self, resource, payload=None, data=None, files=None):
         url = self.base_url + resource
         self.__debug('POST: ' + url)
-        r = self.session.post(url, json=payload, data=data, verify=False, files=files)
+        r = self.session.post(url, json=payload, data=data,
+                              verify=False, files=files)
         status = r.status_code
         self.__debug('Return status: ' + str(status))
         value = r.json()
@@ -77,12 +78,14 @@ class SocotraClient:
             'hostName': host_name
         }
         return_value = self.__post('/account/authenticate', data)
-        self.session.headers.update({"Authorization": return_value['authorizationToken']})
+        self.session.headers.update(
+            {"Authorization": return_value['authorizationToken']})
         return return_value
 
     def renew(self):
         return_value = self.__post('/account/renewAuthentication')
-        self.session.headers.update({"Authorization": return_value['authorizationToken']})
+        self.session.headers.update(
+            {"Authorization": return_value['authorizationToken']})
         return return_value
 
     def get_policyholder(self, locator):
@@ -256,3 +259,25 @@ class SocotraClient:
 
     def uw_policy(self, locator):
         return self.__get("/policy/" + locator + "/automatedUnderwritingResult")
+
+    def preview_endorsement_price(self, policy_locator, endorsement_name,
+                                  effective_timestamp, add_exposures=[],
+                                  add_field_groups=[], end_exposures=[],
+                                  field_values={}, remove_field_groups=[],
+                                  update_exposures=[], update_field_groups=[]):
+
+        update_request = {
+            "addExposures": add_exposures,
+            "addFieldGroups": add_field_groups,
+            "endExposures": end_exposures,
+            "fieldValues": field_values,
+            "removeFieldGroups": remove_field_groups,
+            "updateExposures": update_exposures,
+            "updateFieldGroups": update_field_groups
+        }
+        data = {'endorsementName': endorsement_name,
+                'startTimestamp': effective_timestamp,
+                'updatePolicy': update_request
+                }
+
+        return self.__post("/policy/" + policy_locator + "/previewEndorsementPrice", data)
