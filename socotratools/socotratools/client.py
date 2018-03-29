@@ -261,19 +261,19 @@ class SocotraClient:
         return self.__get("/policy/" + locator + "/automatedUnderwritingResult")
 
     def preview_endorsement_price(self, policy_locator, endorsement_name,
-                                  effective_timestamp, add_exposures=[],
-                                  add_field_groups=[], end_exposures=[],
-                                  field_values={}, remove_field_groups=[],
-                                  update_exposures=[], update_field_groups=[]):
+                                  effective_timestamp, field_values={},
+                                  add_field_groups=[], update_field_groups=[],
+                                  remove_field_groups=[], add_exposures=[],
+                                  update_exposures=[], end_exposures=[],):
 
         update_request = {
-            "addExposures": add_exposures,
-            "addFieldGroups": add_field_groups,
-            "endExposures": end_exposures,
             "fieldValues": field_values,
+            "addFieldGroups": add_field_groups,
+            "updateFieldGroups": update_field_groups,
             "removeFieldGroups": remove_field_groups,
+            "addExposures": add_exposures,
             "updateExposures": update_exposures,
-            "updateFieldGroups": update_field_groups
+            "endExposures": end_exposures
         }
         data = {'endorsementName': endorsement_name,
                 'startTimestamp': effective_timestamp,
