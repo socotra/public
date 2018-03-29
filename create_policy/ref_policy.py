@@ -50,7 +50,7 @@ def main(argv):
                 }
 
     start_timestamp = dates.date_to_millis(
-        '30/11/2017', 'America/Los_Angeles', "%d/%m/%Y"),
+        '30/11/2017', 'America/Los_Angeles', "%d/%m/%Y")
     end_timestamp = dates.date_to_millis(
         '30/11/2018', 'America/Los_Angeles', "%d/%m/%Y")
     policy = client.create_policy('auto', ph_locator,
