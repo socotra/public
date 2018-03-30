@@ -6,15 +6,15 @@ import stripe
 
 # Sample application to pay all invoices from a policyholder using Stripe
 
-# Stripe Test Key
+# Stripe Test Key from: https://stripe.com/docs/api/python#authentication
 stripe.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
 
 # Using temp hash map for stripe customer db as example
 stripe_customers = {}
 
 
-# Uses the Socotra policyholder and looks up the existing stripe customer
-# id or generates a new sripe customer.   Also returns the display friendly
+# Uses the Socotra policyholder and looks up the existing Stripe customer
+# id or generates a new Stripe customer.   Also returns the display friendly
 # policyholder id
 def get_stripe_customer(client, ph_locator):
     # Legacy policyholder_id structure
