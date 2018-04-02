@@ -206,6 +206,9 @@ class SocotraClient:
     def get_media(self, locator):
         return self.__get("/media/" + locator)
 
+    def pay_invoice(self, locator):
+        return self.__post('/invoice/' + locator + '/pay')
+
     def check_existing_peril_premium(self, calculation, peril_id):
         data = {"calculation": calculation, "perilDisplayId": peril_id}
         return self.__post("/calculation/checkExistingPerilPremium", data)

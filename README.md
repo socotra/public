@@ -20,8 +20,10 @@ Visit docs2.socotra.com or contact us at support@socotra.com
 
 **[general_ledger]:** A common operation is to take the Soctora standard reports and import them into general ledger software systems for financial reporting.  This example uses PeopleSoft's import format but journal entries should be similar in other systems.
 
+**[stripe]:** This example uses Stripe's payment processor to pay a policyholder's outstanding invoices.
+
+
 ##### Coming Soon
-  - Stripe Integration
   - Data Dictionary Generation
   - Consumer Website Example
 
@@ -43,3 +45,4 @@ GNU Lesser General Public License
    [document_tools]: <https://github.com/socotra/public/tree/master/document_tools>
    [premium_test]: <https://github.com/socotra/public/tree/master/premium_test>
    [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
+   [stripe]: <https://github.com/socotra/public/tree/master/stripe>
