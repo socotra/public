@@ -1,7 +1,11 @@
 
 {
       "required": {
-      "license_plate":["12345"]
+      "vehicle_type":["Pickup"],
+      "year":["1969"],
+      "make":["Ford"],
+      "model":["Mustang"],
+      "vehicle_value":["15000"]
       },
       "optional": {}
 }
