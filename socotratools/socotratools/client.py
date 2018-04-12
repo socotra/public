@@ -284,3 +284,17 @@ class SocotraClient:
                 }
 
         return self.__post("/policy/" + policy_locator + "/previewEndorsementPrice", data)
+
+    def gen_report(self, report_name, start_timestamp, end_timestamp):
+        data = {'startTimestamp': start_timestamp,
+                'endTimestamp': end_timestamp
+                }
+
+        return self.__post("/report/" + report_name, data)
+
+    def get_report(self, locator):
+        return self.__get("/report/" + locator + "/status")
+
+    def get_locator(self, display_id):
+        data = {'displayId': display_id}
+        return self.__get("/policy/locator", params=data)
