@@ -285,10 +285,15 @@ class SocotraClient:
 
         return self.__post("/policy/" + policy_locator + "/previewEndorsementPrice", data)
 
-    def gen_report(self, report_name, start_timestamp, end_timestamp):
-        data = {'startTimestamp': start_timestamp,
-                'endTimestamp': end_timestamp
-                }
+    def generate_report(self, report_name,
+                        report_timestamp, end_timestamp=None):
+        if end_timestamp is None:
+            data = {'reportTimestamp': report_timestamp
+                    }
+        else:
+            data = {'startTimestamp': report_timestamp,
+                    'endTimestamp': end_timestamp
+                    }
 
         return self.__post("/report/" + report_name, data)
 
