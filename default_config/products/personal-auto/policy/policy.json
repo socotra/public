@@ -17,7 +17,6 @@
       "width": 3,
       "newline": true,
       "type": "select",
-      "optional": false,
       "values": [
         "No - Just Policyholder",
         "Yes - Other Drivers"
@@ -114,7 +113,6 @@
         {
           "name": "driver_designation",
           "title": "Driver Designation",
-          "width": 6,
           "newline": true,
           "type": "select",
           "optional": true,
@@ -134,11 +132,9 @@
       }
     },
     {
-      "name": "preliminary_question_10_year_felony_conviction",
+      "name": "10_year_felony_conviction",
       "title": "Has any household member been convicted of a felony in the past 10 years?",
       "heading": "Preliminary Questions",
-      "width": 6,
-      "optional": false,
       "type": "select",
       "values": [
         "No",
@@ -146,10 +142,8 @@
       ]
     },
     {
-      "name": "preliminary_question_insurance_fraud_conviction",
+      "name": "insurance_fraud_conviction",
       "title": "Has any household member been convicted of activities related to insurance fraud?",
-      "width": 6,
-      "optional": false,
       "type": "select",
       "values": [
         "No",
@@ -157,10 +151,8 @@
       ]
     },
     {
-      "name": "preliminary_question_atfault_claims_past_5_years",
+      "name": "atfault_claims_past_5_years",
       "title": "Number of At-fault Claims/Losses in the past 5 years.",
-      "width": 6,
-      "optional": false,
       "type": "select",
       "values": [
         "None",
@@ -171,7 +163,7 @@
       ]
     },
     {
-      "name": "preliminary_question_run_third_party_reports",
+      "name": "run_third_party_reports",
       "title": "Insurance & Third Party Reports Provide a Better Quote - Can we order them?",
       "width": 12,
       "optional": true,
@@ -187,12 +179,6 @@
       "displayName": "Policy Schedule",
       "fileName": "schedule.pdf",
       "templateName": "schedule.template.liquid"
-    },
-    {
-      "displayName": "Policy Schedule Email",
-      "fileName": "schedule_email.html",
-      "templateName": "schedule.template.liquid",
-      "type": "html"
     },
     {
       "displayName": "Regulatory Disclosure",

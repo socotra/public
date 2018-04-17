@@ -1,5 +1,4 @@
 {% assign policy_updates = data.endorsement.policy_updates %}
-{% comment %} This next line is ok only because a) we only use policy_c for the policy dates and b) don't currently allow changing policy dates {% endcomment %}
 {% assign policy_c = data.policy.characteristics.last %}
 {% assign ph_v = data.policyholder.entity.values %}
 {% assign end_display = policy_c.policy_end_timestamp | timestamp_millis_add: "day", -1 %}

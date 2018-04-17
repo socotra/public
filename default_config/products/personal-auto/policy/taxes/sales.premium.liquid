@@ -1,1 +1,4 @@
-{{ data.peril_characteristics.premium | times: 0.0925 | set_peril_tax: "Sales tax assesed at 9.25%" }}
+{% assign peril_c = data.peril_characteristics %}
+
+{% assign sales_tax = peril_c.premium | times: 0.0925 %}
+{{ sales_tax | set_peril_tax }}

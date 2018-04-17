@@ -1,17 +1,16 @@
-{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} != "CA" or "FL" or "MO"  %}
-{{ "Static PDF example.pdf"| render_static_document }}
-{% endif %}
+{% assign exp_v = data.policy.exposures[0].characteristics[0].field_values %}
 
-{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} contains "FL" %}
+
+{% if exp_v.vehicle_plated_state}} == "FL" %}
 	{{ "Uninsured Motorists Coverage FL.pdf" | render_static_document }}
-{% endif %}
 
-{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} contains "MO" %}
+{% elsif exp_v.vehicle_plated_state}} == "MO" %}
 	{{ "Uninsured Motorists Coverage MO.pdf" | render_static_document }}
-{% endif %}
 
-{% if {{data.policy.exposures[0].characteristics[0].field_values.vehicle_plated_state}} contains "CA" %}
+{% elsif exp_v.vehicle_plated_state}} == "CA" %}
 	{{ "Uninsured Motorists Coverage CA.pdf" | render_static_document }}
+
+{% else %}
+	{{ "Static PDF example.pdf"| render_static_document }}
+
 {% endif %}
-
-

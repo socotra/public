@@ -1,9 +1,13 @@
-{% assign start_year = data.policy_characteristics.policy_start_timestamp | timestamp_millis_print: "YYYY" %}
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_c =  = data.peril_characteristics %}
 
-{% assign dob_year = data.exposure_characteristics.field_values.dob | timestamp_millis_print: "YYYY" %}
+{% assign start_year = peril_c.coverage_start_timestamp| timestamp_millis_print: "YYYY" %}
+
+{% assign dob_year = exp_v.dob | timestamp_millis_print: "YYYY" %}
 {% assign age = start_year | minus: dob_year %}
 
-{% if data.exposure_characteristics.field_values.high_risk_sports contains 'Yes' %}
+{% if exp_v.high_risk_sports contains 'Yes' %}
     {% assign high_risk_factor = 500 %}
 {% else %}
     {% assign high_risk_factor = 0 %}
@@ -14,35 +18,32 @@
 {% endif %}
 {% assign age_str = age | downcase %}
 
-{% if data.exposure_characteristics.field_values.sex == "Male" %} 
+{% if exp_v.sex == "Male" %} 
     {% if age > 64 %}
-        {% assign price_per_month = 30 %}
+        {% assign premium = 30 %}
     {% else %}
-        {% assign price_per_month = "rate_table_male" | lookup: age_str %}
+        {% assign premium = "rate_table_male" | lookup: age_str %}
     {% endif %}
-{% elsif data.exposure_characteristics.field_values.sex == "Female" %}
+{% elsif exp_v.sex == "Female" %}
     {% if age > 64 %}
-        {% assign price_per_month = 25 %}
+        {% assign premium = 25 %}
     {% else %}
-        {% assign price_per_month = "rate_table_female" | lookup: age_str %}
+        {% assign premium = "rate_table_female" | lookup: age_str %}
     {% endif %}
 {% endif %}
 
-{% assign total_premium = price_per_month | times: data.peril_characteristics.lump_sum_payment | divided_by: 10000 | times: 12 | plus: high_risk_factor | round %}
-
-{% assign peril_premium = total_premium | times: 0.70 | round %}
+{% assign total_premium = premium | times: peril_c.lump_sum_payment | divided_by: 10000 | times: 12 | plus: high_risk_factor | round %}
 
 {% comment %} scale premium according to policy duration {% endcomment %}
-{% assign days_duration = data.peril_characteristics.coverage_start_timestamp | get_30_360_day_count: data.peril_characteristics.coverage_end_timestamp %}
-{% assign scaled_premium = peril_premium | times: days_duration | divided_by: 360.00 %}
+{% assign days_duration = peril_c.coverage_start_timestamp | get_30_360_day_count: peril_c.coverage_end_timestamp %}
+{% assign scaled_premium = total_premium | times: days_duration | divided_by: 360.00 %}
 
 {{ scaled_premium | set_peril_premium }}
-
 {{ scaled_premium | times: 0.8 | set_peril_technical_premium }}
 
 {% comment %} commission at a flat 5% {% endcomment %}
-{% if data.policy_characteristics.field_values.channel == 'Agent' %}
+{% if policy_v.channel == 'Agent' %}
     {{ scaled_premium | times: 0.05 | add_commission: "Agent1234" }}
-{% elsif data.policy_characteristics.field_values.channel == 'Broker' %}
+{% elsif policy_v.channel == 'Broker' %}
     {{ scaled_premium | times: 0.05 | add_commission: "Broker6789" }}
 {% endif %}
