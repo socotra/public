@@ -31,7 +31,7 @@
           ]
         },
         {
-          "description": "Media and Documents",
+          "title": "Media and Documents",
           "uploads": {
             "name": "pa_claim_image"
           }
