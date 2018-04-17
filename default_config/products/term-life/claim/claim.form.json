@@ -42,7 +42,7 @@
           ]
         },
         {
-          "description": "Fraud Questions",
+          "title": "Fraud Questions",
           "fields": [
             {
               "name": "is_credible",
@@ -60,6 +60,7 @@
           ]
         },
         {
+          "title": "Media and Documents",
           "description": "Upload supporting documents or photographs",
           "uploads": {
             "name": "claim_image_advanced"

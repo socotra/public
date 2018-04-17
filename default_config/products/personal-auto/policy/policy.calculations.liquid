@@ -1,5 +1,7 @@
 {% assign policy_char = data.policy.characteristics[0] %}
 {% assign total = policy_char.gross_premium | plus: policy_char.gross_taxes %}
 
-{{ total | times: 0.03 | add_fee: "transaction", "Transaction fee assessed at 3%" }}
-{{ 10 | add_fee: "underwriting", "Underwriting fee assessed" }}
+{% assign txn_fee = total | times: 0.03 %}
+
+{{ txn_fee | add_fee: "transaction" }}
+{{ 10 | add_fee: "underwriting" }}

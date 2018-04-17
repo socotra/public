@@ -5,7 +5,6 @@
     {
       "name": "vehicle_type",
       "title": "Vehicle Type",
-      "optional": false,
       "type": "select",
       "width": 3,
       "values": [
@@ -44,17 +43,17 @@
     {
       "name": "vin",
       "title": "Vehicle Identification Number (eg  2HGEJ6526VH515413  )",
-      "width": 6,
       "type": "string",
       "newline": true,
       "optional": true
     },
     {
+      "newline": true,
       "name": "year",
       "title": "Vehicle Year",
       "type": "string",
-      "width": 3,
-      "newline": true
+      "regex": "^(19[3-9][0-9]|2[0-9]{3})$",
+      "width": 3
     },
     {
       "name": "make",
@@ -69,10 +68,10 @@
       "width": 3
     },
     {
+      "newline": true,
       "name": "vehicle_value",
       "title": "Vehicle Value",
       "type": "number",
-      "newline": true,
       "width": 3,
       "decimalPlaces": 0
     },
@@ -166,11 +165,11 @@
       "optional": true
     },
     {
+      "newline": true,
       "name": "annual_miles",
       "title": "Annual Miles",
       "width": 3,
       "type": "number",
-      "newline": true,
       "optional": true
     },
     {
