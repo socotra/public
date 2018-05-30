@@ -4,7 +4,7 @@
 
 Socotra's insurance platform is designed to be extended through configuration and its open APIs. While the product handles the "core", there are often many enhancements or extensions that may match your situation.  To ease the learning curve, Socotra provides integrations, code samples, example product configuration, and helpful test utilities that may aid in your processes. Feel free to use as-is or modify to best suit your needs.
 
-Visit docs2.socotra.com or contact us at support@socotra.com
+Visit docs.socotra.com or contact us at support@socotra.com
 
 ## Table of Contents
 
