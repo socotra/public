@@ -255,3 +255,10 @@ class SocotraClient:
 
     def uw_policy(self, locator):
         return self.__get("/policy/" + locator + "/automatedUnderwritingResult")
+
+    def get_report_status(self, locator):
+        return self.__get('/report/{0}/status'.format(locator))
+
+    def get_uep_locator(self, timestamp=None):
+        data = {"reportTimestamp": timestamp}
+        return self.__post("/report/unearnedPremium/accountsReceivable", data)
