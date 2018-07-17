@@ -18,11 +18,11 @@ Visit docs.socotra.com or contact us at support@socotra.com
 
 **[premium_test]:** These tools allow you to quickly iterate to develop your ratings engine using an existing policy/peril or by creating a peril from JSON files.
 
-**[general_ledger]:** A common operation is to take the Soctora standard reports and import them into general ledger software systems for financial reporting.  This example uses PeopleSoft's import format but journal entries should be similar in other systems.
+**[general_ledger]:** A common operation is to take the Socotra standard reports and import them into general ledger software systems for financial reporting.  This example uses PeopleSoft's import format but journal entries should be similar in other systems.
 
 **[stripe]:** This example uses Stripe's payment processor to pay a policyholder's outstanding invoices.
 
-**[reporting]:** A common operation is to manipulate a Soctora standard report. This example generates a standard Socotra financial transaction report and then aggregates the report by lines of business and transaction types.
+**[reporting]:** A common operation is to manipulate a Socotra standard report. This example generates a standard Socotra financial transaction report and then aggregates the report by lines of business and transaction types.
 
 
 ##### Coming Soon
