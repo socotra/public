@@ -46,5 +46,5 @@ GNU Lesser General Public License
    [premium_test]: <https://github.com/socotra/public/tree/master/premium_test>
    [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
    [stripe]: <https://github.com/socotra/public/tree/master/stripe>
-   [report_etl]: <https://github.com/socotra/public/tree/master/reporting>
+   [reporting]: <https://github.com/socotra/public/tree/master/reporting>
 
