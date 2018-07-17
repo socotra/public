@@ -36,9 +36,12 @@ def parse_args():
 
 
 def get_report_timestamps(startdate, enddate):
-    start_timestamp = dates.date_to_millis(startdate, 'Europe/Berlin', "%Y-%m-%d")
-    end_timestamp = dates.date_to_millis(enddate, 'Europe/Berlin', "%Y-%m-%d")
+    start_timestamp = dates.date_to_millis(startdate,
+                                           'America/Los_Angeles', "%Y-%m-%d")
+    end_timestamp = dates.date_to_millis(enddate,
+                                         'America/Los_Angeles', "%Y-%m-%d")
     return start_timestamp, end_timestamp
+
 
 def get_ft_report(args, client):
     # convert start and end dates to timestamps
@@ -66,7 +69,7 @@ def get_ft_report(args, client):
 
 
 def get_aggregate_report(report):
-    # convert report into a dictionary 
+    # convert report into a dictionary
     reader = csv.DictReader(report.splitlines())
     ft_dict = []
     for line in reader:
