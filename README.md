@@ -22,6 +22,8 @@ Visit docs.socotra.com or contact us at support@socotra.com
 
 **[stripe]:** This example uses Stripe's payment processor to pay a policyholder's outstanding invoices.
 
+**[reporting]:** A common operation is to manipulate a Soctora standard report. This example generates a standard Socotra financial transaction report and then aggregates the report by lines of business and transaction types.
+
 
 ##### Coming Soon
   - Data Dictionary Generation
@@ -44,3 +46,5 @@ GNU Lesser General Public License
    [premium_test]: <https://github.com/socotra/public/tree/master/premium_test>
    [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
    [stripe]: <https://github.com/socotra/public/tree/master/stripe>
+   [report_etl]: <https://github.com/socotra/public/tree/master/reporting>
+
