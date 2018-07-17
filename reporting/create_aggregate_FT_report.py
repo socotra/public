@@ -90,7 +90,6 @@ def write_output(outputfile, aggr_dict):
         dict_writer = csv.DictWriter(output_file, keys)
         dict_writer.writeheader()
         dict_writer.writerows(aggr_dict)
-        print("writing complete")
 
 
 def main(argv):
@@ -111,6 +110,8 @@ def main(argv):
 
     # write aggregate report to file
     write_output(args.outputfile, aggr_report)
+
+    print 'Output written to file: ' + args.outputfile
 
 
 if __name__ == "__main__":
