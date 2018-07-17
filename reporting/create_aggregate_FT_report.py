@@ -2,16 +2,24 @@ import argparse
 import requests
 import sys
 import time
-import calendar
 from socotratools.client import SocotraClient
 from socotratools import dates
-import datetime
 import csv
-import io
 from itertools import groupby
 from operator import itemgetter
 
-# Issue a policy
+# ETL application to aggregate financial transaction
+# report by lines of business.
+
+# Usage:
+# python create_aggregate_FT_report.py
+#       -n <hostname>
+#       -u <username>
+#       -n <password>
+#       -s <report start date>, e.g., 2018-7-01
+#       -e <report end date>, e.g., 2018-07-31
+#       -o <outputfile>, e.g., outfile
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -38,7 +46,6 @@ def get_ft_report(args, client):
 
     # start running the uep report
     report_name = 'financialTransaction'
-
     report_locator = client.generate_report(report_name, start_ts, end_ts)['locator']
 
     # retrieve report status
@@ -46,9 +53,7 @@ def get_ft_report(args, client):
 
     # check that report has not failed every 5 seconds
     while report_status != 'failed' and report_status == 'started':
-        print 'Inside while loop'
         time.sleep(5)
-
         report_status = client.get_report(report_locator)['status']
 
     # get the report url
@@ -56,22 +61,22 @@ def get_ft_report(args, client):
 
     # retrieve the report text
     report = requests.get(report_url).text
-    
+
+    return report
+
+
+def get_aggregate_report(report):
+    # convert report into a dictionary 
     reader = csv.DictReader(report.splitlines())
-
-    result = []
+    ft_dict = []
     for line in reader:
-        result.append(line)
+        ft_dict.append(line)
 
-    return result
-
-
-def aggregate_results(input_dict):
+    # define the filter key
     grouper = itemgetter("Product Name", "Transaction Type")
 
     result = []
-
-    for key, grp in groupby(sorted(input_dict, key=grouper), grouper):
+    for key, grp in groupby(sorted(ft_dict, key=grouper), grouper):
         temp_dict = dict(zip(["Product Name", "Transaction Type"], key))
         temp_dict["Amount"] = round(sum(float(item["Amount"]) for item in grp), 2)
         result.append(temp_dict)
@@ -99,16 +104,14 @@ def main(argv):
         args.hostname, args.username, args.password)
 
     # retrieve the report text
-    report_dict = get_ft_report(args, client)
+    report = get_ft_report(args, client)
 
-    # aggregate the report
-    aggr_report = aggregate_results(report_dict)
+    # aggregate the report (this is a dictionary)
+    aggr_report = get_aggregate_report(report)
 
-    # write aggregate to file
+    # write aggregate report to file
     write_output(args.outputfile, aggr_report)
 
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-# python create_aggregate_FT_report.py -n eakuiyibo-alteos-test1.co.sandbox.socotra.com -s 2018-7-01 -e 2018-07-31
