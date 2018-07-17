@@ -1,0 +1,114 @@
+import argparse
+import requests
+import sys
+import time
+import calendar
+from socotratools.client import SocotraClient
+from socotratools import dates
+import datetime
+import csv
+import io
+from itertools import groupby
+from operator import itemgetter
+
+# Issue a policy
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Main Test Application')
+    parser.add_argument('-n', '--hostname', required=True)
+    parser.add_argument('-u', '--username',
+                        default='alice.lee', required=False)
+    parser.add_argument('-p', '--password', default='socotra', required=False)
+    parser.add_argument('-s', '--startdate', required=True)
+    parser.add_argument('-e', '--enddate', required=True)
+    parser.add_argument('-o', '--outputfile', required=True)
+
+    return parser.parse_args()
+
+
+def get_report_timestamps(startdate, enddate):
+    start_timestamp = dates.date_to_millis(startdate, 'Europe/Berlin', "%Y-%m-%d")
+    end_timestamp = dates.date_to_millis(enddate, 'Europe/Berlin', "%Y-%m-%d")
+    return start_timestamp, end_timestamp
+
+def get_ft_report(args, client):
+    # convert start and end dates to timestamps
+    start_ts, end_ts = get_report_timestamps(args.startdate, args.enddate)
+
+    # start running the uep report
+    report_name = 'financialTransaction'
+
+    report_locator = client.generate_report(report_name, start_ts, end_ts)['locator']
+
+    # retrieve report status
+    report_status = client.get_report(report_locator)['status']
+
+    # check that report has not failed every 5 seconds
+    while report_status != 'failed' and report_status == 'started':
+        print 'Inside while loop'
+        time.sleep(5)
+
+        report_status = client.get_report(report_locator)['status']
+
+    # get the report url
+    report_url = client.get_report(report_locator)['resultUrl']
+
+    # retrieve the report text
+    report = requests.get(report_url).text
+    
+    reader = csv.DictReader(report.splitlines())
+
+    result = []
+    for line in reader:
+        result.append(line)
+
+    return result
+
+
+def aggregate_results(input_dict):
+    grouper = itemgetter("Product Name", "Transaction Type")
+
+    result = []
+
+    for key, grp in groupby(sorted(input_dict, key=grouper), grouper):
+        temp_dict = dict(zip(["Product Name", "Transaction Type"], key))
+        temp_dict["Amount"] = round(sum(float(item["Amount"]) for item in grp), 2)
+        result.append(temp_dict)
+
+    return result
+
+
+def write_output(outputfile, aggr_dict):
+    keys = aggr_dict[0].keys()
+    with open(outputfile, 'wb') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(aggr_dict)
+        print("writing complete")
+
+
+def main(argv):
+
+    args = parse_args()
+
+    print 'Authenticating with tenant: ' + args.hostname
+
+    # create a client
+    client = SocotraClient.get_authenticated_client_for_hostname(
+        args.hostname, args.username, args.password)
+
+    # retrieve the report text
+    report_dict = get_ft_report(args, client)
+
+    # aggregate the report
+    aggr_report = aggregate_results(report_dict)
+
+    # write aggregate to file
+    write_output(args.outputfile, aggr_report)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
+
+# python create_aggregate_FT_report.py -n eakuiyibo-alteos-test1.co.sandbox.socotra.com -s 2018-7-01 -e 2018-07-31
