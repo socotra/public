@@ -3,15 +3,7 @@
 {% assign policy_h = policy_c.field_values %}
 {% assign policy_v = data.policy.exposures[0].characteristics[0].field_values %}
 {% assign policy_p = data.policy.exposures.perils[0].characteristics[0].fields_values %}
-
-
-{% assign policy_start_date = policy_c.policy_start_timestamp %}
-{% assign policy_end_date = policy_c.policy_end_timestamp %}
-
-{% assign days_duration = policy_start_date | get_30_360_day_count: policy_end_date %}   
-
-{% assign total_policy_charges = policy_c.gross_premium | plus: "policy_c.gross_taxes" %}
-
+{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
 
 <head>
   <meta charset="UTF-8">
@@ -56,8 +48,8 @@
     <td>Policy</td>
     <td>
       <b>Number:</b> {{data.policy.display_id}}<br>
-      <b>Term:</b> {{policy_c.policy_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
-      to {{policy_end_date| timestamp_millis_print: "MMM dd, YYYY" }}<br>
+      <b>Term:</b> {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
+      through {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
       <b>Multiple Drivers:</b> {{policy_h.multiple_drivers}}<br> 
      </td>
     </tr>
@@ -91,7 +83,7 @@
     </td>
   </tr>
   <tr>
-  <td>Total Premium</td>
+  <td>Total Due</td>
     <td>
      <b>{{ policy_c.gross_premium | plus: policy_c.gross_taxes  | plus: data.policy.fees[0].amount | plus: data.policy.fees[1].amount | format_number_currency: "en","US" }}</br> 
     </td>

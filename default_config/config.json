@@ -2,7 +2,6 @@
   "timezone": "America/Los_Angeles",
   "currency": "USD",
   "features": {
-    "property.new.policy.format.enabled": true,
-    "property.new.policy.view.enabled": true
+    "property.new.policy.format.enabled": true
   }
 }

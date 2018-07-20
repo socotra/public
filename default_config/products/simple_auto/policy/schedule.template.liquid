@@ -8,28 +8,25 @@
   <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
 </head>
 
-{% header %}
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
-  <table width="100%">
-    <tr>
-      <td>
-        <p class="header-contact">
-          ACME Insurance Co.<br>
-          101 Mission Street<br>
-          San Francisco, CA<br>
-          +1 415 555 5555<br>
-          www.socotra.com
-        </p>
-      </td>
-      <td>
-        <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
-      </td>
-    </tr>
-  </table>
-{% endheader %}
+<table width="100%" class="header">
+  <tr>
+    <td>
+      <p class="header-contact">
+        Acme Insurance Co.<br>
+        101 Mission Street<br>
+        San Francisco, CA<br>
+        +1 415 555 5555<br>
+        www.socotra.com
+      </p>
+    </td>
+    <td>
+      <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+    </td>
+  </tr>
+</table>
 
-<h1>Term Life Insurance Policy Schedule</h1><br>
+
+<h1>Simple Auto Insurance Policy Schedule</h1><br>
 
 <h3>Insurance Details</h3>
 
@@ -43,12 +40,19 @@
     </td>
   </tr>
   <tr>
+    <td>Vehicle Insured</td>
+    <td>
+      <b>Vehicle:</b> {{policy_v.year}} {{policy_v.make}} {{policy_v.model}}<br>
+      <b>License Plate Number:</b> {{policy_v.license_plate}}<br>
+    </td>
+  </tr>
+  <tr>
     <td>Policy</td>
     <td>
       <b>ID:</b> {{data.policy.display_id}}<br>
       <b>Effective:</b> From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
       through {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
-      <b>Sum Assured:</b> {{data.policy.exposures[0].perils[0].characteristics[0].lump_sum_payment | format_number_currency: "en","US" }}<br>
+      <b>Sum Insured:</b> {{policy_v.vehicle_value | format_number_currency: "en","US" }}<br>
       <b>Term:</b> Custom
     </td>
   </tr>
@@ -62,24 +66,4 @@
 
 <b>Authorized on</b> {{data.policy.issued_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
 
-{% footer %}
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
-  <table width="100%">
-    <tr>
-      <td>
-        <p class="header-contact">
-          Acme - Keep your loved ones secure.
-        </p>
-      </td>
-      <td>
-        <p class="header-contact">
-          Page {{ | page_number }} of {{ | page_count }}
-        </p>
-      </td>
-      <td>
-        <footer></footer>
-      </td>
-    </tr>
-  </table>
-{% endfooter %}
+<footer>Acme - Keep your loved ones secure.</footer>
