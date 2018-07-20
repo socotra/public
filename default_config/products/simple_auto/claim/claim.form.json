@@ -1,0 +1,42 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Incident Details",
+          "description": "Please provide information about the incident",
+          "fields": [
+            {
+              "name": "incident_date_sa",
+              "prompt": "Incident Date",
+              "width": 4
+            },
+            {
+              "name": "incident_type_sa",
+              "prompt": "Incident Type",
+              "width": 4
+            },
+            {
+              "name": "incident_location_sa",
+              "prompt": "Incident Location",
+              "width": 4,
+              "updateable": true
+            },
+            {
+              "name": "claim_desc_sa",
+              "prompt": "Claim Description",
+              "width": 12,
+              "updateable": true
+            }
+          ]
+        },
+        {
+          "title": "Media and Documents",
+          "uploads": {
+            "name": "claim_image_sa"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "fields": [
+    {
+      "name": "channel",
+      "title": "Sales Channel",
+      "type": "select",
+      "values":[
+        "Direct",
+        "Agent",
+        "Broker"
+      ]
+    },
+   {
+     "name": "email",
+     "title": "Email",
+     "type": "email",
+     "optional": true
+   }
+  ],
+  "documents": [
+    {
+      "displayName": "Policy Schedule",
+      "fileName": "schedule.pdf",
+      "templateName": "schedule.template.liquid"
+    }
+  ]
+}

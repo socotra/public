@@ -1,0 +1,63 @@
+{
+  "name": "vehicle",
+  "displayName": "Vehicle",
+  "fields": [
+    {
+      "name": "vehicle_type",
+      "title": "Vehicle Type",
+      "type": "select",
+      "values":[
+        "Car",
+        "SUV",
+        "Motorcycle",
+        "Pickup"
+      ]
+    },
+    {
+      "name": "vin",
+      "title": "Vehicle Identification Number (eg 2HGEJ6526VH515413)",
+      "type": "string",
+      "optional": true
+    },
+    {
+      "name": "make",
+      "title": "Vehicle Make",
+      "type": "string",
+      "optional":true
+    },
+    {
+      "name": "model",
+      "title": "Vehicle Model",
+      "type": "string",
+      "optional":true
+    },
+    {
+      "name": "year",
+      "title": "Vehicle Year",
+      "type": "string",
+      "regex": "^(19[3-9][0-9]|2[0-9]{3})$",
+      "newline": true,
+      "optional":true
+    },
+    {
+      "name": "vehicle_value",
+      "title": "Vehicle Value",
+      "type": "number",
+      "decimalPlaces":0
+    },
+    {
+      "name": "license_plate",
+      "title": "License Plate Number",
+      "type": "string",
+      "optional":true
+    },
+    {
+      "name": "vehicle_photos",
+      "title": "Vehicle Photos",
+      "type": "media",
+      "width": 12,
+      "repeatable": true,
+      "optional":true
+    }
+  ]
+}

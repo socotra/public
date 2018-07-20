@@ -1,8 +1,8 @@
-{% assign policy_c = data.policy.characteristics[0] %}
 {% assign policy_v = data.policy.exposures[0].characteristics[0].field_values %}
 {% assign ph_v = data.policyholder.entity.values %}
 {% assign invoice = data.policy.invoices.last %}
-{% assign end_display = policy_c.policy_end_timestamp | timestamp_millis_add: "day", -1 %}
+{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
+{% assign due_display = invoice.due_timestamp | timestamp_millis_add: "day", -1 %}
 {% assign infin = data.invoice_financials %}
 
 <head>
@@ -49,13 +49,13 @@ Invoice Date: <b>{{invoice.created_timestamp | timestamp_millis_print: "MMM dd, 
     <td>
       <b>ID:</b> {{data.policy.display_id}}<br>
       <b>Effective:</b>
-      From {{policy_c.policy_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
+      From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
       through {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
     </td>
   </tr>
   <tr>
     <td>Due date</td>
-    <td>{{invoice.due_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}</td>
+    <td>{{due_display | timestamp_millis_print: "MMM dd, YYYY" }}</td>
   </tr>
 </table>
 

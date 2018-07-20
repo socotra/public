@@ -201,5 +201,9 @@
       "name": "monthly",
       "displayName": "Monthly"
     }
-  ]
+  ],
+  "lapse": {
+    "gracePeriodDays": 30,
+    "reinstatementPeriodDays": 90
+  }
 }
