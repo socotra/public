@@ -6,6 +6,10 @@ from suds.xsd.doctor import Import, ImportDoctor
 from suds.sax.element import Element
 from suds.sax.attribute import Attribute
 
+# This script can be used to lookup vehicle details from Glasses Guide.
+# by passing in an NVIC identifier and retrieving details like vehicle
+# make, model, year, and value.
+
 
 def get_gg_details(nvic, username, password):
 
