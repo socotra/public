@@ -1,0 +1,13 @@
+Business Unit,Journal ID,Journal Date,Ledger Group,Header Description,Reversal Date,,Line,Book Code,Client Company,Enterprise Key,Department,Portfolio,Affiliate,Account,Journal Line Reference,Line Description,Base Currency,Base Amount,Rate Type,Exchange Rate,Currency,Amount,Statistical Amount,State / Province Code
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,1,45,,,,,,1010-0001,100000000,,,,CRRNT,,USD,50.0,,
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,2,45,,,,,,1010-0002,100000000,,,,CRRNT,,USD,-50.0,,
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,1,45,,,,,,1010-0001,100000000,,,,CRRNT,,USD,450.0,,
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,2,45,,,,,,1010-0002,100000000,,,,CRRNT,,USD,-450.0,,
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,1,45,,,,,,1010-0001,100000000,,,,CRRNT,,USD,50.0,,
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,2,45,,,,,,1010-0002,100000000,,,,CRRNT,,USD,-50.0,,
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,1,45,,,,,,1010-0001,100000000,,,,CRRNT,,USD,50.0,,
+Marketing,ACME20180612,20180612,,personal-auto: : premium,,,2,45,,,,,,1010-0002,100000000,,,,CRRNT,,USD,-50.0,,
+Marketing,ACME20180612,20180612,,personal-auto: underwriting: fee,,,1,45,,,,,,1010-0003,100000000,,,,CRRNT,,USD,10.0,,
+Marketing,ACME20180612,20180612,,personal-auto: underwriting: fee,,,2,45,,,,,,1010-0004,100000000,,,,CRRNT,,USD,-10.0,,
+Marketing,ACME20180612,20180612,,personal-auto: transaction: fee,,,1,45,,,,,,1010-0003,100000000,,,,CRRNT,,USD,18.0,,
+Marketing,ACME20180612,20180612,,personal-auto: transaction: fee,,,2,45,,,,,,1010-0004,100000000,,,,CRRNT,,USD,-18.0,,
