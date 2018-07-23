@@ -6,9 +6,14 @@ from suds.xsd.doctor import Import, ImportDoctor
 from suds.sax.element import Element
 from suds.sax.attribute import Attribute
 
-# This script can be used to lookup vehicle details from Glasses Guide.
-# by passing in an NVIC identifier and retrieving details like vehicle
-# make, model, year, and value.
+# This script is an example script to lookup vehicle information from Glasses Guide.
+# Glases Guide is a paid subscription service by Autovista Group
+# (http://www.autovistagroup.com/) and requires a username and password.
+#
+# In this example, we input an NVIC identifier and retrieve details like vehicle
+# make, model, year, and value via a SOAP-based web service.
+#
+# This script uses suds (0.4) and requests (2.18.4) python libraries
 
 
 def get_gg_details(nvic, username, password):
