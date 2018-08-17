@@ -285,6 +285,28 @@ class SocotraClient:
 
         return self.__post("/policy/" + policy_locator + "/previewEndorsementPrice", data)
 
+    def endorse(self, policy_locator, endorsement_name,
+                effective_timestamp, field_values={},
+                add_field_groups=[], update_field_groups=[],
+                remove_field_groups=[], add_exposures=[],
+                update_exposures=[], end_exposures=[],):
+
+        update_request = {
+            "fieldValues": field_values,
+            "addFieldGroups": add_field_groups,
+            "updateFieldGroups": update_field_groups,
+            "removeFieldGroups": remove_field_groups,
+            "addExposures": add_exposures,
+            "updateExposures": update_exposures,
+            "endExposures": end_exposures
+        }
+        data = {'endorsementName': endorsement_name,
+                'startTimestamp': effective_timestamp,
+                'updatePolicy': update_request
+                }
+
+        return self.__post("/policy/" + policy_locator + "/endorse", data)
+
     def generate_report(self, report_name,
                         report_timestamp, end_timestamp=None):
         if end_timestamp is None:
