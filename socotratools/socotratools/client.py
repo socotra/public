@@ -1,6 +1,6 @@
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
+import sys
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -11,41 +11,59 @@ class SocotraClient:
         self.base_url = base_url
         self.debug = debug
         self.session = requests.session()
+        self.perms = []
 
     def __debug(self, string):
         if self.debug:
             print string
 
+    # Used for permissions
+    def is_allowed(self, method_name):
+        always_allowed = ['authenticate', 'renew']
+
+        if self.perms == 'ALL':
+            allowed = True
+        elif method_name in always_allowed:
+            allowed = True
+        elif method_name in self.perms:
+            allowed = True
+        else:
+            allowed = False
+
+        return allowed
+
     def __get(self, resource, params=None):
-        url = self.base_url + resource
-        self.__debug('GET: ' + url)
-        r = self.session.get(url, params=params, verify=False)
-        status = r.status_code
-        self.__debug('Return status: ' + str(status))
-        value = r.json()
-        self.__debug('Return body: \n' + str(value) + '\n')
-        return value
+
+        caller = sys._getframe(1).f_code.co_name
+        if self.is_allowed(caller):
+            url = self.base_url + resource
+            self.__debug('GET: ' + url)
+            r = self.session.get(url, params=params, verify=False)
+            status = r.status_code
+            self.__debug('Return status: ' + str(status))
+            value = r.json()
+            self.__debug('Return body: \n' + str(value) + '\n')
+            return value
+        else:
+            self.__debug('Unathorized operation: ' + caller)
+            return {'Error 403': 'Unauthorized for ' + caller}
 
     def __post(self, resource, payload=None, data=None, files=None):
-        url = self.base_url + resource
-        self.__debug('POST: ' + url)
-        r = self.session.post(url, json=payload, data=data,
-                              verify=False, files=files)
-        status = r.status_code
-        self.__debug('Return status: ' + str(status))
-        value = r.json()
-        self.__debug('Return body: \n' + str(value) + '\n')
-        return value
 
-    def __patch(self, resource, payload=None):
-        url = self.base_url + resource
-        self.__debug('PATCH: ' + url)
-        r = self.session.patch(url, json=payload, verify=False)
-        status = r.status_code
-        self.__debug('Return status: ' + str(status))
-        value = r.json()
-        self.__debug('Return body: \n' + str(value) + '\n')
-        return value
+        caller = sys._getframe(1).f_code.co_name
+        if self.is_allowed(caller):
+            url = self.base_url + resource
+            self.__debug('POST: ' + url)
+            r = self.session.post(url, json=payload, data=data,
+                                  verify=False, files=files)
+            status = r.status_code
+            self.__debug('Return status: ' + str(status))
+            value = r.json()
+            self.__debug('Return body: \n' + str(value) + '\n')
+            return value
+        else:
+            self.__debug('Unathorized operation: ' + caller)
+            return {'Error 403': 'Unauthorized for ' + caller}
 
     def __validate_unauthenticated(self):
         if "Authorization" in self.session.headers.keys():
@@ -53,11 +71,11 @@ class SocotraClient:
                 'Client already authenticated. Please create a new client and authenticate again')
 
     @classmethod
-    def get_authenticated_client_for_hostname(cls, host_name, username, password, api_url=None, debug=False):
+    def get_authenticated_client_for_hostname(cls, host_name, username, password, api_url=None, debug=False, identity=None):
         if api_url is None:
             api_url = cls.__get_api_url_from_host_name(host_name)
         client = cls(api_url, debug=debug)
-        client.authenticate(username, password, host_name=host_name)
+        client.authenticate(username, password, host_name=host_name, identity=identity)
         return client
 
     @staticmethod
@@ -69,8 +87,17 @@ class SocotraClient:
         else:
             return "https://api.socotra.com"
 
-    def authenticate(self, username, password, tenant_name=None, host_name=None):
+    def authenticate(self, username, password, tenant_name=None, host_name=None, identity=None):
         self.__validate_unauthenticated()
+
+        if identity is not None:
+            identity.authenticate(username, password)
+            username = identity.get_soc_username()
+            password = identity.get_soc_password()
+            self.perms = identity.get_perms()
+        else:
+            self.perms = 'ALL'
+
         data = {
             'username': username,
             'password': password,
