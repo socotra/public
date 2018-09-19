@@ -17,9 +17,8 @@ def main(argv):
     parser = argparse.ArgumentParser(
         description='Main Test Application')
     parser.add_argument('-n', '--hostname', required=True)
-    parser.add_argument('-u', '--username',
-                        default='alice.lee', required=False)
-    parser.add_argument('-p', '--password', default='socotra', required=False)
+    parser.add_argument('-u', '--username', required=True)
+    parser.add_argument('-p', '--password', required=True)
     args = parser.parse_args(argv)
 
     provider = cognito_provider.CognitoIdentity("cognito.json")
