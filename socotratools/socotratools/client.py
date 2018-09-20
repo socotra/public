@@ -352,3 +352,62 @@ class SocotraClient:
     def get_locator(self, display_id):
         data = {'displayId': display_id}
         return self.__get("/policy/locator", params=data)
+
+    def get_grace_lapse_reinstatements(self, locator):
+        return self.__get(
+            "/policy/{0}/graceLapseReinstatements".format(locator))
+
+    def is_lapsed(self, mods):
+            i = 0
+            lapse_counter = 0
+            reinstate_counter = 0
+
+            for mod in mods:
+                i = i + 1
+                if mod['name'] == 'modification.policy.lapse':
+                    lapse_counter = i
+                elif mod['name'] == 'modification.policy.reinstate':
+                    reinstate_counter = i
+
+            if lapse_counter > reinstate_counter:
+                return True
+            else:
+                return False
+
+    def is_graced(self, glrs):
+
+        for glr in glrs:
+            graceResponse = glr['gracePeriod']
+            if graceResponse.get('settledTimestamp'):
+                continue
+            else:
+                return True
+        return False
+
+    def is_finalized(self, mods):
+        for mod in mods:
+            if mod.get('automatedUnderwritingResult'):
+                return True
+        return False
+
+    def get_policy_status(self, policy_locator):
+
+        policy = self.get_policy(policy_locator)
+        glrs = self.get_grace_lapse_reinstatements(policy_locator)
+        if self.is_lapsed(policy['modifications']):
+            return 'lapsed'
+        elif self.is_graced(glrs):
+            return 'in grace'
+        elif policy.get('cancellation'):
+            cancellation = policy['cancellation']
+            if cancellation['modificationName'] == 'modification.policy.withdraw':
+                return 'withdrawal'
+            else:
+                return 'canceled'
+        elif policy.get('issuedTimestamp'):
+            return 'issued'
+        elif self.is_finalized(policy['modifications']):
+            return 'finalized'
+        else:
+            return 'created'
+
