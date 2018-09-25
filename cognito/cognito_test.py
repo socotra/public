@@ -19,9 +19,13 @@ def main(argv):
     parser.add_argument('-n', '--hostname', required=True)
     parser.add_argument('-u', '--username', required=True)
     parser.add_argument('-p', '--password', required=True)
+    parser.add_argument('-i', '--identity', required=False)
     args = parser.parse_args(argv)
 
-    provider = cognito_provider.CognitoIdentity("cognito.json")
+    if args.identity:
+        provider = cognito_provider.CognitoIdentity(args.identity)
+    else:
+        provider = None
 
     print 'Authenticating with tenant: ' + args.hostname
     client = SocotraClient.get_authenticated_client_for_hostname(
