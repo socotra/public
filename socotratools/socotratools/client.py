@@ -357,12 +357,12 @@ class SocotraClient:
         return self.__get(
             "/policy/{0}/graceLapseReinstatements".format(locator))
 
-    def is_lapsed(self, mods):
+    def is_lapsed(self, modifications):
             i = 0
             lapse_counter = 0
             reinstate_counter = 0
 
-            for mod in mods:
+            for mod in modifications:
                 i = i + 1
                 if mod['name'] == 'modification.policy.lapse':
                     lapse_counter = i
@@ -374,7 +374,7 @@ class SocotraClient:
             else:
                 return False
 
-    def is_graced(self, glrs):
+    def is_in_grace(self, glrs):
 
         for glr in glrs:
             graceResponse = glr['gracePeriod']
@@ -384,8 +384,8 @@ class SocotraClient:
                 return True
         return False
 
-    def is_finalized(self, mods):
-        for mod in mods:
+    def is_finalized(self, modifications):
+        for mod in modifications:
             if mod.get('automatedUnderwritingResult'):
                 return True
         return False
@@ -396,7 +396,7 @@ class SocotraClient:
         glrs = self.get_grace_lapse_reinstatements(policy_locator)
         if self.is_lapsed(policy['modifications']):
             return 'lapsed'
-        elif self.is_graced(glrs):
+        elif self.is_in_grace(glrs):
             return 'in grace'
         elif policy.get('cancellation'):
             cancellation = policy['cancellation']
