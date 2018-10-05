@@ -9,7 +9,7 @@ from socotratools.client import SocotraClient
 # and look at the UW decision and final premium to validate
 # new functionality
 
-#  python test.py -n dineshshenoy-aw334.co.sandbox.socotra.com -u dshenoy -p Dragonbl00d2
+#  python test.py -n <hostname> -u <cognito_user> -p <cognito_password>
 
 
 def main(argv):
