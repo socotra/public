@@ -5,11 +5,10 @@ import cognito_provider
 from socotratools.client import SocotraClient
 
 
-# Helper to generate a policy with input from the current folder
-# and look at the UW decision and final premium to validate
-# new functionality
+# Test file to generate a policyholder if allowed by the provided
+# cognito directory service.
 
-#  python test.py -n <hostname> -u <cognito_user> -p <cognito_password>
+#  python cognito_test.py -n <hostname> -u <cognito_user> -p <cognito_password>
 
 
 def main(argv):
