@@ -89,7 +89,6 @@ class SocotraClient:
 
     def authenticate(self, username, password, tenant_name=None, host_name=None, identity=None):
         self.__validate_unauthenticated()
-
         if identity is not None:
             identity.authenticate(username, password)
             username = identity.get_soc_username()

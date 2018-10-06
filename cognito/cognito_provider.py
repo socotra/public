@@ -17,6 +17,13 @@ class CognitoIdentity:
         with open(id_file, "r") as f:
             self.identity = json.load(f)
 
+    def decode_payload(self, payload):
+        missing_padding = len(payload) % 4
+        if missing_padding != 0:
+            payload += b'=' * (4 - missing_padding)
+        json_payload = json.loads(base64.decodestring(payload))
+        return json_payload
+
     def get_groups(self, jwt_token):
         token_bits = jwt_token.split('.')
         # Use the jwt haader and signature to verify authenticity
@@ -24,11 +31,8 @@ class CognitoIdentity:
         # sig = token_bits[2]
 
         payload = token_bits[1]
-        missing_padding = len(payload) % 4
-        if missing_padding != 0:
-            payload += b'=' * (4 - missing_padding)
-        jwt_payload = json.loads(base64.decodestring(payload))
-        return jwt_payload['cognito:groups']
+        json_payload = self.decode_payload(payload)
+        return json_payload['cognito:groups']
 
     def authenticate(self, username, password):
         clientId = self.identity['provider']['client_id']
