@@ -22,6 +22,8 @@ Visit docs.socotra.com or contact us at support@socotra.com
 
 **[stripe]:** This example uses Stripe's payment processor to pay a policyholder's outstanding invoices.
 
+**[cognito]:** These tools show how to use an external directory service to add permissions to Socotra for various API function calls.  The example provided uses the AWS Cognito service.
+
 
 ##### Coming Soon
   - Data Dictionary Generation
@@ -44,3 +46,4 @@ GNU Lesser General Public License
    [premium_test]: <https://github.com/socotra/public/tree/master/premium_test>
    [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
    [stripe]: <https://github.com/socotra/public/tree/master/stripe>
+   [cognito]: <https://github.com/socotra/public/tree/master/cognito>

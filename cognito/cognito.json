@@ -1,0 +1,56 @@
+{
+  "provider": {
+    "type": "aws-cognito",
+    "client_id": "6g851svsq4of0gb2d0nn6eks5m",
+    "userpool_id": "eu-west-1_HLsDdalUZ"
+  },
+  "socotra": {
+    "username": "alice.lee",
+    "password": "socotra"
+  },
+  "roles":
+    {
+      "quote": [
+        "check_existing_peril_premium",
+        "check_peril_premium",
+        "preview_endorsement_price"
+      ],
+      "read": [
+        "get_policy",
+        "get_media",
+        "price_policy",
+        "uw_policy",
+        "get_policyholder",
+        "get_policies_for_policyholder",
+        "get_invoices_for_policyholder",
+        "renew"
+      ],
+      "outreach": [
+        "create_policyholder",
+        "update_policyholder",
+        "create_policy",
+        "update_policy",
+        "finalize_policy",
+        "add_document_to_policy",
+        "remove_document_from_policy"
+      ],
+      "policy": [
+        "endorse",
+        "issue_policy",
+        "cancel_policy"
+      ],
+      "finance": [
+        "pay_invoice"
+      ],
+      "report": [
+        "generate_report",
+        "get_report",
+        "get_events"
+      ],
+      "configuration": [
+        "deploy_configuration",
+        "get_products",
+        "render_policy_document"
+      ]
+    }
+}
