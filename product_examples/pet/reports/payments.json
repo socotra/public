@@ -1,0 +1,17 @@
+{
+  "title": "Payments",
+  "query": "payments",
+  "columns": {
+    "Payment Date": "payment.createdTimestamp",
+    "Due Date": "invoice.dueDate",
+    "Payment Branch": "payment_v.branch",
+    "Policyholder Number": "policyholder.id",
+    "Policyholder First Name": "ph_v.firstname",
+    "Policyholder Last Name": "ph_v.lastname",
+    "Policy Number": "policy.id",
+    "Invoice Number": "invoice.id",
+    "Receipt Number": "payment.id",
+    "Amount": "payment.amount",
+    "Payment mode": "pay_v.method"
+  }
+}

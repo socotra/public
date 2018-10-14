@@ -1,0 +1,16 @@
+{% assign exp_v = data.policy.exposures[0].characteristics[0].field_values %}
+
+
+{% if exp_v.vehicle_plated_state}} == "FL" %}
+	{{ "Uninsured Motorists Coverage FL.pdf" | render_static_document }}
+
+{% elsif exp_v.vehicle_plated_state}} == "MO" %}
+	{{ "Uninsured Motorists Coverage MO.pdf" | render_static_document }}
+
+{% elsif exp_v.vehicle_plated_state}} == "CA" %}
+	{{ "Uninsured Motorists Coverage CA.pdf" | render_static_document }}
+
+{% else %}
+	{{ "Static PDF example.pdf"| render_static_document }}
+
+{% endif %}

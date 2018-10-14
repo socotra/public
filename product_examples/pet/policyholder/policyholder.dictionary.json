@@ -1,0 +1,43 @@
+[
+  {
+    "name": "first_name",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "middle_name",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "last_name",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "date_of_birth",
+    "type": "date",
+    "precision": "day",
+    "minimum": "1950-01-01",  
+    "showCalendar": false,
+    "maximumOffset": {
+      "field": "year",
+      "amount": "-18"
+    }
+  },
+  {
+    "name": "linkedin_id",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "email_primary_address",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "zip_code",
+    "type": "string",
+    "searchable": true
+  }
+]

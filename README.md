@@ -24,10 +24,7 @@ Visit docs.socotra.com or contact us at support@socotra.com
 
 **[cognito]:** These tools show how to use an external directory service to add permissions to Socotra for various API function calls.  The example provided uses the AWS Cognito service.
 
-
-##### Coming Soon
-  - Data Dictionary Generation
-  - Consumer Website Example
+**[product_examples]:** Socotra can be configured for any line of business.  In this directory, you can find sample product configurations for various lines of business to adapt to your needs.
 
 
 License
@@ -47,3 +44,4 @@ GNU Lesser General Public License
    [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
    [stripe]: <https://github.com/socotra/public/tree/master/stripe>
    [cognito]: <https://github.com/socotra/public/tree/master/cognito>
+   [product_examples]: <https://github.com/socotra/public/tree/master/product_examples>

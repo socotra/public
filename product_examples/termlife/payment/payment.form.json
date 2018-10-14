@@ -1,0 +1,72 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Payment",
+          "fields": [
+            {
+              "name": "policy_payment_method",
+              "prompt": "Payment Type",
+              "required": true
+            },
+            {
+              "name":"payment_date_advanced",
+              "prompt": "Payment Date",
+              "required": true
+            },
+            {
+              "name": "transaction_id",
+              "prompt": "Check Number",
+              "required": true,
+              "visibleIf": {
+                "policy_payment_method": "Check"
+              }
+            },
+            {
+              "name": "transaction_id",
+              "prompt": "Stripe Transaction ID",
+              "required": true,
+              "visibleIf": {
+                "policy_payment_method": "Stripe"
+              }
+            },
+            {
+              "name": "transaction_id",
+              "prompt": "Paypal Transaction ID",
+              "required": true,
+              "visibleIf": {
+                "policy_payment_method": "Paypal"
+              }
+            },
+            {
+              "name": "transaction_id",
+              "prompt": "Bank Transfer Confirmation Number",
+              "required": true,
+              "visibleIf": {
+                "policy_payment_method": "Bank Transfer"
+              }
+            },
+            {
+              "name": "transaction_id",
+              "prompt": "Credit Card Transaction ID",
+              "required": true,
+              "visibleIf": {
+                "policy_payment_method": "Credit Card"
+              }
+            }
+          ]
+        },
+        {
+          "description": "Check Image Upload",
+          "uploads": {
+            "name": "check_image"
+          },
+          "visibleIf": {
+            "policy_payment_method": "Check"
+          }
+        }
+      ]
+    }
+  ]
+}

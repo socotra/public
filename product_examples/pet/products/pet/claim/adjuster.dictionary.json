@@ -1,0 +1,23 @@
+[
+  {
+    "name": "adjuster_report_date",
+    "type": "date",
+    "precision": "day",
+    "maximumOffset": {
+      "field": "day",
+      "amount": "0"
+    }
+  },
+  {
+    "name": "adjuster_first_name",
+    "type": "string"
+  },
+  {
+    "name": "adjuster_last_name",
+    "type": "string"
+  },
+  {
+    "name": "adjuster_report",
+    "type": "document"
+  }
+]

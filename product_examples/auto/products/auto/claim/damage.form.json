@@ -1,0 +1,138 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Damage Details",
+          "description": "Please provide information about the incident",
+          "fields": [
+            {
+              "name": "pa_damage_type",
+              "prompt": "Damage Type",
+              "required": true
+            },
+            {
+              "name": "pa_reserve",
+              "prompt": "Reserve",
+              "required": true,
+              "updateable": true
+            },
+            {
+              "name": "pa_vehicle_damage_coverage",
+              "prompt": "Applicable Coverage",
+              "visibleIf": {
+                "pa_damage_type": "Vehicle"
+              }
+            },
+            {
+              "name": "pa_bodily_damage_coverage",
+              "prompt": "Applicable Coverage",
+              "visibleIf": {
+                "pa_damage_type": "Bodily"
+              }
+            },
+            {
+              "name": "pa_property_damage_coverage",
+              "prompt": "Applicable Coverage",
+              "visibleIf": {
+                "pa_damage_type": "Property"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Third Party Information",
+          "fields": [
+            {
+              "name": "pa_vehicle_damage_tp_lp",
+              "prompt": "Third Party License Plate"
+            }
+          ],
+          "visibleIf": {
+              "pa_vehicle_damage_coverage": "Third Party"
+          }
+        },
+        {
+          "title": "Driver Information",
+          "fields": [
+            {
+              "name": "pa_first_name",
+              "prompt": "First Name"
+            },
+            {
+              "name": "pa_last_name",
+              "prompt": "Last Name"
+            }
+          ],
+          "visibleIf": {
+              "pa_vehicle_damage_coverage": "First Party"
+          }
+        },
+        {
+          "title": "Injured Party Information",
+          "fields": [
+            {
+              "name": "pa_bodily_injury_type",
+              "prompt": "Injury Type"
+            },
+            {
+              "name": "pa_first_name",
+              "prompt": "First Name",
+              "newline": true
+            },
+            {
+              "name": "pa_last_name",
+              "prompt": "Last Name"
+            }
+          ],
+          "visibleIf": {
+            "pa_damage_type": "Bodily"
+          }
+        },
+        {
+          "title": "Property Owner Information",
+          "fields": [
+            {
+              "name": "pa_first_name",
+              "prompt": "First Name"
+            },
+            {
+              "name": "pa_last_name",
+              "prompt": "Last Name"
+            },
+            {
+              "name": "pa_phone_number",
+              "prompt": "Phone Number"
+            }
+          ],
+          "visibleIf": {
+            "pa_property_damage_coverage": "Third Party"
+          }
+        },
+        {
+          "title": "Damage Notes",
+          "fields": [
+            {
+              "name": "pa_damage_desc",
+              "prompt": "Damage Description",
+              "width": 12,
+              "updateable": true
+            },
+            {
+              "name": "pa_damage_notes",
+              "prompt": "Additional Notes",
+              "width": 12,
+              "updateable": true
+            }
+          ]
+        },
+        {
+          "title": "Media and Documents",
+          "uploads": {
+            "name": "pa_damage_image"
+          }
+        }
+      ]
+    }
+  ]
+}

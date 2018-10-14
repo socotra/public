@@ -1,0 +1,4 @@
+{
+    "leftText": "{{adjuster_report_date}} - {{adjuster_last_name}}, {{adjuster_first_name}}",
+    "rightText": "Assessment - ${{reserve}}"
+}
