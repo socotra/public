@@ -1,0 +1,72 @@
+{
+  "name": "Pet",
+  "displayName": "Tell us about your Pet",
+  "fields": [
+    {
+      "name": "pet_name",
+      "title": "What is your pet's name",
+      "type": "string",
+      "optional": false
+    },
+    {
+      "name": "pet_gender",
+      "title": "Is your pet a Girl or a Boy?",
+      "type": "select",
+      "values": [
+        "Girl",
+        "Boy"
+      ]
+    },
+    {
+      "name": "pet_type",
+      "title": "Type of Pet",
+      "type": "select",
+      "values": [
+        "Dog",
+        "Cat",
+        "Reptile",
+        "Lion",
+        "Elephant"
+      ]
+    },
+    {
+      "name": "pet_breed_dog",
+      "title": "What is your Dog's breed?",
+      "type": "select",
+      "values": [
+        "Beagle",
+        "Terrier",
+        "Poodle",
+        "Mixed",
+        "Pit Bull"
+      ],
+      "condition": {
+        "pet_type": [
+          "Dog"
+        ]
+      }
+    },
+    {
+      "name": "pet_breed_cat",
+      "title": "What is your Cat's breed?",
+      "type": "select",
+      "values": [
+        "Exotic Short Hair",
+        "Ragdoll",
+        "Siamese",
+        "Sphynx"
+      ],
+      "condition": {
+        "pet_type": [
+          "Cat"
+        ]
+      }
+    },
+    {
+      "name": "date_of_birth",
+      "type": "date",
+      "title": "What is your pet's date of birth? (Best Guess is Ok!)",
+      "precision": "day"
+    }
+  ]
+}

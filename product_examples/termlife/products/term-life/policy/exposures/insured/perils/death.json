@@ -1,0 +1,9 @@
+{
+  "name": "death",
+  "displayName": "Death Benefit",
+  "fields": [],
+  "indemnityPerItem": "0",
+  "indemnityPerEvent": "0",
+  "indemnityInAggregate": "0",
+  "deductible": "0"
+}

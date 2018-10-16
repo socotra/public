@@ -1,0 +1,116 @@
+{% assign ph_v     = data.policyholder.entity.values %}
+{% assign policy_c = data.policy.characteristics[0] %}
+{% assign policy_h = policy_c.field_values %}
+{% assign policy_v = data.policy.exposures[0].characteristics[0].field_values %}
+{% assign policy_p = data.policy.exposures.perils[0].characteristics[0].fields_values %}
+{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+</head>
+
+{% header %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          ACME Insurance Co.<br>
+          101 Mission Street<br>
+          San Francisco, CA<br>
+          +1 415 555 5555<br>
+          www.socotra.com
+        </p>
+      </td>
+      <td>
+        <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+      </td>
+    </tr>
+  </table>
+{% endheader %}
+
+<h1>ACME Auto Insurance Policy Schedule</h1><br>
+
+<h3>Insurance Details</h3>
+
+<table class="table border-tops-only content">
+  <tr>
+    <td>Policyholder</td>
+    <td> 
+      <b>Name:</b> {{ph_v.first_name}} {{ph_v.last_name}}<br>
+      <b>DOB:</b> {{ph_v.date_of_birth | timestamp_millis_print: "MMM dd, YYYY" }}<br>
+      <b>ID:</b> {{data.policyholder.id}}<br>
+    </td>
+  </tr>
+   <tr>
+    <td>Policy</td>
+    <td>
+      <b>Number:</b> {{data.policy.display_id}}<br>
+      <b>Term:</b> {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
+      through {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
+      <b>Multiple Drivers:</b> {{policy_h.multiple_drivers}}<br> 
+     </td>
+    </tr>
+    <tr>
+    <td>Qualification Details</td>
+    <td>
+      <b>Household Felony History Declared as:</b>  {{policy_h.10_year_felony_conviction}}<br>
+      <b>Household Fraud History Declared as: </b>{{policy_h.insurance_fraud_conviction}}<br>
+      <b>Reports Permission:</b> {{policy_h.run_third_party_reports}}<br></td>
+    </tr>
+   <tr>
+    <td>Exposure(s)</td>
+    <td>
+      <b>Vehicle:</b> {{policy_v.year}} {{policy_v.make}} {{policy_v.model}} - {{policy_v.body_style}} 
+      {{policy_v.motorcycle_cc | format_number_pattern: "0" }} ({{policy_v.vehicle_type}}) <br>
+
+      <b>License Plate #:</b> {{policy_v.license_plate}} <b>State:</b> {{policy_v.vehicle_plated_state}}<br>
+      <b>Purchase Details:</b> {{policy_v.vehicle_value | format_number_currency: "en","US" }} - {{policy_v.unrepaired_damage}} {{policy_v.ownership_indicator}}<br>
+
+      <b>Use:</b> {{policy_v.primary_vehicle_use}} - {{policy_v.distance_to_work_school}} <br>
+      <b>Yearly Mileage</b> {{policy_v.annual_miles | format_number_pattern: "0"}}<br>
+    </td>
+  </tr>
+  <tr>
+    <td>Cost Breakdown</td>
+    <td>
+     <b>Gross Premium:</b>{{policy_c.gross_premium | format_number_currency: "en","US" }}</br>
+     <b>Jurisdictional Taxes: </b>{{policy_c.gross_taxes | format_number_currency: "en","US" }}</br>
+     <b>Underwriting Fees: </b>{{data.policy.fees[0].amount | format_number_currency: "en","US" }}</br> 
+     <b>Transaction Fees: </b>{{data.policy.fees[1].amount | format_number_currency: "en","US" }}</br>
+    </td>
+  </tr>
+  <tr>
+  <td>Total Due</td>
+    <td>
+     <b>{{ policy_c.gross_premium | plus: policy_c.gross_taxes  | plus: data.policy.fees[0].amount | plus: data.policy.fees[1].amount | format_number_currency: "en","US" }}</br> 
+    </td>
+  </table>
+
+<br>
+
+<b>Authorized on</b> {{data.policy.issued_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
+
+{% footer %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          Acme - Keep your loved ones secure.
+        </p>
+      </td>
+      <td>
+        <p class="header-contact">
+          Page {{ | page_number }} of {{ | page_count }}
+        </p>
+      </td>
+      <td>
+        <footer></footer>
+      </td>
+    </tr>
+  </table>
+{% endfooter %}

@@ -1,0 +1,51 @@
+[
+  {
+    "name": "incident_date_advanced",
+    "type": "date",
+    "precision": "day",
+    "maximumOffset": {
+      "field": "day",
+      "amount": "0"
+    }
+  },
+  {
+    "name": "incident_district",
+    "type": "select",
+    "values": [
+      "SOMA",
+      "Mission District",
+      "Japantown",
+      "Chinatown",
+      "Russian Hill",
+      "Embarcadero",
+      "Nob Hill",
+      "Pacific Heights"
+    ]
+  },
+  {
+    "name": "incident_desc",
+    "type": "string",
+    "multiline": true
+  },
+  {
+    "name": "incident_location",
+    "type": "string"
+  },
+  {
+    "name": "is_credible",
+    "type": "select",
+    "values": [
+      "Yes",
+      "No"
+    ]
+  },
+  {
+    "name": "fraud_indicators",
+    "type": "string"
+  },
+  {
+    "name": "claim_image_advanced",
+    "type": "document",
+    "repeatable": true
+  }
+]

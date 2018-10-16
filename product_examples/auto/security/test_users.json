@@ -1,0 +1,12 @@
+[
+  {
+    "username": "alice.lee",
+    "name": "Alice Lee",
+    "password": "socotra",
+    "roles": [
+      "underwriter2",
+      "finance",
+      "claim1"
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "name": "death",
+  "displayName": "Accidental Death",
+  "fields": [],
+  
+  "indemnityPerItem": "0",
+  "indemnityPerEvent": "0",
+  "indemnityInAggregate": "0",
+  "deductible": "0",
+  "lumpSumPayment": "5000"
+ 
+}

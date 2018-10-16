@@ -1,0 +1,13 @@
+[
+  {
+    "name": "assignment",
+    "type": "select",
+    "values": [
+      "Claims Officer",
+      "Claims Manager",
+      "Fraud Center",
+      "Inspector",
+      "Settlements"
+    ]
+  }
+]

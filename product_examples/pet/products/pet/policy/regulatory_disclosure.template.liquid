@@ -1,0 +1,5 @@
+{% if {{data.policy.exposures[0].characteristics[0].field_values.pet_type}} contains "Reptile" %}
+	<b>Your HTML here. Generated instead of the regulatory disclosure because the pet type is Reptile </b>
+{% else %}
+    {{ "Static PDF example.pdf" | render_static_document }}
+{% endif %}

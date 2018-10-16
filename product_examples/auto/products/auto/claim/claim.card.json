@@ -1,0 +1,4 @@
+{
+    "leftText": "Incident Date - {{pa_incident_date}}",
+    "rightText": "Claim ID - {{claim_id}}"
+}

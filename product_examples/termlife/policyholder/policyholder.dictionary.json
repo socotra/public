@@ -1,0 +1,55 @@
+[
+  {
+    "name": "first_name",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "last_name",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "date_of_birth",
+    "type": "date",
+    "precision": "day",
+    "minimum": "1900-01-01",
+    "showCalendar": false,
+    "maximumOffset": {
+      "field": "year",
+      "amount": "-14"
+    }
+  },
+  {
+    "name": "gender",
+    "type": "select",
+    "values": [
+      "Male",
+      "Female"
+    ]
+  },
+  {
+    "name": "marital_status",
+    "type": "select",
+    "values": [
+      "Single",
+      "Common-in-Law",
+      "Married",
+      "Separated",
+      "Divorced",
+      "Widow",
+      "Widower"
+    ]
+  },
+  {
+    "name": "occupation",
+    "type": "select",
+    "values": [
+      "Unemployed",
+      "Business Professional",
+      "Military",
+      "Medical",
+      "Clerical"
+    ]
+  }
+]
