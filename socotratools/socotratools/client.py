@@ -290,10 +290,11 @@ class SocotraClient:
         return self.__get("/policy/" + locator + "/automatedUnderwritingResult")
 
     def preview_endorsement_price(self, policy_locator, endorsement_name,
-                                  effective_timestamp, field_values={},
-                                  add_field_groups=[], update_field_groups=[],
-                                  remove_field_groups=[], add_exposures=[],
-                                  update_exposures=[], end_exposures=[],):
+                                  effective_timestamp, end_timestamp=None,
+                                  field_values={}, add_field_groups=[],
+                                  update_field_groups=[], remove_field_groups=[],
+                                  add_exposures=[], update_exposures=[],
+                                  end_exposures=[],):
 
         update_request = {
             "fieldValues": field_values,
@@ -306,16 +307,18 @@ class SocotraClient:
         }
         data = {'endorsementName': endorsement_name,
                 'startTimestamp': effective_timestamp,
+                'newPolicyEndTimestamp': end_timestamp,
                 'updatePolicy': update_request
                 }
 
         return self.__post("/policy/" + policy_locator + "/previewEndorsementPrice", data)
 
     def endorse(self, policy_locator, endorsement_name,
-                effective_timestamp, field_values={},
-                add_field_groups=[], update_field_groups=[],
-                remove_field_groups=[], add_exposures=[],
-                update_exposures=[], end_exposures=[],):
+                effective_timestamp, end_timestamp=None,
+                field_values={}, add_field_groups=[],
+                update_field_groups=[], remove_field_groups=[],
+                add_exposures=[], update_exposures=[],
+                end_exposures=[],):
 
         update_request = {
             "fieldValues": field_values,
@@ -328,6 +331,7 @@ class SocotraClient:
         }
         data = {'endorsementName': endorsement_name,
                 'startTimestamp': effective_timestamp,
+                'newPolicyEndTimestamp': end_timestamp,
                 'updatePolicy': update_request
                 }
 
