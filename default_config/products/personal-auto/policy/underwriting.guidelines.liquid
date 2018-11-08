@@ -1,6 +1,5 @@
-
 {% assign policy_v = data.policy.characteristics[0].field_values %}
-{% assign exp_v = data.policy.exposures[0].characteristics[0].field_values %}
+{% assign vehicles = data.policy.exposures %}
 
 
 {% if policy_v.atfault_claims_past_5_years == 'None' %}
@@ -12,10 +11,13 @@
 {% endif %}
 
 
-{% if exp_v.vehicle_value >= 100000 %}
-    {{ "reject" | set_underwriting_decision }}
-    {{ "Cars valued at $100,000 and over cannot be covered through this program." | add_underwriting_note }}  
-{% endif %}
+{% for vehicle in vehicles %}
+	{% assign vehicle_value = vehicle.characteristics[0].field_values.vehicle_value %}
+	{% if vehicle_value >= 100000 %}
+		{{ "reject" | set_underwriting_decision }}
+		{{ "Cars valued at $100,000 and over cannot be covered through this program." | add_underwriting_note }}
+	{% endif %}
+{% endfor %}
 
 
 {% if policy_v.10_year_felony_conviction == 'Yes' %} 

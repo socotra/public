@@ -1,4 +1,0 @@
-{
-  "leftText": "{{damage_type}} - {{bodily_damage_coverage}}{{vehicle_damage_coverage}}{{property_damage_coverage}}",
-  "rightText": "Reserve: {{reserve}}"
-}

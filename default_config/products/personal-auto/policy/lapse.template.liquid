@@ -1,3 +1,4 @@
+{% assign policy = data.policy %}
 {% assign lapse = data.lapse %}
 
 <head>
@@ -24,7 +25,7 @@
 
 <h1>Lapse Notification</h1>
 
-Your policy numbered {{ data.policy.display_id }} has lapsed due to nonpayment. You may reinstate coverage by becoming current on your account by {{ lapse.reinstatement_period_end_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}. Reinstated coverage will begin on the date payment is received, subject to the requirements in your policy contract being met.
+Your policy numbered {{ policy.display_id }} has lapsed due to nonpayment. You may reinstate coverage by becoming current on your account by {{ lapse.reinstatement_period_end_timestamp | timestamp_millis_print: "d MMM YYYY" }}. Reinstated coverage will begin on the date payment is received, subject to the requirements in your policy contract being met.
 
 <p>Please call 1-555-555-5555 to make payment and reinstate your policy.
 

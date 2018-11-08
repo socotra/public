@@ -34,7 +34,7 @@
 <h1>Simple Auto Insurance Invoice</h1><br>
 
 Invoice Number: <b>{{invoice.display_id}}</b><br>
-Invoice Date: <b>{{invoice.created_timestamp | timestamp_millis_print: "MMM dd, YYYY"}}</b><br>
+Invoice Date: <b>{{invoice.created_timestamp | timestamp_millis_print: "d MMM YYYY"}}</b><br>
 
 <table class="table border-tops-only content">
   <tr>
@@ -49,13 +49,13 @@ Invoice Date: <b>{{invoice.created_timestamp | timestamp_millis_print: "MMM dd, 
     <td>
       <b>ID:</b> {{data.policy.display_id}}<br>
       <b>Effective:</b>
-      From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
-      through {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
+      From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+      through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
     </td>
   </tr>
   <tr>
     <td>Due date</td>
-    <td>{{due_display | timestamp_millis_print: "MMM dd, YYYY" }}</td>
+    <td>{{due_display | timestamp_millis_print: "d MMM YYYY" }}</td>
   </tr>
 </table>
 

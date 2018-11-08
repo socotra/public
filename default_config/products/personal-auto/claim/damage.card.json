@@ -1,4 +1,0 @@
-{
-  "leftText": "{{pa_damage_type}} - {{pa_bodily_damage_coverage}}{{pa_vehicle_damage_coverage}}{{pa_property_damage_coverage}}",
-  "rightText": "Reserve: {{pa_reserve}}"
-}
