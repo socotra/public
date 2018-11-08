@@ -1,0 +1,58 @@
+{
+  "fields": [
+    {
+      "name": "incident_summary",
+      "title": "Incident Summary",
+      "type": "string",
+      "multiline": true,
+      "maximum": 3000,
+      "width": 12
+    },
+    {
+      "name": "claim_uploads",
+      "title": "Media and Documents",
+      "type": "media",
+      "optional": true,
+      "repeatable": true
+    },
+    {
+      "name": "reporter",
+      "title": "Reporter",
+      "type": "group",
+      "fields": [
+        {
+          "name": "rep_givenname",
+          "title": "Given Name",
+          "type": "string"
+        },
+        {
+          "name": "rep_surname",
+          "title": "Surname",
+          "type": "string"
+        },
+        {
+          "name": "rep_relationship",
+          "title": "Relationship to deceased",
+          "type": "string"
+        }
+      ],
+      "optional": true,
+      "repeatable": false
+    },
+    {
+      "name": "cause_of_death_or_disability",
+      "title": "Cause of Death or Disability",
+      "newline": true,
+      "type": "string"
+    },
+    {
+      "name": "fraud_check",
+      "title": "Fraud Check Result",
+      "type": "select",
+      "values": [
+        "Genuine",
+        "Fraudulent"
+      ]
+    }
+  ]
+}

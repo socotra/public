@@ -1,3 +1,4 @@
+{% assign policy = data.policy %}
 {% assign grace_period = data.grace_period %}
 
 <head>
@@ -24,7 +25,7 @@
 
 <h1>Grace Period Notification</h1>
 
-Your policy numbered {{ data.policy.display_id }} is in the grace period due to nonpayment. The policy will lapse and coverage will end on {{ grace_period.end_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}. To ensure continued coverage, please pay the amount due of {{ grace_period.invoice.total_due | format_number_currency: 'en', 'US' }} before the lapse date.
+Your policy numbered {{ policy.display_id }} is in the grace period due to nonpayment. The policy will lapse and coverage will end on {{ grace_period.end_timestamp | timestamp_millis_print: "d MMM YYYY" }}. To ensure continued coverage, please pay the amount due of {{ grace_period.invoice.total_due | format_number_currency: 'en', 'US' }} before the lapse date.
 
 <p>Please call 1-555-555-5555 or log into your account to make payment and continue your coverage.
 

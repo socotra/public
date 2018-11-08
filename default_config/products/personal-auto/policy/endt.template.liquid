@@ -1,7 +1,8 @@
+{% assign policy = data.policy %}
 {% assign policy_updates = data.endorsement.policy_updates %}
-{% assign policy_c = data.policy.characteristics.last %}
+{% assign policy_c = policy.characteristics.last %}
 {% assign ph_v = data.policyholder.entity.values %}
-{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
+{% assign end_display = policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
 
 <head>
   <meta charset="UTF-8">
@@ -44,10 +45,10 @@
   <tr>
     <td>Policy</td>
     <td>
-      <b>ID:</b> {{data.policy.display_id}}<br>
+      <b>ID:</b> {{policy.display_id}}<br>
       <b>Effective:</b>
-      From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
-      through {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
+      From {{policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+      through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
     </td>
   </tr>
   <tr>
@@ -55,8 +56,8 @@
     <td>
       <b>ID:</b> {{data.endorsement.display_id}}<br>
       <b>Type:</b> {{data.endorsement.name}}<br>
-      <b>Issued:</b> {{data.endorsement.issued_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}<br>
-      <b>Effective:</b> {{data.endorsement.start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
+      <b>Issued:</b> {{data.endorsement.issued_timestamp | timestamp_millis_print: "d MMM YYYY" }}<br>
+      <b>Effective:</b> {{data.endorsement.start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
     </td>
   </tr>
 </table>

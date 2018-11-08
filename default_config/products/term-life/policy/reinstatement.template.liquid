@@ -1,3 +1,4 @@
+{% assign policy = data.policy %}
 {% assign reinstatement = data.reinstatement %}
 
 <head>
@@ -24,7 +25,7 @@
 
 <h1>Reinstatement Confirmation</h1>
 
-Your reinstatement request for policy {{ data.policy.display_id }} has been approved. Your reinstated policy will cover loss that occurs only on or after {{ reinstatement.reinstatement_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}.
+Your reinstatement request for policy {{ policy.display_id }} has been approved. Your reinstated policy will cover loss that occurs only on or after {{ reinstatement.reinstatement_timestamp | timestamp_millis_print: "d MMM YYYY" }}.
 
 <p>To make further inquiries regarding your Policy, please call 1-555-555-5555.
 
