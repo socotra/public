@@ -54,6 +54,8 @@ class SocotraClient:
         if self.is_allowed(caller):
             url = self.base_url + resource
             self.__debug('POST: ' + url)
+            self.__debug('Request:')
+            self.__debug(payload)
             r = self.session.post(url, json=payload, data=data,
                                   verify=False, files=files)
             status = r.status_code
