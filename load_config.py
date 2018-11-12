@@ -16,17 +16,22 @@ ZIPFILE = '/tmp/tenant.zip'
 base_url = 'https://api.sandbox.socotra.com'
 
 
-# Also supports environment variables SOCOTRA_USERNAME and SOCOTRA_PASSWORD
-# instead of CLI arguments
 def parse_args():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description='Load Socotra Configuration')
     parser.add_argument('--tenant_name', '-t',
-                        help='The suffix of the tenant', required=True)
+                        help='The suffix of the tenant - \
+                        configeditor is not allowed',
+                        required=True)
     parser.add_argument('--username', '-u',
-                        help='Socotra Config Studio username',
+                        help='Socotra Config Studio username \
+                        uses SOCOTRA_USERNAME env variable if \
+                        not provided',
                         required=False)
     parser.add_argument('--password', '-p',
-                        help='Socotra Config Studio password',
+                        help='Socotra Config Studio password - \
+                        uses SOCOTRA_PASSWORD env variable if \
+                        not provided',
                         required=False)
     parser.add_argument(
         '--debug', '-d', help="prints debugging info", action='store_true')
