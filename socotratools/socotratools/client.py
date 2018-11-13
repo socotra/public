@@ -201,7 +201,7 @@ class SocotraClient:
             'policyStartTimestamp': policy_start_timestamp,
             'policyEndTimestamp': policy_end_timestamp
         }
-        return self.__post('/policy/' + policy_locator, data)
+        return self.__post('/policy/' + policy_locator + '/update', data)
 
     def finalize_policy(self, locator):
         return self.__post('/policy/{0}/finalize'.format(locator))
