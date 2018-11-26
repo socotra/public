@@ -1,6 +1,7 @@
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import sys
+import json
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -15,7 +16,10 @@ class SocotraClient:
 
     def __debug(self, string):
         if self.debug:
-            print string
+            if type(string) == dict:
+                print json.dumps(string)
+            else:
+                print string
 
     # Used for permissions
     def is_allowed(self, method_name):
@@ -42,7 +46,8 @@ class SocotraClient:
             status = r.status_code
             self.__debug('Return status: ' + str(status))
             value = r.json()
-            self.__debug('Return body: \n' + str(value) + '\n')
+            self.__debug('Return body: \n')
+            self.__debug(value)
             return value
         else:
             self.__debug('Unathorized operation: ' + caller)
@@ -61,7 +66,8 @@ class SocotraClient:
             status = r.status_code
             self.__debug('Return status: ' + str(status))
             value = r.json()
-            self.__debug('Return body: \n' + str(value) + '\n')
+            self.__debug('Return body: \n')
+            self.__debug(value)
             return value
         else:
             self.__debug('Unathorized operation: ' + caller)
