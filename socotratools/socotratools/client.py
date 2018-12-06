@@ -83,7 +83,8 @@ class SocotraClient:
         if api_url is None:
             api_url = cls.__get_api_url_from_host_name(host_name)
         client = cls(api_url, debug=debug)
-        client.authenticate(username, password, host_name=host_name, identity=identity)
+        client.authenticate(username, password,
+                            host_name=host_name, identity=identity)
         return client
 
     @staticmethod
@@ -243,8 +244,11 @@ class SocotraClient:
     def get_media(self, locator):
         return self.__get("/media/" + locator)
 
-    def pay_invoice(self, locator):
-        return self.__post('/invoice/' + locator + '/pay')
+    def pay_invoice(self, locator, field_values={}):
+        data = {
+            "fieldValues": field_values
+        }
+        return self.__post('/invoice/' + locator + '/pay', data)
 
     def check_existing_peril_premium(self, calculation, peril_id):
         data = {"calculation": calculation, "perilDisplayId": peril_id}
@@ -369,21 +373,21 @@ class SocotraClient:
             "/policy/{0}/graceLapseReinstatements".format(locator))
 
     def is_lapsed(self, modifications):
-            i = 0
-            lapse_counter = 0
-            reinstate_counter = 0
+        i = 0
+        lapse_counter = 0
+        reinstate_counter = 0
 
-            for mod in modifications:
-                i = i + 1
-                if mod['name'] == 'modification.policy.lapse':
-                    lapse_counter = i
-                elif mod['name'] == 'modification.policy.reinstate':
-                    reinstate_counter = i
+        for mod in modifications:
+            i = i + 1
+            if mod['name'] == 'modification.policy.lapse':
+                lapse_counter = i
+            elif mod['name'] == 'modification.policy.reinstate':
+                reinstate_counter = i
 
-            if lapse_counter > reinstate_counter:
-                return True
-            else:
-                return False
+        if lapse_counter > reinstate_counter:
+            return True
+        else:
+            return False
 
     def is_in_grace(self, glrs):
 
@@ -421,4 +425,3 @@ class SocotraClient:
             return 'finalized'
         else:
             return 'created'
-
