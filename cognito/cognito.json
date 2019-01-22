@@ -25,7 +25,7 @@
         "get_invoices_for_policyholder",
         "renew"
       ],
-      "outreach": [
+      "underwriting": [
         "create_policyholder",
         "update_policyholder",
         "create_policy",
