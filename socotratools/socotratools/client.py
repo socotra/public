@@ -123,8 +123,22 @@ class SocotraClient:
             {"Authorization": return_value['authorizationToken']})
         return return_value
 
+    def get_all_policyholders(self,
+                              start_timestamp=None,
+                              end_timestamp=None,
+                              page_size=None,
+                              paging_token=None):
+        data = {
+            "createdAfterTimestamp": start_timestamp,
+            "createdBeforeTimestamp": end_timestamp,
+            "pageSize": page_size,
+            "pagingToken": paging_token
+        }
+        return self.__get("/policyholders", data)
+
     def get_policyholder(self, locator):
         return self.__get("/policyholder/" + locator)
+
 
     def create_policyholder(self, completed=True, values=None, sub_entities=None):
         data = {
