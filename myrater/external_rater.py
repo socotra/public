@@ -6,10 +6,10 @@ from socotratools.client import SocotraClient
 import myrater
 
 
-# The external rater only gives us locators and the policy, but we actually
-# want the full characteristic and the full exposure and peril from the
-# policy to do the appropriate calculations.  This method returns the 
-# characteristic and parent object.
+# The external rater only gives us characteristic locators and the policy,
+# but we actually want the full characteristic and the full exposure and
+# peril from the policy to do the appropriate calculations.  This method
+# returns the characteristic object and parent object.
 
 def get_relevant_objs(policy, triplet):
     data = {}
