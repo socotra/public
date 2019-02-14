@@ -9,7 +9,7 @@ import myrater
 # The external rater only gives us characteristic locators and the policy,
 # but we actually want the full characteristic and the full exposure and
 # peril from the policy to do the appropriate calculations.  This method
-# returns the characteristic object and parent object.
+# returns the characteristic object and parent object for use in process_.
 
 def get_relevant_objs(policy, triplet):
     data = {}
@@ -35,7 +35,7 @@ def get_relevant_objs(policy, triplet):
 
 # Main worker method which processes each set of characteristic locators
 # (the "triplet") and returns the premium in the corresponding structure
-# for the external rater protocol
+# for the external rater,
 
 def process_triplets(policy, triplets):
     return_value = {}
@@ -46,14 +46,15 @@ def process_triplets(policy, triplets):
         data = get_relevant_objs(policy, triplet)
         premium = myrater.price_peril(data)
 
+        # Socotra requires the return value to be in this format.
         price_return_value[
             triplet['perilCharacteristicsLocator']] = {'premium': premium}
 
     return return_value
 
 
-# Worker method that is used by an AWS lambda process which receives the
-# external data call request
+# This method is the entry point for the AWS lambda process which receives the
+# external data call request from Socotra.  See README for more details.
 
 def lambda_handler(event, context):
     print json.dumps(event)
@@ -61,12 +62,15 @@ def lambda_handler(event, context):
     triplets = event['body-json']['policyExposurePerils']
 
     output = process_triplets(policy, triplets)
-    print json.dumps(output)
+    print json.dumps(output)    # Provided for logging purposes
     return output
 
 
 # Test method to validate the logic for the external rater without using
-# the Socotra UI.  Requires the policy ID that is to be priced
+# the Socotra UI.  Requires the policy ID as an input to be priced.
+
+# This test method tests all the perils for the first exposure and first
+# set of characteristics
 
 def main(argv):
     parser = argparse.ArgumentParser(
@@ -85,16 +89,16 @@ def main(argv):
         hostname, args.username, args.password)
     policy = client.get_policy(args.id)
 
-    triplets = []
-    # assume one set of characteristics exist on the policy.  Only prices
-    # the first exposure.
+    # assumes at least one set of characteristics exists on the policy.
+    # Only prices the first exposure.
     policy_char_locator = policy['characteristics'][0]['locator']
     exp_char_locator = policy['exposures'][0]['characteristics'][0]['locator']
-    peril_char_locator = policy[
-        'exposures'][0]['perils'][0]['characteristics'][0]['locator']
 
-    # Calculate price for all perils
+    # Create a set of triplets which mocks the payload that will be generated
+    # by the payload in the external rater.  A triplet is a set of characteristic
+    # locators that will be passed into the rater.
 
+    triplets = []
     for peril in policy['exposures'][0]['perils']:
         peril_char_locator = peril['characteristics'][0]['locator']
 

@@ -1,0 +1,12 @@
+The myrater project is written to be deployed as a lambda service that is exposed via a Web Service
+API endpoint.  
+
+external_rater.py - This file takes care of converting the inputs to a format that can be easily
+processed by an external pricing algorithm and packaging the return value in a format that
+is defined in the Socotra External Rater feature 
+(https://docs.socotra.com/production/features/external_rater.html).
+
+myrater.py - This file implements the pricing logic for the personal-auto policy that ships with
+the Socotra default configuration.  The algorithm is identical and yields identical results as
+the liquid logic. In many cases, python or another procedural language makes it easy to manage
+rating algorithms.

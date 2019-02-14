@@ -1,4 +1,12 @@
 
+# This file is an example of Socotra's default rating
+# that ships with Configuration Studio.  Instead of
+# implementing the logic in Liquid, this rating algorithm
+# generates the same values for each peril type
+
+
+# Claims factor - This method is used multiple times
+# in the pricing algorithms below.
 
 def get_claims_multiplier(history):
     if history == '1':
@@ -15,6 +23,9 @@ def get_claims_multiplier(history):
     return claims_multiplier
 
 
+# Indemnity Adustment factor - used in multiple
+# pricing algorithms below
+
 def get_adj(indem, factor):
     adj = 0
     if indem > 0:
@@ -25,6 +36,9 @@ def get_adj(indem, factor):
     return adj
 
 
+# Method that replaces the table lookup in the
+# Liquid logic
+
 def get_vehicle_type_factor(vehicle_type):
     if vehicle_type == 'Car':
         return 1
@@ -34,6 +48,9 @@ def get_vehicle_type_factor(vehicle_type):
         return 2
     elif vehicle_type == 'Pickup':
         return 1.1
+
+# This method extracts the various chraacteristics and objects
+# from the contxt (data) and uses it to calculate a premium
 
 
 def price_peril(data):
@@ -63,7 +80,8 @@ def price_peril(data):
         premium = premium * claims_multiplier
         if policy_v['channel'][0] == 'Direct':
             premium = 0.9 * premium
-        adj = get_adj(float(current_peril_char.get('indemnityInAggregate', '0')), 0.002)
+        adj = get_adj(float(current_peril_char.get(
+            'indemnityInAggregate', '0')), 0.002)
         premium = premium + adj
     elif peril_name == 'collision':
         premium = vehicle_value * 0.0119
@@ -106,7 +124,8 @@ def price_peril(data):
             premium = premium * 1.4444
 
         premium = premium * 0.30
-        adj = get_adj(float(current_peril_char.get('indemnityInAggregate', '0')), 0.150)
+        adj = get_adj(float(current_peril_char.get(
+            'indemnityInAggregate', '0')), 0.150)
         premium = premium + adj
 
     elif peril_name == 'underinsured_motorist':
@@ -116,7 +135,8 @@ def price_peril(data):
         if policy_v['channel'][0] == 'Agent':
             premium = premium * 0.9
 
-        adj = get_adj(float(current_peril_char.get('indemnityInAggregate', '0')), 0.002)
+        adj = get_adj(float(current_peril_char.get(
+            'indemnityInAggregate', '0')), 0.002)
         premium = premium + adj
 
     premium = round(premium, 2)
