@@ -1,102 +1,115 @@
-import requests
+#!/usr/bin/env python
 import json
+import urlparse
 
-def perilEndorsement():
-    print "Getting authorization token."
+import requests
 
-    #URL = "https://api.develop.socotra.com/account/authenticate"
-    URL = "http://127.0.0.1:8080/account/authenticate"
-    #URL = "https://api.develop.socotra.com/account/v1/authenticateInternal
+
+def peril_endorsement():
+    print('Getting auth token.')
+
+    api_url = 'https://api.develop.socotra.com/account/authenticate'
+    local_api_url = 'http://127.0.0.1:8080/account/authenticate'
+    host_name = 'vishnu-configeditor.co.develop.socotra.com'
+    local_host_name = 'vishnu-vishnu1.co.develop.socotra.com'
+    base_policy_url = 'https://api.develop.socotra.com/policy'
+    policy_id = '100005500'
+
     payload = {
-                "username": "alice.lee",
-                "password": "socotra",
-                "hostName": "vishnu-vishnu1.co.develop.socotra.com"
-                }
+        'username': 'alice.lee',
+        'password': 'socotra',
+        'hostName': host_name
+    }
 
-    r = requests.post(URL, json=payload)
-    data = json.loads(r.text)
-    authorizationToken = data["authorizationToken"]
-    print("Retrieved the authorization token.")
+    auth_response = requests.post(api_url, json=payload)
+    #data = json.loads(auth_response.text)
+    auth_token = auth_response.json()['authorizationToken'] # data["authorizationToken"]
+    print('Retrieved the auth token.')
 
-    policyResponseURL = "https://api.develop.socotra.com/policy/100005202/"
-    headers = { "content-type":"application/json" }
-    headers['Authorization'] = authorizationToken
+    policy_url = base_policy_url + '/' + policy_id
+    headers = {
+        'content-type': 'application/json',
+        'Authorization': auth_token
+    }
 
-    r = requests.get(policyResponseURL, headers=headers)
-    data = json.loads(r.text)
-    exposures = data['exposures']
-    exposureLocator = exposures[0]['locator']
-
-    exposure = exposures[0]
+    policy_response = requests.get(policy_url, headers=headers)
+    exposure = policy_response.json()['exposures'][0]
+    exposure_locator = exposure['locator'].encode('ascii', 'ignore')
     perils = exposure['perils']
 
-    peril = perils[1]
-    perilLocatorToRemove = peril['locator'].encode('ascii', 'ignore')
-    perilLocatorToUpdate = perils[2]['locator'].encode('ascii', 'ignore')
+    peril_locator_to_remove = perils[1]['locator'].encode('ascii', 'ignore')
+    peril_locator_to_update = perils[2]['locator'].encode('ascii', 'ignore')
 
-    deductible = "100"
-    lumpSumPayment = "200"
+    # deductible = "100"
+    # lumpSumPayment = "200"
+    # perilUpdateRequest = {
+    #     'addFieldGroups': [],
+    #     'fieldValues': {},
+    #     'perilLocator': peril_locator_to_update,
+    #     'removeFieldGroup': [],
+    #     'updateFieldGroups': [],
+    #     'deductible': deductible,
+    #     'lumpSumPayment': lumpSumPayment,
+    #     'removeIndemnityPerEvent': False,
+    #     'removeIndemnityPerItem': False
+    # }
+    #
+    # exposure_update_request = {
+    #     'addFieldGroups': [],
+    #     'addPerils': [],
+    #     'endPerils': [],
+    #     'exposureLocator': exposure_locator,
+    #     'fieldValues': {},
+    #     'removeFieldGroups': [],
+    #     'updateFieldGroups': [],
+    #     'updatePerils': [perilUpdateRequest]
+    # }
 
-    perilUpdateRequest = dict([("addFieldGroups", []),
-                               ("fieldValues", {}),
-                               ("perilLocator", perilLocatorToUpdate),
-                               ("removeFieldGroup", []),
-                               ("updateFieldGroups", []),
-                               ("deductible", deductible),
-                               ("lumpSumPayment", lumpSumPayment),
-                               ("removeIndemnityPerEvent", False),
-                               ("removeIndemnityPerItem", False)])
+    # exposure_update_request = {
+    #     'addFieldGroups': [],
+    #     'addPerils': [],
+    #     'endPerils': [peril_locator_to_remove],
+    #     'exposureLocator': exposure_locator,
+    #     'fieldValues': {},
+    #     'removeFieldGroups': [],
+    #     'updateFieldGroups': [],
+    #     'updatePerils': []
+    # }
 
-    exposureUpdateRequest = dict([("addFieldGroups", []),
-                                  ("addPerils", []),
-                                  ("endPerils", []),
-                                  ("exposureLocator", exposureLocator),
-                                  ("fieldValues", {}),
-                                  ("removeFieldGroups", []),
-                                  ("updateFieldGroups", []),
-                                  ("updatePerils", [perilUpdateRequest])])
+    exposure_update_request = {
+        'addFieldGroups': [],
+        'addPerils': [{"name":"bodily_injury"}],
+        'endPerils': [],
+        'exposureLocator': exposure_locator,
+        'fieldValues': {},
+        'removeFieldGroups': [],
+        'updateFieldGroups': [],
+        'updatePerils': []
+    }
 
-    # exposureUpdateRequest = dict([("addFieldGroups", []),
-    #                               ("addPerils", []),
-    #                               ("endPerils", [perilLocatorToRemove]),
-    #                               ("exposureLocator", exposureLocator),
-    #                               ("fieldValues", {}),
-    #                               ("removeFieldGroups", []),
-    #                               ("updateFieldGroups", []),
-    #                               ("updatePerils", [])])
+    policy_update_request = {
+        'addExposures': [],
+        'addFieldGroups': [],
+        'endExposures': [],
+        'fieldValues': {},
+        'removeFieldGroups': [],
+        'updateExposures': [exposure_update_request],
+        'updateFieldGroups': [],
+        'hasPolicyUpdates': False
+    }
 
+    endorsement_request = {
+        'endorsementName': 'generic',
+        'startTimestamp': 1565852400000,
+        'updatePolicy': policy_update_request
+    }
 
-    # exposureUpdateRequest = dict([("addFieldGroups", []),
-    #                               ("addPerils", [{"name":"bodily_injury"}]),
-    #                               ("endPerils", []),
-    #                               ("exposureLocator", exposureLocator),
-    #                               ("fieldValues", {}),
-    #                               ("removeFieldGroups", []),
-    #                               ("updateFieldGroups", []),
-    #                               ("updatePerils", [])])
+    endorsement_url = base_policy_url + '/' + policy_id + '/endorse'
+    endorsement_response = requests.post(endorsement_url, json=endorsement_request, headers=headers)
 
-    policyUpdateRequest = dict([("addExposures", []),
-                                ("addFieldGroups", []),
-                                ("endExposures", []),
-                                ("fieldValues", {}),
-                                ("removeFieldGroups", []),
-                                ("updateExposures", [exposureUpdateRequest]),
-                                ("updateFieldGroups", []),
-                                ("hasPolicyUpdates", False)])
+    updated_policy = requests.get(policy_url, headers=headers)
+    updated_data = updated_policy.json()
+    print(updated_data)
 
-    endorsementRequest = dict([("endorsementName", "generic"),
-                               #("startTimestamp", 1564642800000),
-                               ("startTimestamp", 1565852400000),
-                               ("updatePolicy", policyUpdateRequest)])
-
-    endorsementURL = "https://api.develop.socotra.com/policy/100005202/endorse"
-    r = requests.post(endorsementURL, json=endorsementRequest, headers=headers)
-    print(r.headers.items())
-    #print(r)
-
-    updatedPolicy = requests.get(policyResponseURL, headers=headers)
-    updatedData = updatedPolicy.json()
-    print(updatedData)
-
-if __name__ == '__main__':
-    perilEndorsement()
+    if __name__ == '__main__':
+        peril_endorsement()
