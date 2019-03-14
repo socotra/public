@@ -22,8 +22,7 @@ def peril_endorsement():
     }
 
     auth_response = requests.post(api_url, json=payload)
-    #data = json.loads(auth_response.text)
-    auth_token = auth_response.json()['authorizationToken'] # data["authorizationToken"]
+    auth_token = auth_response.json()['authorizationToken']
     print('Retrieved the auth token.')
 
     policy_url = base_policy_url + '/' + policy_id
