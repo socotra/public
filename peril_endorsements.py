@@ -108,8 +108,8 @@ def peril_endorsement():
     endorsement_response = requests.post(endorsement_url, json=endorsement_request, headers=headers)
 
     updated_policy = requests.get(policy_url, headers=headers)
-    updated_data = updated_policy.json()
-    print(updated_data)
+    updated_policy_data = updated_policy.json()
+    print(updated_policy_data)
 
     if __name__ == '__main__':
         peril_endorsement()
