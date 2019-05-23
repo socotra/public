@@ -1,0 +1,27 @@
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exposure_v = data.exposure_characteristics.field_values %}
+
+{% assign living_area = exposure_v.living_area %}
+{% assign living_area_multipler = 0.333 %}
+{% assign base_premium = living_area | times: living_area_multipler %}
+
+{% assign dwelling_type_multiplier = "dwelling_type_table" | lookup: exposure_v.dwelling_type %}
+{% assign base_premium = base_premium | times: dwelling_type_multiplier %}
+
+{% assign roof_type_multiplier = "roof_type_table" | lookup: exposure_v.roof_type %}
+{% assign base_premium = base_premium | times: roof_type_multiplier %}
+
+{% case policy_v.major_claims_five_years %}
+{% when "None" %}
+  {% assign base_premium = base_premium | minus: 50 %}
+{% when "1" %}
+  {% comment %} No adjustment {% endcomment %}
+{% else %}
+  {% assign base_premium = base_premium | plus: 100 %}
+{% endcase %}
+
+{% assign final_premium = base_premium | round %}
+
+{{ final_premium | set_year_premium }}
+{{ final_premium | times: 0.8 | set_year_technical_premium }}
+{{ final_premium | times: 0.05 | add_year_commission: "Agent1234" }}

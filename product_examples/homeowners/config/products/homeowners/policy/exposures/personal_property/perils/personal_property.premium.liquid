@@ -1,0 +1,22 @@
+{% assign exp_v = data.exposure_characteristics.field_values %}
+
+{% case exp_v.coverage_limit %}
+{% when "50%" %}
+  {% assign premium = 85.00 %}
+{% else %}
+  {% comment %} 75% {% endcomment %}
+  {% assign premium = 110.00 %}
+{% endcase %}
+
+{% case exp_v.replacement_basis %}
+{% when "Actual Cash Value" %}
+  {% comment %} Do nothing, baseline {% endcomment %}
+{% when "Replacement Cost" %}
+  {% assign premium = premium | times: 1.15 %}
+{% endcase %}
+
+{% assign premium = premium | round %}
+
+{{ premium | set_year_premium }}
+{{ premium | times: 0.8 | set_year_technical_premium }}
+{{ premium | times: 0.05 | add_year_commission: "Bkr_000123" }}

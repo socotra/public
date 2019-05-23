@@ -1,0 +1,26 @@
+{
+  "name": "personal_property",
+  "displayName": "Personal Property",
+  "fields": [
+    {
+      "name": "coverage_limit",
+      "title": "Coverage Limit (Percent of Dwelling Limit)",
+      "values": [
+        "50%",
+        "75%"
+      ],
+      "type": "select",
+      "optional": false
+    },
+    {
+      "name": "replacement_basis",
+      "title": "Replacement Basis",
+      "values": [
+        "Actual Cash Value",
+        "Replacement Cost"
+      ],
+      "type": "select",
+      "optional": false
+    }
+  ]
+}

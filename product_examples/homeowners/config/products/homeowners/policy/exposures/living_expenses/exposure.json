@@ -1,0 +1,17 @@
+{
+    "name": "living_expenses",
+    "displayName": "Living Expenses",
+    "fields": [
+      {
+        "name": "coverage_limit",
+        "title": "Coverage Limit",
+        "values": [
+          "20000",
+          "50000",
+          "100000"
+        ],
+        "type": "select",
+        "optional": false
+      }
+    ]
+  }
