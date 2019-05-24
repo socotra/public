@@ -1,8 +1,19 @@
 {% assign policy_v = data.policy_characteristics.field_values %}
 {% assign exposure_v = data.exposure_characteristics.field_values %}
+{% assign peril_v = data.peril_characteristics.field_values %}
 
 {% assign living_area = exposure_v.living_area %}
-{% assign living_area_multipler = 0.333 %}
+
+{% case policy_v.policy_type %}
+{% when "HO-2 — Broad Form" %}
+  {% assign living_area_multipler = 0.285 %}
+{% when "HO-8 - Older Home Form" %}
+  {% assign living_area_multipler = 0.310 %}
+{% else %}
+  {% comment %} HO-3 Broad Form {% endcomment %}
+  {% assign living_area_multipler = 0.333 %}
+{% endcase %}
+
 {% assign base_premium = living_area | times: living_area_multipler %}
 
 {% assign dwelling_type_multiplier = "dwelling_type_table" | lookup: exposure_v.dwelling_type %}
@@ -20,8 +31,17 @@
   {% assign base_premium = base_premium | plus: 100 %}
 {% endcase %}
 
-{% assign final_premium = base_premium | round %}
+{% comment %} Loss of use coverage {% endcomment %}
 
-{{ final_premium | set_year_premium }}
-{{ final_premium | times: 0.8 | set_year_technical_premium }}
-{{ final_premium | times: 0.05 | add_year_commission: "Agent1234" }}
+{% assign cov_limit = peril_v.loss_of_use_coverage_limit | round %}
+{% assign loss_of_use_premium = cov_limit | times: 0.00042 %} 
+
+{% assign premium = base_premium | plus: loss_of_use_premium | round %}
+
+{% if premium < 100 %}
+  {% assign premium = 100 %}
+{% endif %}
+
+{{ premium | set_year_premium }}
+{{ premium | times: 0.8 | set_year_technical_premium }}
+{{ premium | times: 0.05 | add_year_commission: "Agent1234" }}

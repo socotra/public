@@ -1,6 +1,17 @@
 {
   "fields": [
     {
+      "name": "policy_type",
+      "title": "Policy Type",
+      "type": "select",
+      "values": [
+        "HO-2 - Broad Form",
+        "HO-3 - Special Form",
+        "HO-8 - Older Home Form"
+      ],
+      "optional": false
+    },
+    {
       "name": "major_claims_five_years",
       "title": "Number of claims for more than $1000 in the past 5 years.",
       "type": "select",
@@ -9,7 +20,8 @@
         "1",
         "2",
         "More than 2"
-      ]
+      ],
+      "optional": false
     },
     {
       "name": "insurance_fraud_conviction",
@@ -18,7 +30,8 @@
       "values": [
         "No",
         "Yes"
-      ]
+      ],
+      "optional": false
     }
   ],
   "documents": [
