@@ -6,15 +6,17 @@
 
 {% case policy_v.policy_type %}
 {% when "HO-2 — Broad Form" %}
-  {% assign living_area_multipler = 0.285 %}
+  {% assign living_area_multiplier = 0.285 %}
+{% when "HO-5 - Comprehensive Form" %}
+  {% assign living_area_multiplier = 0.345 %}
 {% when "HO-8 - Older Home Form" %}
-  {% assign living_area_multipler = 0.310 %}
+  {% assign living_area_multiplier = 0.310 %}
 {% else %}
   {% comment %} HO-3 Broad Form {% endcomment %}
-  {% assign living_area_multipler = 0.333 %}
+  {% assign living_area_multiplier = 0.333 %}
 {% endcase %}
 
-{% assign base_premium = living_area | times: living_area_multipler %}
+{% assign base_premium = living_area | times: living_area_multiplier %}
 
 {% assign dwelling_type_multiplier = "dwelling_type_table" | lookup: exposure_v.dwelling_type %}
 {% assign base_premium = base_premium | times: dwelling_type_multiplier %}
