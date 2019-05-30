@@ -15,6 +15,15 @@
   {% assign premium = premium | times: 1.15 %}
 {% endcase %}
 
+{% case exp_v.jewelry_rider %}
+{% when "$2,500" %}
+  {% assign premium = premium | plus: 17 %}
+{% when "$5,000" %}
+  {% assign premium = premium | plus: 30 %}
+{% when "$10,000" %}
+  {% assign premium = premium | plus: 46 %}
+{% endcase %}
+
 {% assign premium = premium | round %}
 
 {{ premium | set_year_premium }}
