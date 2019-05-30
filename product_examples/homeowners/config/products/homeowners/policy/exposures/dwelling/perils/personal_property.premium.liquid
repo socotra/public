@@ -1,6 +1,7 @@
 {% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_v = data.peril_characteristics.field_values %}
 
-{% case exp_v.coverage_limit %}
+{% case peril_v.coverage_limit %}
 {% when "50%" %}
   {% assign premium = 85.00 %}
 {% else %}
@@ -8,14 +9,14 @@
   {% assign premium = 110.00 %}
 {% endcase %}
 
-{% case exp_v.replacement_basis %}
+{% case peril_v.replacement_basis %}
 {% when "Actual Cash Value" %}
   {% comment %} Do nothing, baseline {% endcomment %}
 {% when "Replacement Cost" %}
   {% assign premium = premium | times: 1.15 %}
 {% endcase %}
 
-{% case exp_v.jewelry_rider %}
+{% case peril_v.jewelry_rider %}
 {% when "$2,500" %}
   {% assign premium = premium | plus: 17 %}
 {% when "$5,000" %}
