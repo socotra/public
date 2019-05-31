@@ -17,8 +17,8 @@
 
 {% assign living_area = exposure_v.living_area %}
 
-{% comment %} Basic cost estimate is $150/sqft replacement cost {% endcomment %}
-{% assign replacement_cost = living_area | times: 150 %}
+{% comment %} Basic cost estimate is $115/sqft replacement cost {% endcomment %}
+{% assign replacement_cost = living_area | times: 115 %}
 
 {% case exposure_v.state}
 {% when "CA" %}
@@ -55,12 +55,7 @@
   {% assign base_premium = base_premium | plus: 100 %}
 {% endcase %}
 
-{% comment %} Loss of use coverage {% endcomment %}
-
-{% assign cov_limit = peril_v.loss_of_use_coverage_limit | round %}
-{% assign loss_of_use_premium = cov_limit | times: 0.00042 %} 
-
-{% assign premium = base_premium | plus: loss_of_use_premium | round %}
+{% assign premium = base_premium %}
 
 {% comment %} Minimum premium $100 {% endcomment %}
 

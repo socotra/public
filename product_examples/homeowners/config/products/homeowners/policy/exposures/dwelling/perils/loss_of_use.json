@@ -1,0 +1,17 @@
+{
+    "name": "loss_of_use",
+    "displayName": "Loss of Use",
+    "fields": [
+        {
+          "name": "coverage_limit",
+          "title": "Coverage Limit",
+          "values": [
+            "5000",
+            "10000",
+            "20000"
+          ],
+          "type": "select",
+          "optional": false
+        }
+      ]
+}
