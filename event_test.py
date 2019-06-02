@@ -16,8 +16,6 @@ def main(argv):
         description='Main Test Application')
     # times should be in YYYY-MM-dd format
     parser.add_argument('-s', '--start', required=True)
-    parser.add_argument('-f', '--finish', required=True)
-
     parser.add_argument('-n', '--hostname', required=True)
     parser.add_argument('-u', '--username',
                         default='alice.lee', required=False)
@@ -30,18 +28,15 @@ def main(argv):
 
     start = dates.date_to_millis(args.start,
                                  'America/Los_Angeles', '%Y-%m-%d')
-    finish = dates.date_to_millis(args.finish,
-                                  'America/Los_Angeles', '%Y-%m-%d')
 
-    token = None
+    response = client.get_events(start_timestamp=start)
+
     while True:
-        response = client.get_events(start_timestamp=start,
-                                     end_timestamp=finish,
-                                     paging_token=token)
         process_events(response['events'])
-        if 'pagingToken' not in response.keys():
-            break
         token = response['pagingToken']
+        response = client.get_events(paging_token=token)
+        if len(response['events']) == 0:
+            break
 
 
 if __name__ == "__main__":
