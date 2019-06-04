@@ -1,0 +1,10 @@
+{
+  "name": "bodily_injury",
+  "displayName": "Bodily Injury",
+  "fields": [],
+  "indemnityPerItem": "30000",
+  "indemnityPerEvent": "30000",
+  "indemnityInAggregate": "50000",
+  "deductible": "1000",
+  "lumpSumPayment": "0"
+}

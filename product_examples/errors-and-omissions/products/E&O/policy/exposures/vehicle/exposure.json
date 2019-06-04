@@ -1,0 +1,275 @@
+{
+    "name": "professionalindemnity",
+    "displayName": "Professional Indemnity",
+    "fields": [
+      {
+        "name": "professionalindemnity_type",
+        "title": "Professional Indemnity Type",
+        "type": "select",
+        "width": 3,
+        "values": [
+          "Accounting",
+          "Architect and Civil Engineer",
+          "Attorney",
+          "Consulting",
+          "Real Estate",
+          "Advertising",
+          "Adjuster",
+          "Software",
+          "Financial Brokerage",
+          "Insurance Agency",
+          "Travel Agency",
+          "Other"
+        ]
+      },
+      
+      {
+        "name": "revenueprior1year",
+        "title": "Annual Revenue Prior 1 Year",
+        "type": "number",
+        "newline": true,
+        "width": 3,
+        "decimalPlaces": 0
+      },
+      {
+        "name": "revenueprior2year",
+        "title": "Annual Revenue Prior 2 Year",
+        "type": "number",
+        "newline": true,
+        "width": 3,
+        "decimalPlaces": 0
+      },
+      {
+        "name": "revenueprior3year",
+        "title": "Annual Revenue Prior 3 Year",
+        "type": "number",
+        "newline": true,
+        "width": 3,
+        "decimalPlaces": 0
+      },
+      {
+        "name": "revenuethisyear",
+        "title": "Annual Revenue Expected This Year",
+        "type": "number",
+        "newline": true,
+        "width": 3,
+        "decimalPlaces": 0
+      },
+      
+      {
+        "newline": true,
+        "name": "fulltimeemployees",
+        "title": "Full Time Employees",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "newline": true,
+        "name": "parttimeemployees",
+        "title": "Part Time Employees",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "newline": true,
+        "name": "numberofclaims5years",
+        "title": "Number of Claims over past 5 years",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "newline": true,
+        "name": "numberofclaims1year",
+        "title": "Number of Claims over past 1 year",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "name": "pending_claims",
+        "title": "Pending Claims",
+        "width": 3,
+        "optional": true,
+        "type": "select",
+        "values": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "newline": true,
+        "name": "valueofclaims5years",
+        "title": "Value of Claims over past 5 years",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "newline": true,
+        "name": "valueofclaims1year",
+        "title": "Value of Claims over past 1 year",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "newline": true,
+        "name": "valueofpendingclaims",
+        "title": "Value of Pending Claims",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "name": "quality_control",
+        "title": "Quality Control Procedures in Place?",
+        "width": 3,
+        "optional": true,
+        "type": "select",
+        "values": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "name": "training_performed",
+        "title": "Official Training Procedures in Place?",
+        "width": 3,
+        "optional": true,
+        "type": "select",
+        "values": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "name": "office_domicile_state",
+        "title": "Office Domicile State",
+        "newline": true,
+        "type": "select",
+        "width": 3,
+        "optional": true,
+        "values": [
+          "AL",
+          "AK",
+          "AZ",
+          "AR",
+          "CA",
+          "CO",
+          "CT",
+          "DE",
+          "FL",
+          "GA",
+          "HI",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "KS",
+          "KY",
+          "LA",
+          "ME",
+          "MD",
+          "MA",
+          "MI",
+          "MN",
+          "MS",
+          "MO",
+          "MT",
+          "NE",
+          "NV",
+          "NH",
+          "NJ",
+          "NY",
+          "NC",
+          "ND",
+          "OH",
+          "OK",
+          "OR",
+          "PA",
+          "RI",
+          "SC",
+          "SD",
+          "TN",
+          "TX",
+          "UT",
+          "VT",
+          "VA",
+          "WA",
+          "WV",
+          "WI",
+          "WY"
+        ]
+      },
+      {
+        "name": "business_license",
+        "title": "Business License Number",
+        "type": "string",
+        "width": 3,
+        "optional": true
+      },
+      {
+        "name": "written_contracts",
+        "title": "Written Contracts in Place with clients?",
+        "width": 3,
+        "optional": true,
+        "type": "select",
+        "values": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "name": "written_contractsreview",
+        "title": "Written Contracts Reviewed by inhouse and/or outside legal counsel?",
+        "width": 3,
+        "optional": true,
+        "type": "select",
+        "values": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "name": "sub_contractors",
+        "title": "Use of subcontract work to others?",
+        "width": 3,
+        "optional": true,
+        "type": "select",
+        "values": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "newline": true,
+        "name": "sub_contractorspercent",
+        "title": "Percentage of subcontract work to total work",
+        "type": "number",
+        "decimalPlaces": 0,
+        "width": 3
+      },
+      {
+        "name": "sub_contractorseo",
+        "title": "Subcontractors required to carry their own E&O Insurance?",
+        "width": 3,
+        "optional": true,
+        "type": "select",
+        "values": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "name": "contract_example",
+        "title": "Contract Documentation Example ",
+        "type": "media",
+        "width": 12,
+        "repeatable": true,
+        "optional": true
+      }
+    ]
+  }

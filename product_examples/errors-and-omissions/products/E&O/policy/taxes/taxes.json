@@ -1,0 +1,8 @@
+{
+  "taxes": [
+    {
+      "name": "sales",
+      "displayName": "Sales Tax"
+    }
+  ]
+}

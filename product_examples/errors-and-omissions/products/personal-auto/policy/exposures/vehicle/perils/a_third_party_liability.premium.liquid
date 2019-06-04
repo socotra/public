@@ -1,0 +1,54 @@
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_c = data.peril_characteristics %}
+
+{% assign premium = exp_v.vehicle_value | times: 0.021 | round %}
+
+{% assign rate = "vehicle_rate_table_personal_auto" | lookup: exp_v.vehicle_type %}
+{% assign premium = premium | times: rate | round %}
+
+
+{% comment %} scale TP Liability premium according to number of at-fault claims {% endcomment %}
+{% assign five_year_claims_history = policy_v.atfault_claims_past_5_years %}
+
+{% if five_year_claims_history == "1" %}
+   {% assign claims_multiplier = 2 %}
+{% elsif five_year_claims_history == "2" %}
+   {% assign claims_multiplier = 3 %}
+{% elsif five_year_claims_history == "3" %}
+   {% assign claims_multiplier = 4 %}
+{% elsif five_year_claims_history == "More than 3" %}
+   {% assign claims_multiplier = 5 %} 
+{% else %}
+   {% assign claims_multiplier = 1 %}
+{% endif %}
+
+{% assign premium = premium | times: claims_multiplier %}
+
+
+{% if policy_v.channel == 'Direct' %}
+	{% assign premium = premium | times: 0.9 | round %}
+{% endif %}
+
+{% if peril_c.indemnity_in_aggregate > 0 %}
+	{% assign adj = peril_c.indemnity_in_aggregate | minus: 100000 %}
+	{% if adj < 0 %}
+		{% assign adj = 0 %}
+	{% endif %}
+	{% assign adj = adj | times: 0.002 %}
+	{% assign premium = premium | plus: adj %}
+{% endif %}
+
+{{ premium | set_year_premium }}
+
+{% assign technical_premium = premium | times: 0.8 %}
+{{ technical_premium | set_year_technical_premium }}
+
+{% comment %} commission at a flat 5% {% endcomment %}
+{% if policy_v.channel == 'Agent' %}
+	{% assign agent_comm = premium | times: 0.05 %}
+    {{ agent_comm | add_year_commission: "Agent1234" }}
+{% elsif policy_v.channel == 'Broker' %}
+	{% assign broker_comm = premium | times: 0.05 %}
+    {{ broker_comm | add_year_commission: "Broker6789" }}
+{% endif %}

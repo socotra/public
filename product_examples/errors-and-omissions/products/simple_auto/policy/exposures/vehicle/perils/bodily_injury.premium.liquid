@@ -1,0 +1,13 @@
+{% assign vehicle_value = data.exposure_characteristics.field_values.vehicle_value %}
+{% assign premium = vehicle_value | times: 0.037 | round %}
+
+{% assign rate = "vehicle_rate_table_simple_auto" | lookup: data.exposure_characteristics.field_values.vehicle_type %}
+{% assign premium = premium | times: rate | round %}
+
+{% if data.policy_characteristics.field_values.channel == 'Direct' %}
+	{% assign premium = premium | times: 0.9 | round %}
+{% endif %}
+
+{% assign premium = premium | times: 0.70 | round %}
+
+{{ premium | set_year_premium }}

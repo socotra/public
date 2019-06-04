@@ -1,0 +1,10 @@
+{
+  "name": "roadside_service",
+  "displayName": "Road Side Service",
+  "fields": [],
+  "indemnityPerItem": "0",
+  "indemnityPerEvent": "150",
+  "indemnityInAggregate": "0",
+  "deductible": "0",
+  "lumpSumPayment": "0"
+}

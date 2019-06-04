@@ -1,0 +1,34 @@
+{% assign policy_v = data.policy.characteristics[0].field_values %}
+{% assign vehicles = data.policy.exposures %}
+
+
+{% if policy_v.atfault_claims_past_5_years == 'None' %}
+    {{ "accept" | set_underwriting_decision }}
+    {{ "Premium includes credit for being claims free." | add_underwriting_note }}
+{% else %}
+    {{ "accept" | set_underwriting_decision }}
+    {{ "Premium has been increased based on the number of at-fault losses in the last 5 year." | add_underwriting_note }}
+{% endif %}
+
+
+{% for vehicle in vehicles %}
+	{% assign vehicle_value = vehicle.characteristics[0].field_values.vehicle_value %}
+	{% if vehicle_value >= 100000 %}
+		{{ "reject" | set_underwriting_decision }}
+		{{ "Cars valued at $100,000 and over cannot be covered through this program." | add_underwriting_note }}
+	{% endif %}
+{% endfor %}
+
+
+{% if policy_v.10_year_felony_conviction == 'Yes' %} 
+    {{ "reject" | set_underwriting_decision }}
+    {{ "Due to the Felony Conviction(s) this Policy Cannot be Bound." | add_underwriting_note }}       
+{% endif %}
+
+
+{% if policy_v.insurance_fraud_conviction == 'Yes' %} 
+    {{ "reject" | set_underwriting_decision }}
+    {{ "Due to the Fraud Conviction(s) this Policy Cannot be Bound." | add_underwriting_note }}   
+{% endif %}
+
+

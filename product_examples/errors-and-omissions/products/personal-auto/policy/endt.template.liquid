@@ -1,0 +1,171 @@
+{% assign policy = data.policy %}
+{% assign policy_updates = data.endorsement.policy_updates %}
+{% assign policy_c = policy.characteristics.last %}
+{% assign ph_v = data.policyholder.entity.values %}
+{% assign end_display = policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+</head>
+
+{% header %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          Acme Insurance Co.<br>
+          101 Mission Street<br>
+          San Francisco, CA<br>
+          +1 415 555 5555<br>
+          www.socotra.com
+        </p>
+      </td>
+      <td>
+        <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+      </td>
+    </tr>
+  </table>
+{% endheader %}
+
+<h1>Endorsement Confirmation</h1><br>
+
+{% comment %} Display top-level info on the customer, policy, and endorsement {% endcomment %}
+
+<table class="table border-tops-only content">
+  <tr>
+    <td>Policyholder</td>
+    <td>
+      <b>ID:</b> {{data.policyholder.id}}<br>
+      <b>Name:</b> {{ph_v.first_name}} {{ph_v.last_name}}
+    </td>
+  </tr>
+  <tr>
+    <td>Policy</td>
+    <td>
+      <b>ID:</b> {{policy.display_id}}<br>
+      <b>Effective:</b>
+      From {{policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+      through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
+    </td>
+  </tr>
+  <tr>
+    <td>Endorsement</td>
+    <td>
+      <b>ID:</b> {{data.endorsement.display_id}}<br>
+      <b>Type:</b> {{data.endorsement.name}}<br>
+      <b>Issued:</b> {{data.endorsement.issued_timestamp | timestamp_millis_print: "d MMM YYYY" }}<br>
+      <b>Effective:</b> {{data.endorsement.start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+    </td>
+  </tr>
+</table>
+
+{% comment %} Display the data changed by the endorsement {% endcomment %}
+
+<h3> Policy Updates </h3>
+<table class="table price-table">
+  <tr>
+    <td><b>Field</b></td>
+    <td><b>Old Value</b></td>
+    <td><b>New Value</b></td>
+  </tr>
+  {% comment %} Display updated field values in a table {% endcomment %}
+  {% for entry in policy_updates.all_field_values %}
+      {% unless entry[1].endorsement_effect == "unchanged" %}
+            <tr>
+              <td>{{entry[1].title}}</td>
+              <td>{{entry[1].old_value}}</td>
+              <td>{{entry[1].new_value}}</td>
+            </tr>
+      {% endunless %}
+  {% endfor %}
+  {% for field_group_type in policy_updates.updated_field_groups %}
+    {% for entry in field_group_type[1] %}
+      {% comment %} Display updated field groups in the same table {% endcomment %}
+      <tr>
+        <td><b>Updated {{entry.title}}</b></td>
+        <td></td>
+        <td></td>
+      </tr>
+      {% for entry in entry.updated_field_values %}
+        <tr>
+          <td>{{entry[1].title}}</td>
+          <td>{{entry[1].old_value}}</td>
+          <td>{{entry[1].new_value}}</td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+  <tr></tr>
+</table>
+{% comment %} Display updated fields within each exposure {% endcomment %}
+{% comment %} updated exposures are grouped by exposure name - first find each group {% endcomment %}
+{% for exposure_group in policy_updates.updated_exposures %}
+  {% comment %} Then loop through the updated exposures within each group {% endcomment %}
+  {% for exposure_update in exposure_group[1] %}
+    {% assign exp_v = exposure_update.all_field_values %}
+    <h3>Updated {{exposure_update.display_name}}: {{exp_v.first_name.new_value}} {{exp_v.last_name.new_value}}</h3>
+    <table class="table price-table">
+      <tr>
+        <td><b>Field</b></td>
+        <td><b>Old Value</b></td>
+        <td><b>New Value</b></td>
+      </tr>
+      {% comment %} Display updated field values in a table {% endcomment %}
+      {% for entry in exposure_update.updated_field_values %}
+        <tr>
+          <td>{{entry[1].title}}</td>
+          <td>{{entry[1].old_value}}</td>
+          <td>{{entry[1].new_value}}</td>
+        </tr>
+      {% endfor %}
+      {% for field_group_type in exposure_update.updated_field_groups %}
+        {% for entry in field_group_type[1] %}
+          {% comment %} Display updated field groups in the same table {% endcomment %}
+          <tr>
+            <td><b>Updated {{entry.title}}</b></td>
+            <td></td>
+            <td></td>
+          </tr>
+          {% for entry in entry.updated_field_values %}
+            <tr>
+              <td>{{entry[1].title}}</td>
+              <td>{{entry[1].old_value}}</td>
+              <td>{{entry[1].new_value}}</td>
+            </tr>
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+      <tr></tr>
+    </table>
+  {% endfor %}
+{% endfor %}
+
+</body>
+
+{% footer %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          Acme - Keep your loved ones secure.
+        </p>
+      </td>
+      <td>
+        <p class="header-contact">
+          Page {{ | page_number }} of {{ | page_count }}
+        </p>
+      </td>
+      <td>
+        <footer></footer>
+      </td>
+    </tr>
+  </table>
+{% endfooter %}
+
+</html>
+

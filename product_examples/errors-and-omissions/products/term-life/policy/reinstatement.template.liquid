@@ -1,0 +1,32 @@
+{% assign policy = data.policy %}
+{% assign reinstatement = data.reinstatement %}
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+</head>
+
+<table width="100%" class="header">
+  <tr>
+    <td>
+      <p class="header-contact">
+        Acme Insurance Co.<br>
+        33 New Montgomery St<br>
+        San Francisco, CA<br>
+        +1 415 555 5555<br>
+        www.socotra.com
+      </p>
+    </td>
+    <td>
+      <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+    </td>
+  </tr>
+</table>
+
+<h1>Reinstatement Confirmation</h1>
+
+Your reinstatement request for policy {{ policy.display_id }} has been approved. Your reinstated policy will cover loss that occurs only on or after {{ reinstatement.reinstatement_timestamp | timestamp_millis_print: "d MMM YYYY" }}.
+
+<p>To make further inquiries regarding your Policy, please call 1-555-555-5555.
+
+<footer>Acme - Keep your loved ones secure.</footer>

@@ -1,0 +1,38 @@
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_c = data.peril_characteristics %}
+
+{% assign premium = 19.88 %}
+
+{% if policy_v.channel == 'Direct' %}
+	{% assign premium = premium | times: 0.9 %}
+{% endif %}
+
+{% if policy_v.channel == 'Agent' %}
+	{% assign premium = premium | times: 1.4444 %}
+{% endif %}
+
+{% assign premium = premium | times: 0.30 %}
+
+{% if peril_c.indemnity_in_aggregate > 0 %}
+	{% assign adj = peril_c.indemnity_in_aggregate | minus: 100000 %}
+	{% if adj < 0 %}
+		{% assign adj = 0 %}
+	{% endif %}
+	{% assign adj = adj | times: 0.150 %}
+	{% assign premium = premium | plus: adj %}
+{% endif %}
+
+{{ premium | set_year_premium }}
+
+{% assign technical_premium = premium | times: 0.8 %}
+{{ technical_premium | set_year_technical_premium }}
+
+{% comment %} commission at a flat 5% {% endcomment %}
+{% if policy_v.channel == 'Agent' %}
+	{% assign agent_comm = premium | times: 0.05 %}
+    {{ agent_comm | add_year_commission: "Agent1234" }}
+{% elsif policy_v.channel == 'Broker' %}
+	{% assign broker_comm = premium | times: 0.05 %}
+    {{ broker_comm | add_year_commission: "Broker6789" }}
+{% endif %}

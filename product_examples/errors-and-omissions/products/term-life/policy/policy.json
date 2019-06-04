@@ -1,0 +1,78 @@
+{
+  "fields": [
+    {
+      "name": "channel",
+      "title": "Sales Channel",
+      "type": "select",
+      "values":[
+        "Direct",
+        "Agent",
+        "Broker"
+      ]
+    },
+    {
+      "name": "beneficiary",
+      "title": "Beneficiary",
+      "optional": true,
+      "type": "group",
+      "fields": [
+        {
+          "name": "bene_firstname",
+          "title": "Beneficiary - First Name",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "bene_lastname",
+          "title": "Beneficiary - Last Name",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "bene_type",
+          "title": "Beneficiary - Type",
+          "type": "select",
+          "optional": true,
+          "values": [
+            "Spouse",
+            "Unmarried Partner",
+            "Child",
+            "Parent",
+            "Sibling",
+            "Relative",
+            "Friend",
+            "Grandchild"
+          ]
+        }
+      ],
+      "repeatable": true
+    }
+  ],
+  "documents": [
+    {
+      "displayName": "Policy Schedule",
+      "fileName": "schedule.pdf",
+      "templateName": "schedule.template.liquid"
+    }
+  ],
+  "defaultPaymentTerms": {
+    "amount": 0,
+    "unit": "day"
+  },
+  "paymentSchedules": [
+    {
+      "type": "total",
+      "name": "upfront",
+      "displayName": "Up Front"
+    },
+    {
+      "type": "monthly",
+      "name": "monthly",
+      "displayName": "Monthly"
+    }
+  ],
+  "lapse": {
+    "gracePeriodDays": 30,
+    "reinstatementPeriodDays": 90
+  }
+}

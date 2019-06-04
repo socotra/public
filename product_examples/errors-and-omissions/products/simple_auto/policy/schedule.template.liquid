@@ -1,0 +1,69 @@
+{% assign policy_c = data.policy.characteristics[0] %}
+{% assign exp_v = data.policy.exposures[0].characteristics[0].field_values %}
+{% assign ph_v = data.policyholder.entity.values %}
+{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+</head>
+
+<table width="100%" class="header">
+  <tr>
+    <td>
+      <p class="header-contact">
+        Acme Insurance Co.<br>
+        101 Mission Street<br>
+        San Francisco, CA<br>
+        +1 415 555 5555<br>
+        www.socotra.com
+      </p>
+    </td>
+    <td>
+      <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+    </td>
+  </tr>
+</table>
+
+
+<h1>Simple Auto Insurance Policy Schedule</h1><br>
+
+<h3>Insurance Details</h3>
+
+<table class="table border-tops-only content">
+  <tr>
+    <td>Policyholder</td>
+    <td>
+      <b>ID:</b> {{data.policyholder.id}}<br>
+      <b>Name:</b> {{ph_v.first_name}} {{ph_v.last_name}}<br>
+      <b>Date of Birth:</b> {{ph_v.date_of_birth | timestamp_millis_print: "d MMM YYYY" }}<br>
+    </td>
+  </tr>
+  <tr>
+    <td>Vehicle Insured</td>
+    <td>
+      <b>Vehicle:</b> {{exp_v.year}} {{exp_v.make}} {{exp_v.model}}<br>
+      <b>License Plate Number:</b> {{exp_v.license_plate}}<br>
+    </td>
+  </tr>
+  <tr>
+    <td>Policy</td>
+    <td>
+      <b>ID:</b> {{data.policy.display_id}}<br>
+      <b>Effective:</b> From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+      through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
+      <b>Sum Insured:</b> {{exp_v.vehicle_value | format_number_currency: "en","US" }}<br>
+      <b>Term:</b> Custom
+    </td>
+  </tr>
+  <tr>
+    <td>Total Premium</td>
+    <td>{{policy_c.gross_premium | format_number_currency: "en","US" }}</td>
+  </tr>
+</table>
+
+<br>
+
+<b>Authorized on</b> {{data.policy.issued_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+
+<footer>Acme - Keep your loved ones secure.</footer>

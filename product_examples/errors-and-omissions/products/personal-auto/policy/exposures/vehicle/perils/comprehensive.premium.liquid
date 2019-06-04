@@ -1,0 +1,27 @@
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_c = data.peril_characteristics %}
+
+{% assign vehicle_value = data.exposure_characteristics.field_values.vehicle_value %}
+{% assign premium = 6000 | times: 0.0259 | round %}
+
+{% assign rate = "vehicle_rate_table_personal_auto" | lookup: data.exposure_characteristics.field_values.vehicle_type %}
+{% assign premium = premium | times: rate | round %}
+
+{% if policy_v.channel == 'Direct' %}
+	{% assign premium = premium | times: 0.9 | round %}
+{% endif %}
+
+{{ premium | set_year_premium }}
+
+{% assign technical_premium = premium | times: 0.8 %}
+{{ technical_premium | set_year_technical_premium }}
+
+{% comment %} commission at a flat 5% {% endcomment %}
+{% if policy_v.channel == 'Agent' %}
+	{% assign agent_comm = premium | times: 0.05 %}
+    {{ agent_comm | add_year_commission: "Agent1234" }}
+{% elsif policy_v.channel == 'Broker' %}
+	{% assign broker_comm = premium | times: 0.05 %}
+    {{ broker_comm | add_year_commission: "Broker6789" }}
+{% endif %}
