@@ -9,7 +9,7 @@
         "width": 3,
         "values": [
           "Accounting",
-          "Architect and Civil Engineer",
+          "Architect/Civil Engineer",
           "Attorney",
           "Consulting",
           "Real Estate",
@@ -176,7 +176,7 @@
       {
         "name": "written_contracts",
         "title": "Written Contracts in Place with clients?",
-        "width": 5,
+        "width": 3,
         "newline": true,
         "optional": true,
         "type": "select",
