@@ -13,7 +13,28 @@
     },
       {
         "name": "business_dba",
-        "title": "Doing Business As Name",
+        "title": "Business Name and dba",
+        "type": "string",
+        "newline": true,
+        "width": 3,
+        "optional": true
+      },
+      {
+      "name": "legal_entity",
+      "title": "Legal Entity",
+      "width": 3,
+      "newline": true,
+      "type": "select",
+      "values": [
+        "Corporation",
+        "LLC",
+        "Partnership",
+        "Sole Prop"
+      ]
+    },
+    {
+        "name": "fein_number",
+        "title": "FEIN - EIN Number",
         "type": "string",
         "width": 3,
         "optional": true
