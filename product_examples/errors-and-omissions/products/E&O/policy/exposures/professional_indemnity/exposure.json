@@ -191,7 +191,7 @@
       {
         "name": "written_contractsreview",
         "title": "Written Contracts Reviewed by inhouse and/or outside legal counsel?",
-        "width": 5,
+        "width": 7,
         "optional": true,
         "type": "select",
         "values": [
