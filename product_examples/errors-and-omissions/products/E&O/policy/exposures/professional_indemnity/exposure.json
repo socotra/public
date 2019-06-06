@@ -180,7 +180,7 @@
       {
         "name": "written_contracts",
         "title": "Written Contracts in Place with clients?",
-        "width": 3,
+        "width": 5,
         "optional": true,
         "type": "select",
         "values": [
@@ -191,7 +191,7 @@
       {
         "name": "written_contractsreview",
         "title": "Written Contracts Reviewed by inhouse and/or outside legal counsel?",
-        "width": 3,
+        "width": 5,
         "optional": true,
         "type": "select",
         "values": [
@@ -202,7 +202,7 @@
       {
         "name": "sub_contractors",
         "title": "Use of subcontract work to others?",
-        "width": 3,
+        "width": 5,
         "optional": true,
         "type": "select",
         "values": [
@@ -230,8 +230,8 @@
         ]
       },
       {
-        "name": "contract_example",
-        "title": "Contract Documentation Example ",
+        "name": "contract_example_biz_lic_copy",
+        "title": "Contract Documentation Example and Business License Copy",
         "type": "media",
         "width": 12,
         "repeatable": true,
