@@ -11,6 +11,13 @@
         "Broker"
       ]
     },
+      {
+        "name": "business_dba",
+        "title": "Doing Business As Name",
+        "type": "string",
+        "width": 3,
+        "optional": true
+      },
     {
       "name": "10_year_felony_conviction_of_directors",
       "title": "Have any of the business' directors been convicted of a felony in the past 10 years?",
