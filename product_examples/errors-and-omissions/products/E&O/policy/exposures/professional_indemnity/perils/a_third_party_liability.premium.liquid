@@ -2,14 +2,14 @@
 {% assign exp_v = data.exposure_characteristics.field_values %}
 {% assign peril_c = data.peril_characteristics %}
 
-{% assign premium = exp_v.vehicle_value | times: 0.021 | round %}
+{% assign premium = exp_v.revenuethisyear | times: 0.005 | round %}
 
-{% assign rate = "vehicle_rate_table_personal_auto" | lookup: exp_v.vehicle_type %}
+{% assign rate = "vehicle_rate_table_personal_auto" | lookup: exp_v.professionalindemnity_type %}
 {% assign premium = premium | times: rate | round %}
 
 
 {% comment %} scale TP Liability premium according to number of at-fault claims {% endcomment %}
-{% assign five_year_claims_history = policy_v.atfault_claims_past_5_years %}
+{% assign five_year_claims_history = policy_v.claims_past_5_years %}
 
 {% if five_year_claims_history == "1" %}
    {% assign claims_multiplier = 2 %}
