@@ -50,27 +50,27 @@
       <b>Number:</b> {{policy.display_id}}<br>
       <b>Term:</b> {{policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
       through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
-      <b>Multiple Drivers:</b> {{policy_v.multiple_drivers}}<br> 
+      <b>Business Name and dba:</b> {{policy_v.business_dba}}<br> 
      </td>
     </tr>
     <tr>
     <td>Qualification Details</td>
     <td>
-      <b>Household Felony History Declared as:</b>  {{policy_v.10_year_felony_conviction}}<br>
-      <b>Household Fraud History Declared as: </b>{{policy_v.insurance_fraud_conviction}}<br>
-      <b>Reports Permission:</b> {{policy_v.run_third_party_reports}}<br></td>
+      <b>FEIN - EIN Number Declared as:</b>  {{policy_v.fein_number}}<br>
+      <b>Pending Claims Declared as: </b>{{policy_v.pending_claims}}<br>
+      <b>Legal Entity:</b> {{policy_v.legal_entity}}<br></td>
     </tr>
    <tr>
     <td>Exposure(s)</td>
     <td>
-      <b>Vehicle:</b> {{exp_v.year}} {{exp_v.make}} {{exp_v.model}} - {{exp_v.body_style}} 
-      {{exp_v.motorcycle_cc | format_number_pattern: "0" }} ({{exp_v.vehicle_type}}) <br>
+      <b>Professional Indemnity:</b> {{exp_v.professionalindemnity_type}} {{exp_v.parttimeemployees}} {{exp_v.fulltimeemployees}} - {{exp_v.office_domicile_state}} 
+      {%{{exp_v.motorcycle_cc | format_number_pattern: "0" }} ({{exp_v.vehicle_type}}) %}<br>
 
-      <b>License Plate #:</b> {{exp_v.license_plate}} <b>State:</b> {{exp_v.vehicle_plated_state}}<br>
-      <b>Purchase Details:</b> {{exp_v.vehicle_value | format_number_currency: "en","US" }} - {{exp_v.unrepaired_damage}} {{exp_v.ownership_indicator}}<br>
+      {%<b>License Plate #:</b> {{exp_v.license_plate}} <b>State:</b> {{exp_v.vehicle_plated_state}}<br>%}
+      <b>Revenue Details:</b> {{exp_v.revenuethisyear | format_number_currency: "en","US" }} - {{exp_v.valueofclaims5years}} {{exp_v.quality_control}}<br>
 
-      <b>Use:</b> {{exp_v.primary_vehicle_use}} - {{exp_v.distance_to_work_school}} <br>
-      <b>Yearly Mileage</b> {{exp_v.annual_miles | format_number_pattern: "0"}}<br>
+      {%<b>Use:</b> {{exp_v.primary_vehicle_use}} - {{exp_v.distance_to_work_school}} <br>%}
+      {%<b>Yearly Mileage</b> {{exp_v.annual_miles | format_number_pattern: "0"}}<br>%}
     </td>
   </tr>
   <tr>
