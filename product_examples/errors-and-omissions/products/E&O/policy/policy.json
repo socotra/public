@@ -30,7 +30,6 @@
         "Yes"
       ]
     },
-
     {
       "name": "pending_claims",
       "title": "Are there any pending claims on the business?",
@@ -51,7 +50,7 @@
         "3",
         "More than 3"
       ]
-    },
+    }
   ],
   "documents": [
     {
