@@ -1,9 +1,0 @@
-{
-  "name": "comprehensive",
-  "displayName": "Comprehensive - Actual Cash Value",
-  "fields": [],
-  "indemnityPerEvent": "0",
-  "indemnityInAggregate": "0",
-  "deductible": "500",
-  "lumpSumPayment": "0"
-}
