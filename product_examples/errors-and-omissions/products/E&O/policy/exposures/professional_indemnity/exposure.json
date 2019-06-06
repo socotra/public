@@ -59,6 +59,7 @@
         "title": "Full Time Employees",
         "type": "number",
         "decimalPlaces": 0,
+        "newline": true,
         "width": 3
       },
       {
@@ -187,7 +188,7 @@
       {
         "name": "written_contractsreview",
         "title": "Written Contracts Reviewed by inhouse and/or outside legal counsel?",
-        "width": 7,
+        "width": 5,
         "optional": true,
         "type": "select",
         "values": [
