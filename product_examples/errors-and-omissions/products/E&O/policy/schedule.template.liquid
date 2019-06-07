@@ -31,7 +31,7 @@
   </table>
 {% endheader %}
 
-<h1>ACME Auto Insurance Policy Schedule</h1><br>
+<h1>ACME E&O Insurance Policy Schedule</h1><br>
 
 <h3>Insurance Details</h3>
 
@@ -64,7 +64,7 @@
     <td>Exposure(s)</td>
     <td>
       <b>Professional Indemnity:</b> {{exp_v.professionalindemnity_type}}<br>
-      <b>Full Time Employees:</b> {{exp_v.fulltimeemployees}}<br> 
+      <b>Full Time Employees:</b> {{exp_v.fulltimeemployees| format_number_pattern: "0"}}<br> 
       <b>Office Domicile State:</b> {{exp_v.office_domicile_state}}<br>
       
       <b>Revenue Details:</b> {{exp_v.revenuethisyear | format_number_currency: "en","US" }}<br>
