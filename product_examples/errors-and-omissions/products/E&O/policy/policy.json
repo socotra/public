@@ -35,7 +35,7 @@
     {
         "name": "fein_number",
         "title": "FEIN - EIN Number",
-        "type": "string",
+        "type": "number",
         "width": 3,
         "optional": true
       },
