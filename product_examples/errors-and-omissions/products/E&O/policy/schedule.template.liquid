@@ -63,9 +63,11 @@
    <tr>
     <td>Exposure(s)</td>
     <td>
-      <b>Professional Indemnity:</b> {{exp_v.professionalindemnity_type}} {{exp_v.parttimeemployees}} {{exp_v.fulltimeemployees}} - {{exp_v.office_domicile_state}}<br>
+      <b>Professional Indemnity:</b> {{exp_v.professionalindemnity_type}}<br>
+      <b>Full Time Employees:</b> {{exp_v.fulltimeemployees}}<br> 
+      <b>Office Domicile State:</b> {{exp_v.office_domicile_state}}<br>
       
-      <b>Revenue Details:</b> {{exp_v.revenuethisyear | format_number_currency: "en","US" }} - {{exp_v.valueofclaims5years}} {{exp_v.quality_control}}<br>
+      <b>Revenue Details:</b> {{exp_v.revenuethisyear | format_number_currency: "en","US" }}<br>
 
     </td>
   </tr>
