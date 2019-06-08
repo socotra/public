@@ -36,6 +36,7 @@
         "name": "fein_number",
         "title": "FEIN - EIN Number",
         "type": "number",
+        "decimalPlaces": 0,
         "width": 3,
         "optional": true
       },
