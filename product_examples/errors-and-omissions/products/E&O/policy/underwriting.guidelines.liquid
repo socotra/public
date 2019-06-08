@@ -1,5 +1,5 @@
 {% assign policy_v = data.policy.characteristics[0].field_values %}
-{% assign vehicles = data.policy.exposures %}
+{% assign professionalindemnities = data.policy.exposures %}
 
 
 {% if policy_v.claims_past_5_years == 'None' %}
@@ -11,7 +11,7 @@
 {% endif %}
 
 
-{% for professionalindemnity in professionalindemnitys %}
+{% for professionalindemnity in professionalindemnities %}
 	{% assign revenuethisyear = professionalindemnity.characteristics[0].field_values.revenuethisyear %}
 	{% if revenuethisyear >= 50000000 %}
 		{{ "reject" | set_underwriting_decision }}
