@@ -4,7 +4,7 @@
 
 {% assign premium = exp_v.revenuethisyear | times: 0.005 | round %}
 
-{% assign rate = "vehicle_rate_table_personal_auto" | lookup: exp_v.professionalindemnity_type %}
+{% assign rate = "professional_indemnity_rate_table" | lookup: exp_v.professionalindemnity_type %}
 {% assign premium = premium | times: rate | round %}
 
 
@@ -44,11 +44,11 @@
 {% assign technical_premium = premium | times: 0.8 %}
 {{ technical_premium | set_year_technical_premium }}
 
-{% comment %} commission at a flat 5% {% endcomment %}
+{% comment %} commission at a flat 5% for Agent and 10% for Broker {% endcomment %}
 {% if policy_v.channel == 'Agent' %}
 	{% assign agent_comm = premium | times: 0.05 %}
     {{ agent_comm | add_year_commission: "Agent1234" }}
 {% elsif policy_v.channel == 'Broker' %}
-	{% assign broker_comm = premium | times: 0.05 %}
+	{% assign broker_comm = premium | times: 0.10 %}
     {{ broker_comm | add_year_commission: "Broker6789" }}
 {% endif %}
