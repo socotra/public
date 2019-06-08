@@ -78,13 +78,6 @@
         "width": 3
       },
       {
-        "name": "valueofclaims1year",
-        "title": "Value of Claims over past 1 year",
-        "type": "number",
-        "decimalPlaces": 0,
-        "width": 3
-      },
-      {
         "name": "quality_control",
         "title": "Quality Control Procedures in Place?",
         "width": 3,
