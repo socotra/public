@@ -185,12 +185,18 @@
         "optional": true,
         "type": "select",
         "values": [
-          "No",
-          "Yes"
-        ]
+          "Inhouse legal counsel",
+          "Outside legal counsel",
+          "Both"
+        ],
+        "condition": {
+          "written_contracts": [
+            "Yes"
+          ]
+        }
       },
       {
-        "name": "sub_contractors",
+        "name": "subcontractors",
         "title": "Use of subcontract work to others?",
         "width": 5,
         "newline": true,
@@ -203,14 +209,19 @@
       },
       {
         "newline": true,
-        "name": "sub_contractorspercent",
+        "name": "subcontractors_percent",
         "title": "Percentage of subcontract work to total work",
         "type": "number",
         "decimalPlaces": 0,
-        "width": 3
+        "width": 3,
+        "condition": {
+          "subcontractors": [
+            "Yes"
+          ]
+        }
       },
       {
-        "name": "sub_contractorseo",
+        "name": "subcontractors_eo",
         "title": "Subcontractors required to carry their own E&O Insurance?",
         "width": 3,
         "optional": true,
@@ -218,7 +229,12 @@
         "values": [
           "No",
           "Yes"
-        ]
+        ],
+        "condition": {
+          "subcontractors": [
+            "Yes"
+          ]
+        }
       },
       {
         "name": "contract_example_biz_lic_copy",
