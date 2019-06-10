@@ -9,6 +9,7 @@
 
 {% assign subcontract = exp_v.subcontractors_percent %}
 {% assign premium = premium | times: subcontract | round %}
+{% assign premium = premium | times: 0.01 | round %}
 
 
 {% comment %} scale Legal Liability premium according to number of claims {% endcomment %}
