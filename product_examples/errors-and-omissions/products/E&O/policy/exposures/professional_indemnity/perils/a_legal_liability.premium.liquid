@@ -8,7 +8,7 @@
 {% assign premium = premium | times: rate | round %}
 
 
-{% comment %} scale TP Liability premium according to number of at-fault claims {% endcomment %}
+{% comment %} scale Legal Liability premium according to number of claims {% endcomment %}
 {% assign five_year_claims_history = policy_v.claims_past_5_years %}
 
 {% if five_year_claims_history == "1" %}

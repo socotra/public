@@ -1,6 +1,6 @@
 {
-  "name": "a_third_party_liability",
-  "displayName": "Third Party Liability",
+  "name": "a_legal_liability",
+  "displayName": "Legal Liability",
   "fields": [],
   "indemnityPerItem": "100000",
   "indemnityPerEvent": "100000",
