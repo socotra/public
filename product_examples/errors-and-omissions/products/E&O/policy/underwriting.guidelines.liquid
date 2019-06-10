@@ -13,17 +13,25 @@
 
 {% for professionalindemnity in professionalindemnities %}
 	{% assign revenuethisyear = professionalindemnity.characteristics[0].field_values.revenuethisyear %}
-	{% if revenuethisyear >= 50000000 %}
+	{% if revenuethisyear >= 20000000 %}
 		{{ "reject" | set_underwriting_decision }}
-		{{ "For Revenue $50,000,000 and over cannot be covered through this program." | add_underwriting_note }}
+		{{ "For Revenue $20,000,000 and over cannot be covered through this program." | add_underwriting_note }}
 	{% endif %}
 {% endfor %}
 
 {% for professionalindemnity in professionalindemnities %}
     {% assign valueofclaims5years = professionalindemnity.characteristics[0].field_values.valueofclaims5years %}
-    {% if valueofclaims5years >= 100000 %}
+    {% if valueofclaims5years >= 50000 %}
         {{ "reject" | set_underwriting_decision }}
-        {{ "For 5 year total claims $100,000 and over cannot be bound." | add_underwriting_note }}
+        {{ "For 5 year total claims $50,000 and over cannot be bound." | add_underwriting_note }}
+    {% endif %}
+{% endfor %}
+
+{% for professionalindemnity in professionalindemnities %}
+    {% assign subcontractors_percent = professionalindemnity.characteristics[0].field_values.subcontractors_percent %}
+    {% if subcontractors_percent >= 50 %}
+        {{ "reject" | set_underwriting_decision }}
+        {{ "For Subcontract work 50% and over cannot be bound." | add_underwriting_note }}
     {% endif %}
 {% endfor %}
 

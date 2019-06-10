@@ -20,6 +20,20 @@
         "optional": true
       },
       {
+        "name": "business_address",
+        "title": "Business Address",
+        "type": "string",
+        "width": 3,
+        "optional": true
+      },
+      {
+        "name": "business_email",
+        "title": "Email address of principal contact",
+        "type": "email",
+        "width": 3,
+        "optional": true
+      },
+      {
       "name": "legal_entity",
       "title": "Legal Entity",
       "width": 3,
