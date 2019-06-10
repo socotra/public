@@ -2,14 +2,14 @@
 {% assign exp_v = data.exposure_characteristics.field_values %}
 {% assign peril_c = data.peril_characteristics %}
 
-{% assign premium = exp_v.revenuethisyear | times: 0.005 | round %}
+{% assign premium = exp_v.revenuethisyear | times: 0.003 | round %}
 
 {% assign rate = "professional_indemnity_rate_table" | lookup: exp_v.professionalindemnity_type %}
 {% assign premium = premium | times: rate | round %}
 
 {% assign subcontract = exp_v.subcontractors_percent %}
 {% assign premium = premium | times: subcontract | round %}
-{% assign premium = premium | times: 0.01 | round %}
+{% comment %}{% assign premium = premium | times: 0.01 | round %}{% endcomment %}
 
 
 {% comment %} scale Legal Liability premium according to number of claims {% endcomment %}
