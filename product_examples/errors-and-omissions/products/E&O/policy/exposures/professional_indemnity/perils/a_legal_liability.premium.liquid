@@ -2,7 +2,7 @@
 {% assign exp_v = data.exposure_characteristics.field_values %}
 {% assign peril_c = data.peril_characteristics %}
 
-{% assign premium = exp_v.revenuethisyear | times: 0.002 | round %}
+{% assign premium = exp_v.revenuethisyear | times: 0.005 | round %}
 
 {% assign rate = "professional_indemnity_rate_table" | lookup: exp_v.professionalindemnity_type %}
 {% assign premium = premium | times: rate | round %}
@@ -34,7 +34,7 @@
 {% endif %}
 
 {% if peril_c.indemnity_in_aggregate > 0 %}
-	{% assign adj = peril_c.indemnity_in_aggregate | minus: 1000000 %}
+	{% assign adj = peril_c.indemnity_in_aggregate | minus: 100000 %}
 	{% if adj < 0 %}
 		{% assign adj = 0 %}
 	{% endif %}
