@@ -45,9 +45,13 @@
       "newline": true,
       "type": "select",
       "values": [
-        "Collision",
-        "Fire",
-        "Theft"
+        "Faulty Design",
+        "Site Survey",
+        "Material Selection",
+        "Negligence",
+        "Errors",
+        "Omissions",
+        "Loss or misplacement of documents"
       ]
     },
     {
