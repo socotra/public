@@ -34,7 +34,7 @@
 {% endif %}
 
 {% if peril_c.indemnity_in_aggregate > 0 %}
-	{% assign adj = peril_c.indemnity_in_aggregate | minus: 100000 %}
+	{% assign adj = peril_c.indemnity_in_aggregate | minus: 1000000 %}
 	{% if adj < 0 %}
 		{% assign adj = 0 %}
 	{% endif %}
