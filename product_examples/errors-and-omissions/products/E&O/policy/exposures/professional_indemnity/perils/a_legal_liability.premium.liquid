@@ -8,7 +8,7 @@
 {% assign premium = premium | times: rate | round %}
 
 {% assign subcontract = exp_v.subcontractors_percent %}
-{% assign premium = premium | times: subcontract | round %}
+{% assign premium = premium | times: subcontract | divided_by: 100 | times: 0.01 | round %}
 {% comment %}{% assign premium = premium | times: 0.01 | round %}{% endcomment %}
 
 

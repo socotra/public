@@ -210,9 +210,9 @@
       {
         "newline": true,
         "name": "subcontractors_percent",
-        "title": "% of subcontract work to total work (eg 20% type 0.2)",
+        "title": "% of subcontract work to total work (eg 20% type 20)",
         "type": "number",
-        "decimalPlaces": 3,
+        "decimalPlaces": 0,
         "width": 3,
         "condition": {
           "subcontractors": [
