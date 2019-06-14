@@ -34,11 +34,11 @@
 {% endif %}
 
 {% if peril_c.indemnity_in_aggregate > 0 %}
-	{% assign adj = peril_c.indemnity_in_aggregate | minus: 100000 %}
+	{% assign adj = peril_c.indemnity_in_aggregate | minus: 200000 %}
 	{% if adj < 0 %}
 		{% assign adj = 0 %}
 	{% endif %}
-	{% assign adj = adj | times: 0.002 %}
+	{% assign adj = adj | times: 0.001 %}
 	{% assign premium = premium | plus: adj %}
 {% endif %}
 
