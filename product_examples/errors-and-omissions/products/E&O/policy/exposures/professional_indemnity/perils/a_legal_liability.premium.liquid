@@ -38,7 +38,7 @@
 	{% if adj < 0 %}
 		{% assign adj = 0 %}
 	{% endif %}
-	{% assign adj = adj | times: 0.001 %}
+	{% assign adj = adj | times: 0.002 %}
 	{% assign premium = premium | plus: adj %}
 {% endif %}
 
