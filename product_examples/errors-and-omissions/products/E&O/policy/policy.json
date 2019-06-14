@@ -57,7 +57,7 @@
       },
     {
       "name": "10_year_felony_conviction_of_directors",
-      "title": "Have any of the business' directors been convicted of a felony in the past 10 years?",
+      "title": "Have any of the business' directors or employees been convicted of a felony in the past 10 years?",
       "heading": "Preliminary Questions",
       "type": "select",
       "values": [
@@ -67,7 +67,7 @@
     },
     {
       "name": "insurance_fraud_conviction",
-      "title": "Have any of the business' directors been convicted of activities related to insurance fraud?",
+      "title": "Have any of the business' directors or employees been convicted of activities related to insurance fraud?",
       "type": "select",
       "values": [
         "No",
