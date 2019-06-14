@@ -2,7 +2,7 @@
 {% assign exp_v = data.exposure_characteristics.field_values %}
 {% assign peril_c = data.peril_characteristics %}
 
-{% assign premium = exp_v.revenuethisyear | times: 0.005 | round %}
+{% assign premium = exp_v.revenuethisyear | times: 0.0025 | round %}
 
 {% assign rate = "professional_indemnity_rate_table" | lookup: exp_v.professionalindemnity_type %}
 {% assign premium = premium | times: rate | round %}
