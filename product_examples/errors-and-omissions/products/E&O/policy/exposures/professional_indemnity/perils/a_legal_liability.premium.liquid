@@ -8,10 +8,11 @@
 {% assign premium = premium | times: rate | round %}
 
 {% assign subcontract = exp_v.subcontractors_percent %}
-{% if subcontract = 0 %}
-{% assign adjust = 1 %}
-{% endif %}
-{% assign adjust = adjust | times: subcontract | divided_by: 100 | times: 1.01 | round %}
+{% comment %}{% if subcontract = 0 %}
+{% assign subcontract = 1 %}
+{% endif %}{% endcomment %}
+{% assign adjust = subcontract | divided_by: 100 | round %}
+{% assign adjust = adjust | times: 1.1 | round %}
 {% assign premium = premium | times: adjust %}
 
 
