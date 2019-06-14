@@ -11,8 +11,8 @@
 {% assign adjust = adjust | times: subcontract | divided_by: 100 | times: 1.01 | round %}
 {% if adjust = 0 %}
     {% assign adjust = 1 %}
-{% endif %}
-{% assign premium = premium | times: adjust %}
+
+{% elseif premium = premium | times: adjust %}
 
 
 {% comment %} scale Legal Liability premium according to number of claims {% endcomment %}
