@@ -35,7 +35,13 @@
     {% endif %}
 {% endfor %}
 
-
+{% for professionalindemnity in professionalindemnities %}
+    {% assign subcontractors_eo = professionalindemnity.characteristics[0].field_values.subcontractors_eo %}
+    {% if subcontractors_eo == 'No' %}
+        {{ "reject" | set_underwriting_decision }}
+        {{ "Policy cannot be bound because Subcontractors not required to carry their own E&O insurance." | add_underwriting_note }}
+    {% endif %}
+{% endfor %}
 
 {% if policy_v.10_year_felony_conviction_of_directors == 'Yes' %} 
     {{ "reject" | set_underwriting_decision }}
