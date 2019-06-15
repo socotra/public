@@ -28,6 +28,7 @@
         "name": "revenueprior1year",
         "title": "Annual Revenue Prior 1 Year",
         "type": "number",
+        "optional": true,
         "width": 3,
         "decimalPlaces": 0
       },
@@ -35,6 +36,7 @@
         "name": "revenueprior2year",
         "title": "Annual Revenue Prior 2 Year",
         "type": "number",
+        "optional": true,
         "width": 3,
         "decimalPlaces": 0
       },
@@ -42,6 +44,7 @@
         "name": "revenueprior3year",
         "title": "Annual Revenue Prior 3 Year",
         "type": "number",
+        "optional": true,
         "width": 3,
         "decimalPlaces": 0
       },
@@ -58,6 +61,7 @@
         "name": "fulltimeemployees",
         "title": "Full Time Employees",
         "type": "number",
+        "optional": true,
         "decimalPlaces": 0,
         "newline": true,
         "width": 3
@@ -66,6 +70,7 @@
         "name": "parttimeemployees",
         "title": "Part Time Employees",
         "type": "number",
+        "optional": true,
         "decimalPlaces": 0,
         "width": 3
       },
