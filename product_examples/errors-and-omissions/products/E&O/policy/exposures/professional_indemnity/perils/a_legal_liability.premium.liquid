@@ -20,7 +20,9 @@
 {% elsif subcontract == "30-40%" %}
    {% assign subcontract = 3.5 %} 
 {% elsif subcontract == "40-50%" %}
-   {% assign subcontract = 4.5 %} 
+   {% assign subcontract = 4.5 %}
+{% elsif subcontract == "More than 50%" %}
+   {% assign subcontract = 6 %}    
 {% else %}
    {% assign subcontract = 1 %}
 {% endif %}

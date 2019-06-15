@@ -196,18 +196,6 @@
         }
       },
       {
-        "name": "subcontractors",
-        "title": "Use of subcontract work to others?",
-        "width": 5,
-        "newline": true,
-        "optional": true,
-        "type": "select",
-        "values": [
-          "No",
-          "Yes"
-        ]
-      },
-      {
         "newline": true,
         "name": "subcontractors_percent",
         "title": "% of subcontract work to total work",
@@ -220,13 +208,7 @@
         "30-40%",
         "40-50%",
         "More than 50%"
-      ],
-        "width": 3,
-        "condition": {
-          "subcontractors": [
-            "Yes"
-          ]
-        }
+      ]
       },
       {
         "name": "subcontractors_eo",
@@ -237,12 +219,7 @@
         "values": [
           "No",
           "Yes"
-        ],
-        "condition": {
-          "subcontractors": [
-            "Yes"
-          ]
-        }
+        ]
       },
       {
         "name": "contract_example_biz_lic_copy",

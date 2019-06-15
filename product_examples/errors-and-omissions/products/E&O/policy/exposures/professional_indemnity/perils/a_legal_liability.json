@@ -2,9 +2,9 @@
   "name": "a_legal_liability",
   "displayName": "Legal Liability",
   "fields": [],
-  "indemnityPerItem": "100000",
-  "indemnityPerEvent": "100000",
-  "indemnityInAggregate": "300000",
+  "indemnityPerItem": "500000",
+  "indemnityPerEvent": "500000",
+  "indemnityInAggregate": "1000000",
   "deductible": "0",
   "lumpSumPayment": "0"
 }
