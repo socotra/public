@@ -7,11 +7,25 @@
 {% assign rate = "professional_indemnity_rate_table" | lookup: exp_v.professionalindemnity_type %}
 {% assign premium = premium | times: rate | round %}
 
-{% assign subcontract = exp_v.subcontractors_percent | divided_by: 100 | round %}
-{% comment %}{% if subcontract = 0 %}
-{% assign subcontract = 1 %}
-{% endif %}{% endcomment %}
-{% assign premium = premium | times: subcontract | times: 1.1 | round %}
+{% comment %} scale Legal Liability premium according to subcontract% {% endcomment %}
+{% assign subcontract = exp_v.subcontractors_percent %}
+
+
+{% if subcontract == "1-10%" %}
+   {% assign subcontract = 0.5 %}
+{% elsif subcontract == "10-20%" %}
+   {% assign subcontract = 1.5 %}
+{% elsif subcontract == "20-30%" %}
+   {% assign subcontract = 2.5 %}
+{% elsif subcontract == "30-40%" %}
+   {% assign subcontract = 3.5 %} 
+{% elsif subcontract == "40-50%" %}
+   {% assign subcontract = 4.5 %} 
+{% else %}
+   {% assign subcontract = 1 %}
+{% endif %}
+
+{% assign premium = premium | times: subcontract %}
 
 
 {% comment %} scale Legal Liability premium according to number of claims {% endcomment %}

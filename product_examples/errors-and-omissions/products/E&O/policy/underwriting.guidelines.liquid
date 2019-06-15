@@ -29,11 +29,13 @@
 
 {% for professionalindemnity in professionalindemnities %}
     {% assign subcontractors_percent = professionalindemnity.characteristics[0].field_values.subcontractors_percent %}
-    {% if subcontractors_percent >= 50 %}
+    {% if subcontractors_percent == 'More than 50%' %}
         {{ "reject" | set_underwriting_decision }}
         {{ "For Subcontract work 50% and over cannot be bound." | add_underwriting_note }}
     {% endif %}
 {% endfor %}
+
+
 
 {% if policy_v.10_year_felony_conviction_of_directors == 'Yes' %} 
     {{ "reject" | set_underwriting_decision }}
