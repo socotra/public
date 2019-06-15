@@ -213,8 +213,7 @@
       {
         "name": "subcontractors_eo",
         "title": "Subcontractors required to carry their own E&O Insurance?",
-        "width": 3,
-        "optional": true,
+        "newline": true,
         "type": "select",
         "values": [
           "No",
