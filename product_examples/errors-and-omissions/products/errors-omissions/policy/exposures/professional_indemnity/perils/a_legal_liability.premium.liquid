@@ -7,6 +7,9 @@
 {% assign rate = "professional_indemnity_rate_table" | lookup: exp_v.professionalindemnity_type %}
 {% assign premium = premium | times: rate | round %}
 
+{% assign staterate = "state_rate_table" | lookup: exp_v.office_domicile_state %}
+{% assign premium = premium | times: staterate | round %}
+
 {% comment %} scale Legal Liability premium according to subcontract% {% endcomment %}
 {% assign subcontract = exp_v.subcontractors_percent %}
 

@@ -111,7 +111,6 @@
         "newline": true,
         "type": "select",
         "width": 3,
-        "optional": true,
         "values": [
           "AL",
           "AK",
@@ -144,6 +143,7 @@
           "NH",
           "NJ",
           "NY",
+          "NM",
           "NC",
           "ND",
           "OH",
