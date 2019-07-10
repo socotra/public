@@ -1,0 +1,27 @@
+{
+    "pages": [
+      {
+        "sections": [
+          {
+            "title": "Primary Policyholder",
+            "fields": [
+              {
+                "name": "first_name",
+                "prompt": "First Name",
+                "required": true,
+                "updateable": true,
+                "width": 4
+              },
+              {
+                "name": "last_name",
+                "prompt": "Last Name",
+                "required": true,
+                "updateable": true,
+                "width": 4
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

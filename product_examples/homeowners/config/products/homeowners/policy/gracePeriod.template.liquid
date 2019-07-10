@@ -1,0 +1,32 @@
+{% assign policy = data.policy %}
+{% assign grace_period = data.grace_period %}
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+</head>
+
+<table width="100%" class="header">
+  <tr>
+    <td>
+      <p class="header-contact">
+        Acme Insurance Co.<br>
+        33 New Montgomery St<br>
+        San Francisco, CA<br>
+        +1 415 555 5555<br>
+        www.socotra.com
+      </p>
+    </td>
+    <td>
+      <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+    </td>
+  </tr>
+</table>
+
+<h1>Grace Period Notification</h1>
+
+Your policy numbered {{ policy.display_id }} is in the grace period due to nonpayment. The policy will lapse and coverage will end on {{ grace_period.end_timestamp | timestamp_millis_print: "d MMM YYYY" }}. To ensure continued coverage, please pay the amount due of {{ grace_period.invoice.total_due | format_number_currency: 'en', 'US' }} before the lapse date.
+
+<p>Please call 1-555-555-5555 or log into your account to make payment and continue your coverage.
+
+<footer>Acme - Keep your loved ones secure.</footer>

@@ -1,0 +1,40 @@
+{% assign policy_v = data.policy.characteristics[0].field_values %}
+
+{% assign exposures = data.policy.exposures %}
+
+{{ "accept" | set_underwriting_decision }}
+ 
+{% if policy_v.major_claims_five_years == 'None' %}
+    {{ "Premium includes credit for being claims-free." | add_underwriting_note }}
+{% else %}
+    {{ "Premium has been increased based on the number of at-fault losses in the last 5 years." | add_underwriting_note }}
+{% endif %}
+
+{% for exp in exposures %}
+	{% if exp.name == 'dwelling' %}
+	  {% if dwelling_c != nil %}
+	    {{ "reject" | set_underwriting_decision }}
+	    {{ "This product supports only one dwelling." | add_underwriting_note }}
+	  {% endif %}
+	  {% assign dwelling_c = exp.characteristics[0] %}
+	  {% if dwelling_c.field_values.living_area > 5000 %}
+  		{{ "reject" | set_underwriting_decision }}
+  		{{ "Dwellings over 5000 square feet are ineligible for this product." | add_underwriting_note }}
+    {% endif %}
+	{% endif %}
+{% endfor %}
+
+{% if dwelling_c == nil %}
+  {{ "reject" | set_underwriting_decision }}
+  {{ "This product requires a dwelling." | add_underwriting_note }}
+{% endif %}
+
+{% if dwelling_c.field_values.in_foreclosure == 'Yes' %}
+	{{ "reject" | set_underwriting_decision }}
+	{{ "Dwellings in foreclosure are ineligible for this product." | add_underwriting_note }}
+{% endif %}
+
+{% if policy_v.insurance_fraud_conviction == 'Yes' %} 
+    {{ "reject" | set_underwriting_decision }}
+    {{ "Applicants with insurance fraud convictions are ineligible for this product." | add_underwriting_note }}   
+{% endif %}

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "first_name",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "last_name",
+    "type": "string",
+    "searchable": true
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "searchable": false
+  }
+]
