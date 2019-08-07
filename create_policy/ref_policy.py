@@ -20,7 +20,7 @@ def main(argv):
     parser.add_argument('-p', '--password', default='socotra', required=False)
     args = parser.parse_args(argv)
 
-    with open('../default_config/products/auto/policy/exposures/vehicle/perils/' +
+    with open('../default_config/products/personal-auto/policy/exposures/vehicle/perils/' +
               'bodily_injury.premium.liquid', "r") as f:
         calculation = f.read()
 
@@ -40,8 +40,8 @@ def main(argv):
         exp_values = json.load(f)
     with open('ref_policy.json', 'r') as f:
         policy_values = json.load(f)
-    with open('ref_claim.json', 'r') as f:
-        claim = json.load(f)
+    with open('ref_driver.json', 'r') as f:
+        driver = json.load(f)
 
     peril = {'name': 'bodily_injury'}
     exposure = {'exposureName': 'vehicle',
@@ -53,15 +53,15 @@ def main(argv):
         '30/11/2017', 'America/Los_Angeles', "%d/%m/%Y")
     end_timestamp = dates.date_to_millis(
         '30/11/2018', 'America/Los_Angeles', "%d/%m/%Y")
-    policy = client.create_policy('auto', ph_locator,
+    policy = client.create_policy('personal-auto', ph_locator,
                                   policy_start_timestamp=start_timestamp,
                                   policy_end_timestamp=end_timestamp,
                                   field_values=policy_values['required'],
-                                  field_groups=[claim, claim],
+                                  field_groups=[driver, driver],
                                   exposures=[exposure, exposure],
                                   finalize=False)
 
-    # print json.dumps(policy)
+    print json.dumps(policy)
     policy_locator = policy['locator']
     client.uw_policy(policy_locator)
     client.price_policy(policy_locator)
