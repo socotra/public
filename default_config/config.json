@@ -1,5 +1,8 @@
 {
   "timezone": "America/Los_Angeles",
   "currency": "USD",
-  "improvedRating": true
+  "improvedRating": true,
+   "features": {
+    "property.endorsement.renewal.underwriting.enabled": true
+  }
 }

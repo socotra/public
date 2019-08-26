@@ -1,7 +1,11 @@
 
 {
       "required": {
-      "channel":["Direct"]
+      "channel":["Direct"],
+      "insurance_fraud_conviction": "No",
+      "atfault_claims_past_5_years":  "None",
+      "10_year_felony_conviction": "No",
+      "multiple_drivers": "No - Just Policyholder"
       },
       "optional": {}
 }

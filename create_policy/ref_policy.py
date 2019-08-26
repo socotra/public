@@ -26,7 +26,8 @@ def main(argv):
 
     print 'Authenticating with tenant: ' + args.hostname
     client = SocotraClient.get_authenticated_client_for_hostname(
-        args.hostname, args.username, args.password)
+        args.hostname, args.username, args.password,
+        api_url='https://api-iag.socotra.com')
 
     ph_values = {
         'first_name': ['Gary'],
@@ -50,14 +51,13 @@ def main(argv):
                 }
 
     start_timestamp = dates.date_to_millis(
-        '30/11/2017', 'America/Los_Angeles', "%d/%m/%Y")
+        '30/08/2019', 'America/Los_Angeles', "%d/%m/%Y")
     end_timestamp = dates.date_to_millis(
-        '30/11/2018', 'America/Los_Angeles', "%d/%m/%Y")
+        '30/12/2019', 'America/Los_Angeles', "%d/%m/%Y")
     policy = client.create_policy('personal-auto', ph_locator,
                                   policy_start_timestamp=start_timestamp,
                                   policy_end_timestamp=end_timestamp,
                                   field_values=policy_values['required'],
-                                  field_groups=[driver, driver],
                                   exposures=[exposure, exposure],
                                   finalize=False)
 
@@ -66,6 +66,7 @@ def main(argv):
     client.uw_policy(policy_locator)
     client.price_policy(policy_locator)
     client.finalize_policy(policy_locator)
+    client.issue_policy(policy_locator)
 
     # print json.dumps(policy)
     peril_id = policy['exposures'][0]['perils'][0]['displayId']

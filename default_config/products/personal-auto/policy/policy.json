@@ -205,5 +205,6 @@
   "lapse": {
     "gracePeriodDays": 30,
     "reinstatementPeriodDays": 90
-  }
+  },
+  "externalRater": "myrater"
 }
