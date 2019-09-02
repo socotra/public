@@ -26,8 +26,7 @@ def main(argv):
 
     print 'Authenticating with tenant: ' + args.hostname
     client = SocotraClient.get_authenticated_client_for_hostname(
-        args.hostname, args.username, args.password,
-        api_url='https://api-iag.socotra.com')
+        args.hostname, args.username, args.password)
 
     ph_values = {
         'first_name': ['Gary'],

@@ -25,8 +25,7 @@ def main(argv):
 
     print 'Authenticating with tenant: ' + args.hostname
     client = SocotraClient.get_authenticated_client_for_hostname(
-        args.hostname, args.username, args.password,
-        api_url='https://api-iag.socotra.com')
+        args.hostname, args.username, args.password)
 
     rn1_end = dates.date_to_millis(
         '30/10/2020', 'Australia/Sydney', "%d/%m/%Y")
@@ -35,19 +34,19 @@ def main(argv):
         policy_locator, field_values=policy_change, end_timestamp=rn1_end)
     rn1_locator = rn1['locator']
     print rn1_locator
-    print json.dumps(rn1)
+    # print json.dumps(rn1)
 
-    rn1_price = client.price_renewal(rn1_locator)
-    print json.dumps(rn1_price)
-    print
-    rn1 = client.get_renewal(rn1_locator)
-    print json.dumps(rn1)
+    # rn1_price = client.price_renewal(rn1_locator)
+    # print json.dumps(rn1_price)
+    # print
+    # rn1 = client.get_renewal(rn1_locator)
+    # print json.dumps(rn1)
 
-    accept_result = client.update_renewal(rn1_locator, action='accept')
+    accept_result = client.update_renewal(rn1_locator, action='issue')
     print json.dumps(accept_result)
-    print
-    rn1 = client.get_renewal(rn1_locator)
-    print json.dumps(rn1)
+    # print
+    # rn1 = client.get_renewal(rn1_locator)
+    # print json.dumps(rn1)
 
     # rn1 = client.update_renewal(rn1_locator, action='invalidate')
 
