@@ -1,0 +1,68 @@
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exposure_v = data.exposure_characteristics.field_values %}
+{% assign peril_v = data.peril_characteristics.field_values %}
+
+
+{% case policy_v.policy_type %}
+{% when "HO-2 — Broad Form" %}
+  {% assign policy_type_multiplier = 0.88 %}
+{% when "HO-5 - Comprehensive Form" %}
+  {% assign policy_type_multiplier = 1.16 %}
+{% when "HO-8 - Older Home Form" %}
+  {% assign policy_type_multiplier = 0.96 %}
+{% else %}
+  {% comment %} HO-3 Broad Form {% endcomment %}
+  {% assign policy_type_multiplier = 1 %}
+{% endcase %}
+
+{% assign living_area = exposure_v.living_area %}
+
+{% comment %} Basic cost estimate is $115/sqft replacement cost {% endcomment %}
+{% assign replacement_cost = living_area | times: 115 %}
+
+{% case exposure_v.state}
+{% when "CA" %}
+  {% assign replacement_cost_multiplier = replacement_cost_multiplier | times: 1.35 %}
+{% when "FL" %}
+  {% assign replacement_cost_multiplier = replacement_cost_multiplier | times: 1.28 %}
+{% when "TX" %}
+  {% assign replacement_cost_multiplier = replacement_cost_multiplier | times: 1.05 %}
+{% when "OH" %}
+  {% assign replacement_cost = replacement_cost_multiplier | times: 0.94 %}
+{% when "NY" %}
+  {% assign replacement_cost = replacement_cost_multiplier | times: 1.12 %}
+{% endcase %}
+
+{% assign dwelling_exposure_units = replacement_cost | | divided_by: 100 %}
+
+{% comment %} Basic premium per $100 exposure unit $0.32 {% endcomment %}
+{% assign base_premium = dwelling_exposure_units | times: 0.32 %}
+
+{% comment %} Adjustments for structure characteristics and claims history {% endcomment %}
+
+{% assign dwelling_type_multiplier = "dwelling_type_table" | lookup: exposure_v.dwelling_type %}
+{% assign base_premium = base_premium | times: dwelling_type_multiplier %}
+
+{% assign roof_type_multiplier = "roof_type_table" | lookup: exposure_v.roof_type %}
+{% assign base_premium = base_premium | times: roof_type_multiplier %}
+
+{% case policy_v.major_claims_five_years %}
+{% when "None" %}
+  {% assign base_premium = base_premium | minus: 50 %}
+{% when "1" %}
+  {% comment %} No adjustment {% endcomment %}
+{% else %}
+  {% assign base_premium = base_premium | plus: 100 %}
+{% endcase %}
+
+{% assign premium = base_premium %}
+
+{% comment %} Minimum premium $100 {% endcomment %}
+
+{% if premium < 100 %}
+  {% assign premium = 100 %}
+{% endif %}
+
+{{ premium | set_year_premium }}
+{{ premium | times: 0.8 | set_year_technical_premium }}
+{{ premium | times: 0.05 | add_year_commission: "Agent1234" }}

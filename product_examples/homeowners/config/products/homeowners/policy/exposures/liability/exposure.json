@@ -1,0 +1,28 @@
+{
+  "name": "liability",
+  "displayName": "Liability",
+  "fields": [
+    {
+      "name": "coverage_limit",
+      "title": "Coverage Limit",
+      "type": "select",
+      "values": [
+        "100000",
+        "250000",
+        "500000",
+        "1000000"
+      ],
+      "optional": false
+    },
+    {
+      "name": "personal_injury_coverage",
+      "title": "Personal Injury Coverage",
+      "type": "select",
+      "values": [
+        "Yes",
+        "No"
+      ],
+      "optional": false
+    }
+  ]
+}

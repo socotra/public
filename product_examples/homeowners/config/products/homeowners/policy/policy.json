@@ -1,0 +1,70 @@
+{
+  "fields": [
+    {
+      "name": "policy_type",
+      "title": "Policy Type",
+      "type": "select",
+      "values": [
+        "HO-2 - Broad Form",
+        "HO-3 - Special Form",
+        "HO-5 - Comprehensive Form",
+        "HO-8 - Older Home Form"
+      ],
+      "optional": false
+    },
+    {
+      "name": "major_claims_five_years",
+      "title": "Number of claims for more than $1000 in the past 5 years.",
+      "type": "select",
+      "values": [
+        "None",
+        "1",
+        "2",
+        "More than 2"
+      ],
+      "optional": false
+    },
+    {
+      "name": "insurance_fraud_conviction",
+      "title": "Has the applicant ever been convicted of insurance fraud?",
+      "type": "select",
+      "values": [
+        "No",
+        "Yes"
+      ],
+      "optional": false
+    }
+  ],
+  "documents": [
+    {
+      "displayName": "Policy Schedule",
+      "fileName": "schedule.pdf",
+      "templateName": "schedule.template.liquid"
+    },
+    {
+      "displayName": "Regulatory Disclosure",
+      "fileName": "regulatory_disclosure.pdf",
+      "templateName": "regulatory_disclosure.template.liquid"
+    }
+  ],
+  "defaultPaymentTerms": {
+    "amount": 0,
+    "unit": "day"
+  },
+  "paymentSchedules": [
+    {
+      "type": "total",
+      "name": "upfront",
+      "displayName": "Up Front"
+    },
+    {
+      "type": "monthly",
+      "name": "monthly",
+      "displayName": "Monthly"
+    }
+  ],
+  "lapse": {
+    "gracePeriodDays": 30,
+    "reinstatementPeriodDays": 90
+  }
+}

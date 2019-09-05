@@ -1,0 +1,5 @@
+{% assign policy_char = data.policy.characteristics.last %}
+{% assign txn_fee = policy_char.gross_premium | times: 0.03 %}
+
+{{ txn_fee | add_fee: "transaction" }}
+{{ 10 | add_fee: "underwriting" }}

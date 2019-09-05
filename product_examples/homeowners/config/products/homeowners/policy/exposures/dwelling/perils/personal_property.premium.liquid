@@ -1,0 +1,32 @@
+{% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_v = data.peril_characteristics.field_values %}
+
+{% case peril_v.coverage_limit %}
+{% when "50%" %}
+  {% assign premium = 68.00 %}
+{% else %}
+  {% comment %} 75% {% endcomment %}
+  {% assign premium = 81.00 %}
+{% endcase %}
+
+{% case peril_v.replacement_basis %}
+{% when "Actual Cash Value" %}
+  {% comment %} Do nothing, baseline {% endcomment %}
+{% when "Replacement Cost" %}
+  {% assign premium = premium | times: 1.15 %}
+{% endcase %}
+
+{% case peril_v.jewelry_rider %}
+{% when "$2,500" %}
+  {% assign premium = premium | plus: 17 %}
+{% when "$5,000" %}
+  {% assign premium = premium | plus: 30 %}
+{% when "$10,000" %}
+  {% assign premium = premium | plus: 46 %}
+{% endcase %}
+
+{% assign premium = premium | round %}
+
+{{ premium | set_year_premium }}
+{{ premium | times: 0.8 | set_year_technical_premium }}
+{{ premium | times: 0.05 | add_year_commission: "Bkr_000123" }}
