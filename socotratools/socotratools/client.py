@@ -483,13 +483,26 @@ class SocotraClient:
                            "/endorsements", data)
 
     def update_endorsement(self, endorsement_locator,
-                           effective_timestamp, end_timestamp=None,
+                           effective_timestamp=None, end_timestamp=None,
                            field_values={}, add_field_groups=[],
                            update_field_groups=[], remove_field_groups=[],
                            add_exposures=[], update_exposures=[],
                            end_exposures=[], action=None):
 
-        return self.__patch("/endorsements/" + endorsement_locator)
+        update = {'fieldValues': field_values,
+                  'addFieldGroups': add_field_groups,
+                  'updateFieldGroups': update_field_groups,
+                  'removeFieldGroups': remove_field_groups,
+                  'addExposures': add_exposures,
+                  'updateExposures': update_exposures,
+                  'endExposures': end_exposures
+                  }
+
+        data = {'endorsementUpdate': {},
+                'action': action
+                }
+
+        return self.__patch("/endorsements/" + endorsement_locator, data)
 
     def get_endorsement(self, endorsement_locator):
 

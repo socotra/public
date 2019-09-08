@@ -28,25 +28,26 @@ def main(argv):
         args.hostname, args.username, args.password)
 
     rn1_end = dates.date_to_millis(
-        '30/10/2020', 'Australia/Sydney', "%d/%m/%Y")
+        '01/10/2021', 'America/Los_Angeles', "%d/%m/%Y")
     policy_change = {"channel": "Agent"}
     rn1 = client.create_renewal(
         policy_locator, field_values=policy_change, end_timestamp=rn1_end)
     rn1_locator = rn1['locator']
     print rn1_locator
-    # print json.dumps(rn1)
+    print json.dumps(rn1)
 
-    # rn1_price = client.price_renewal(rn1_locator)
-    # print json.dumps(rn1_price)
-    # print
-    # rn1 = client.get_renewal(rn1_locator)
-    # print json.dumps(rn1)
+    rn1_price = client.price_renewal(rn1_locator)
+    print json.dumps(rn1_price)
+    print
+    rn1 = client.get_renewal(rn1_locator)
+    print json.dumps(rn1)
 
-    accept_result = client.update_renewal(rn1_locator, action='issue')
+    accept_result = client.update_renewal(rn1_locator, action='accept')
     print json.dumps(accept_result)
-    # print
-    # rn1 = client.get_renewal(rn1_locator)
-    # print json.dumps(rn1)
+    print
+    rn1 = client.get_renewal(rn1_locator)
+    print json.dumps(rn1)
+    print rn1['documents'][0]['url']
 
     # rn1 = client.update_renewal(rn1_locator, action='invalidate')
 
