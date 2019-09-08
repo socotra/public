@@ -65,7 +65,7 @@ def main(argv):
     print
     en1 = client.get_endorsement(en1_locator)
     print json.dumps(en1)
-    # print en1['documents'][0]['url']
+    print en1['documents'][0]['url']
 
 
 if __name__ == "__main__":
