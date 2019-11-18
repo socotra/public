@@ -107,6 +107,12 @@ class SocotraClient:
                             host_name=host_name, identity=identity)
         return client
 
+    @classmethod
+    def get_authenticated_client_from_token(cls, token, api_url=None, debug=False, identity=None):
+        client = cls(api_url, debug=debug)
+        client.authenticate_from_token(token, identity=identity)
+        return client
+
     @staticmethod
     def __get_api_url_from_host_name(host_name):
         host_pieces = host_name.strip().split('.')
@@ -138,6 +144,22 @@ class SocotraClient:
             "Socotra-Forced-Flags": "property.endorsement.renewal.underwriting.enabled=true"
         })
         return return_value
+
+    def authenticate_from_token(self, token, identity=None):
+        self.__validate_unauthenticated()
+        if identity is not None:
+            identity.authenticate(username, password)
+            username = identity.get_soc_username()
+            password = identity.get_soc_password()
+            self.perms = identity.get_perms()
+        else:
+            self.perms = 'ALL'
+
+        self.session.headers.update({
+            "Authorization": token,
+            "Socotra-Forced-Flags": "property.endorsement.renewal.underwriting.enabled=true"
+        })
+        return self.renew()
 
     def renew(self):
         return_value = self.__post('/account/renewAuthentication')
