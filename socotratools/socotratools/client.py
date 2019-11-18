@@ -146,8 +146,7 @@ class SocotraClient:
             self.perms = 'ALL'
 
         self.session.headers.update({
-            "Authorization": token,
-            "Socotra-Forced-Flags": "property.endorsement.renewal.underwriting.enabled=true"
+            "Authorization": token
         })
         return self.renew()
 
