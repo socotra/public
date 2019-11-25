@@ -291,6 +291,9 @@ class SocotraClient:
         }
         return self.__post('/invoice/' + locator + '/pay', data)
 
+    def get_invoice_ftrs(self, locator):
+        return self.__get('/invoice/' + locator + '/financialTransactions')
+
     def check_existing_peril_premium(self, calculation, peril_id):
         data = {"calculation": calculation, "perilDisplayId": peril_id}
         return self.__post("/calculation/checkExistingPerilPremium", data)
