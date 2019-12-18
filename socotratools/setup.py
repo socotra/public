@@ -19,4 +19,4 @@ setup(name='socotratools',
       maintainer_email='dinesh.shenoy@socotra.com',
       license='all rights reserved',
       long_description=open('README.md', 'rt').read(),
-      install_requires=['requests==2.20.0'])
+      install_requires=['requests==2.22.0'])
