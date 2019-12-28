@@ -166,7 +166,6 @@ class SocotraClient:
     def get_policyholder(self, locator):
         return self.__get("/policyholder/" + locator)
 
-
     def create_policyholder(self, completed=True, values=None, sub_entities=None):
         data = {
             'completed': completed,
@@ -469,3 +468,77 @@ class SocotraClient:
             return 'finalized'
         else:
             return 'created'
+
+    def get_claims(self,
+                   start_timestamp=None,
+                   end_timestamp=None,
+                   page_size=None,
+                   paging_token=None):
+
+        data = {
+            "createdAfterTimestamp": start_timestamp,
+            "createdBeforeTimestamp": end_timestamp,
+            "pageSize": page_size,
+            "pagingToken": paging_token
+        }
+        return self.__get("/claims", data)
+
+    def get_claim(self, locator):
+        url = '/claim/' + locator
+        return self.__get(url)
+
+    def create_claim(self, locator,
+                     field_groups=[],
+                     field_values={},
+                     incident_timestamp=None,
+                     notification_timestamp=None,
+                     status=None):
+
+        data = {
+            "fieldGroups": field_groups,
+            "fieldValues": field_values,
+            "policyLocator": locator,
+            "incidentTimestamp": incident_timestamp,
+            "notificationTimestamp": notification_timestamp,
+            "status": status
+        }
+        url = '/claim'
+        return self.__post(url, data)
+
+    def update_claim(self, locator, add_field_groups=[],
+                     add_subclaims=[], field_values={},
+                     remove_field_groups=[], update_field_groups=[],
+                     update_subclaims=[],
+                     incident_timestamp=None,
+                     notification_timestamp=None,
+                     status=None):
+
+        data = {
+            "addFieldGroups": add_field_groups,
+            "addSubClaims": add_subclaims,
+            "fieldValues": field_values,
+            "removeFieldGroups": remove_field_groups,
+            "updateFieldGroups": update_field_groups,
+            "updateSubClaims": update_subclaims,
+            "incidentTimestamp": incident_timestamp,
+            "notificationTimestamp": notification_timestamp,
+
+        }
+        url = '/claim/' + locator + '/update'
+        return self.__post(url, data)
+
+    def discard_claim(self, locator):
+        url = '/claim/' + locator + '/discard'
+        return self.__post(url)
+
+    def get_payable(self, locator):
+        url = '/claims/payables/' + locator
+        return self.__get(url)
+
+    def reverse_payable(self, locator, comment=None):
+        data = {
+            "payableLocator": locator,
+            "comment": comment
+        }
+        url = '/claims/payables/reversals'
+        return self.__post(url, data)
