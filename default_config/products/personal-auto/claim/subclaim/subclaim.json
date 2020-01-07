@@ -1,0 +1,13 @@
+{
+  "fields": [
+    {
+      "name": "subclaim_description",
+      "title": "Subclaim Description",
+      "type": "string",
+      "optional": true,
+      "multiline": true,
+      "maximum": 3000,
+      "width": 12
+    }
+  ]
+}
