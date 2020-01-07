@@ -45,8 +45,7 @@
           ]
         }
       ],
-      "repeatable": true,
-      "maximum": 2
+      "repeatable": true
     }
   ],
   "documents": [
