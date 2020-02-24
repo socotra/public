@@ -13,14 +13,15 @@ def main(argv):
         description='Get Policy')
     parser.add_argument('-n', '--hostname', required=True)
     parser.add_argument('-u', '--username',
-                        default='alice.lee', required=False)
-    parser.add_argument('-p', '--password', default='socotra', required=False)
+                        default='iag.tester', required=False)
+    parser.add_argument('-p', '--password', default='Satellit31!', required=False)
     parser.add_argument('-l', '--locator', required=True)
     args = parser.parse_args(argv)
 
     print 'Authenticating with tenant: ' + args.hostname
     client = SocotraClient.get_authenticated_client_for_hostname(
-        args.hostname, args.username, args.password)
+        args.hostname, args.username, args.password,
+        api_url='https://api-iag.socotra.com')
 
     policy = client.get_policy(args.locator)
     print json.dumps(policy)

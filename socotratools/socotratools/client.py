@@ -73,6 +73,26 @@ class SocotraClient:
             self.__debug('Unathorized operation: ' + caller)
             return {'Error 403': 'Unauthorized for ' + caller}
 
+    def __patch(self, resource, payload=None, data=None, files=None):
+
+        caller = sys._getframe(1).f_code.co_name
+        if self.is_allowed(caller):
+            url = self.base_url + resource
+            self.__debug('PATCH: ' + url)
+            self.__debug('Request:')
+            self.__debug(payload)
+            r = self.session.patch(url, json=payload, data=data,
+                                   verify=False, files=files)
+            status = r.status_code
+            self.__debug('Return status: ' + str(status))
+            value = r.json()
+            self.__debug('Return body: \n')
+            self.__debug(value)
+            return value
+        else:
+            self.__debug('Unathorized operation: ' + caller)
+            return {'Error 403': 'Unauthorized for ' + caller}
+
     def __validate_unauthenticated(self):
         if "Authorization" in self.session.headers.keys():
             raise Exception(
@@ -119,9 +139,27 @@ class SocotraClient:
             'hostName': host_name
         }
         return_value = self.__post('/account/authenticate', data)
-        self.session.headers.update(
-            {"Authorization": return_value['authorizationToken']})
+        self.session.headers.update({
+            "Authorization": return_value['authorizationToken'],
+            "Socotra-Forced-Flags": "property.endorsement.renewal.underwriting.enabled=true"
+        })
         return return_value
+
+    def authenticate_from_token(self, token, identity=None):
+        self.__validate_unauthenticated()
+        if identity is not None:
+            identity.authenticate(username, password)
+            username = identity.get_soc_username()
+            password = identity.get_soc_password()
+            self.perms = identity.get_perms()
+        else:
+            self.perms = 'ALL'
+
+        self.session.headers.update({
+            "Authorization": token,
+            "Socotra-Forced-Flags": "property.endorsement.renewal.underwriting.enabled=true"
+        })
+        return self.renew()
 
     def renew(self):
         return_value = self.__post('/account/renewAuthentication')
@@ -349,7 +387,7 @@ class SocotraClient:
                                   field_values={}, add_field_groups=[],
                                   update_field_groups=[], remove_field_groups=[],
                                   add_exposures=[], update_exposures=[],
-                                  end_exposures=[],):
+                                  end_exposures=[]):
 
         update_request = {
             "fieldValues": field_values,
@@ -373,7 +411,7 @@ class SocotraClient:
                 field_values={}, add_field_groups=[],
                 update_field_groups=[], remove_field_groups=[],
                 add_exposures=[], update_exposures=[],
-                end_exposures=[],):
+                end_exposures=[]):
 
         update_request = {
             "fieldValues": field_values,
@@ -468,6 +506,147 @@ class SocotraClient:
             return 'finalized'
         else:
             return 'created'
+
+<<<<<<< HEAD
+    def create_endorsement(self, policy_locator, endorsement_name,
+                           effective_timestamp=None,
+                           field_values=None,
+                           add_field_groups=None,
+                           remove_field_groups=None,
+                           update_field_groups=None,
+                           add_exposures=None,
+                           end_exposures=None,
+                           update_exposures=None,
+                           end_timestamp=None,
+                           # above: optional
+                           state='application'):
+        data = {'endorsementName': endorsement_name,
+                'startTimestamp': effective_timestamp,
+                'fieldValues': field_values,
+                'addFieldGroups': add_field_groups,
+                'removeFieldGroups': remove_field_groups,
+                'updateFieldGroups': update_field_groups,
+                'addExposures': add_exposures,
+                'endExposures': end_exposures,
+                'updateExposures': update_exposures,
+                'newPolicyEndTimestamp': end_timestamp,
+                'state': state}
+        return self.__post("/policies/" + policy_locator +
+                           "/endorsements", data)
+
+    def update_endorsement(self, endorsement_locator,
+                           effective_timestamp=None,
+                           field_values=None,
+                           add_field_groups=None,
+                           remove_field_groups=None,
+                           update_field_groups=None,
+                           add_exposures=None,
+                           end_exposures=None,
+                           update_exposures=None,
+                           end_timestamp=None,
+                           # above: optional
+                           action='update'):
+        affects_exposures = add_exposures or end_exposures or update_exposures  # alias end/remove_exposures?
+        affects_fields = field_values or add_field_groups or remove_field_groups or update_field_groups
+        endorsement_update = None if not (end_timestamp or affects_exposures or affects_fields) else {
+            'startTimestamp': effective_timestamp,
+            'fieldValues': field_values,
+            'addFieldGroups': add_field_groups,
+            'removeFieldGroups': remove_field_groups,
+            'updateFieldGroups': update_field_groups,
+            'addExposures': add_exposures,
+            'endExposures': end_exposures,
+            'updateExposures': update_exposures,
+            'newPolicyEndTimestamp': end_timestamp,
+        }
+        data = {'action': action, 'endorsementUpdate': endorsement_update}
+        return self.__patch("/endorsements/" + endorsement_locator, data)
+
+    def get_endorsement(self, endorsement_locator):
+
+        return self.__get("/endorsements/" + endorsement_locator)
+
+    def uw_endorsement(self, endorsement_locator):
+
+        return self.__get("/endorsements/" + endorsement_locator +
+                          "/automatedUnderwritingResult")
+
+    def price_endorsement(self, endorsement_locator):
+
+        return self.__get("/endorsements/" + endorsement_locator + "/price")
+
+    def get_endorsements_from_policy(self, policy_locator):
+
+        return self.__get("/policies/" + policy_locator +
+                          "/endorsements")
+
+    def create_renewal(self, policy_locator,
+                       field_values=None,
+                       add_field_groups=None,
+                       remove_field_groups=None,
+                       update_field_groups=None,
+                       add_exposures=None,
+                       end_exposures=None,
+                       update_exposures=None,
+                       # above: optional
+                       end_timestamp=None,
+                       state='application'):
+        data = {
+                'fieldValues': field_values,
+                'addFieldGroups': add_field_groups,
+                'updateFieldGroups': update_field_groups,
+                'removeFieldGroups': remove_field_groups,
+                'addExposures': add_exposures,
+                'updateExposures': update_exposures,
+                'endExposures': end_exposures,
+                'renewalEndTimestamp': end_timestamp,
+                'state': state}
+        return self.__post("/policies/" + policy_locator +
+                           "/renewals", data)
+
+    def update_renewal(self, renewal_locator,
+                       field_values=None,
+                       add_field_groups=None,
+                       remove_field_groups=None,
+                       update_field_groups=None,
+                       add_exposures=None,
+                       end_exposures=None,
+                       update_exposures=None,
+                       end_timestamp=None,
+                       # above: optional
+                       action='update'):
+        affects_exposures = add_exposures or end_exposures or update_exposures  # alias end/remove_exposures?
+        affects_fields = field_values or add_field_groups or remove_field_groups or update_field_groups
+        renewal_update = None if not (end_timestamp or affects_exposures or affects_fields) else {
+            'fieldValues': field_values,
+            'addFieldGroups': add_field_groups,
+            'updateFieldGroups': update_field_groups,
+            'removeFieldGroups': remove_field_groups,
+            'addExposures': add_exposures,
+            'updateExposures': update_exposures,
+            'endExposures': end_exposures,
+            'renewalEndTimestamp': end_timestamp,
+        }
+        data = {'action': action, 'renewalUpdate': renewal_update}
+        return self.__patch("/renewals/" + renewal_locator, data)
+
+    def get_renewal(self, renewal_locator):
+
+        return self.__get("/renewals/" + renewal_locator)
+
+    def uw_renewal(self, renewal_locator):
+
+        return self.__get("/renewals/" + renewal_locator +
+                          "/automatedUnderwritingResult")
+
+    def price_renewal(self, renewal_locator):
+
+        return self.__get("/renewals/" + renewal_locator + "/price")
+
+    def get_renewals_from_policy(self, policy_locator):
+
+        return self.__get("/policies/" + policy_locator +
+                          "/renewals")
 
     def get_claims(self,
                    start_timestamp=None,
