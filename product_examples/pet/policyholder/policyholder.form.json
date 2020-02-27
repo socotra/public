@@ -1,0 +1,53 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Policyholder",
+          "fields": [
+            {
+              "name": "first_name",
+              "prompt": "First Name",
+              "updateable": true
+            },
+            {
+              "name": "middle_name",
+              "prompt": "Middle Name",
+              "updateable": true
+            },
+            {
+              "name": "last_name",
+              "prompt": "Last Name",
+              "updateable": true,
+              "required": true
+            },
+            {
+              "name": "zip_code",
+              "prompt": "What is your home zip code?",
+              "updateable": true,
+              "required": false
+            },
+            {
+              "name": "date_of_birth",
+              "prompt": "Date of Birth",
+              "updateable": true,
+              "required": true
+            },
+            {
+              "name": "email_primary_address",
+              "prompt": "What is your email?",
+              "updateable": true,
+              "required": false
+            },
+            {
+              "name": "linkedin_id",
+              "prompt": "What is your LinkedIn ID",
+              "updateable": true,
+              "required": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,7 @@
 {% assign policy_c = data.policy.characteristics[0] %}
-{% assign policy_v = data.policy.exposures[0].characteristics[0].field_values %}
+{% assign exp_v = data.policy.exposures[0].characteristics[0].field_values %}
 {% assign ph_v = data.policyholder.entity.values %}
-
-{% assign end_display = policy_c.policy_end_timestamp | timestamp_millis_add: "day", -1 %}
+{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
 
 <head>
   <meta charset="UTF-8">
@@ -37,23 +36,23 @@
     <td>
       <b>ID:</b> {{data.policyholder.id}}<br>
       <b>Name:</b> {{ph_v.first_name}} {{ph_v.last_name}}<br>
-      <b>Date of Birth:</b> {{ph_v.date_of_birth | timestamp_millis_print: "MMM dd, YYYY" }}<br>
+      <b>Date of Birth:</b> {{ph_v.date_of_birth | timestamp_millis_print: "d MMM YYYY" }}<br>
     </td>
   </tr>
   <tr>
     <td>Vehicle Insured</td>
     <td>
-      <b>Vehicle:</b> {{policy_v.year}} {{policy_v.make}} {{policy_v.model}}<br>
-      <b>License Plate Number:</b> {{policy_v.license_plate}}<br>
+      <b>Vehicle:</b> {{exp_v.year}} {{exp_v.make}} {{exp_v.model}}<br>
+      <b>License Plate Number:</b> {{exp_v.license_plate}}<br>
     </td>
   </tr>
   <tr>
     <td>Policy</td>
     <td>
       <b>ID:</b> {{data.policy.display_id}}<br>
-      <b>Effective:</b> From {{policy_c.policy_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
-      to {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
-      <b>Sum Insured:</b> {{policy_v.vehicle_value | format_number_currency: "en","US" }}<br>
+      <b>Effective:</b> From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+      through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
+      <b>Sum Insured:</b> {{exp_v.vehicle_value | format_number_currency: "en","US" }}<br>
       <b>Term:</b> Custom
     </td>
   </tr>
@@ -65,6 +64,6 @@
 
 <br>
 
-<b>Authorized on</b> {{data.policy.issued_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
+<b>Authorized on</b> {{data.policy.issued_timestamp | timestamp_millis_print: "d MMM YYYY" }}
 
 <footer>Acme - Keep your loved ones secure.</footer>

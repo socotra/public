@@ -1,0 +1,16 @@
+{
+  "endorsements": [
+    {
+      "name": "generic",
+      "displayName": "Policy Change",
+      "reprice": "always",
+      "documents": [
+        {
+          "displayName": "Policy Change",
+          "fileName": "endorsement.pdf",
+          "templateName": "endt.template.liquid"
+        }
+      ]
+    }
+  ]
+}

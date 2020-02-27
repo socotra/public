@@ -24,11 +24,11 @@
 
 <h1>Policy Canceled</h1>
 
-Policy {{ data.policy.display_id }} is canceled effective {{ cancellation.effective_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}.
+Policy {{ data.policy.display_id }} is canceled effective {{ cancellation.effective_timestamp | timestamp_millis_print: "d MMM YYYY" }}.
 
 <br><br><br><br>
 
-<b>Authorized on</b> {{ data.policy.updated_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
+<b>Authorized on</b> {{ data.policy.updated_timestamp | timestamp_millis_print: "d MMM YYYY" }}
 
 <br>
 

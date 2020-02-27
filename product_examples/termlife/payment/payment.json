@@ -1,0 +1,10 @@
+{
+  "fields": [
+    {
+      "name": "stripe_id",
+      "title": "Stripe Payment ID",
+      "type": "string",
+      "optional": true
+    }
+  ]
+}

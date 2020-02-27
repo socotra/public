@@ -1,0 +1,209 @@
+{
+  "fields": [
+    {
+      "name": "channel",
+      "title": "Sales Channel",
+      "width": 3,
+      "type": "select",
+      "values": [
+        "Direct",
+        "Agent",
+        "Broker"
+      ]
+    },
+    {
+      "name": "multiple_drivers",
+      "title": "Multiple Drivers",
+      "width": 3,
+      "newline": true,
+      "type": "select",
+      "values": [
+        "No - Just Policyholder",
+        "Yes - Other Drivers"
+      ]
+    },
+    {
+      "name": "drivers",
+      "title": "Additional Drivers",
+      "optional": true,
+      "type": "group",
+      "fields": [
+        {
+          "name": "driver_firstname",
+          "title": "Driver - First Name",
+          "width": 3,
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "driver_lastname",
+          "title": "Last Name",
+          "width": 3,
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "driver_license",
+          "title": "Driver License Number",
+          "width": 3,
+          "newline": false,
+          "type": "string",
+          "optional": true,
+          "decimalPlaces": 0,
+          "regex": "^[0-9]{9}$"
+        },
+        {
+          "name": "driver_license_state",
+          "title": "Driver License State",
+          "width": 3,
+          "type": "select",
+          "optional": true,
+          "values": [
+            "AL",
+            "AK",
+            "AZ",
+            "AR",
+            "CA",
+            "CO",
+            "CT",
+            "DE",
+            "FL",
+            "GA",
+            "HI",
+            "ID",
+            "IL",
+            "IN",
+            "IA",
+            "KS",
+            "KY",
+            "LA",
+            "ME",
+            "MD",
+            "MA",
+            "MI",
+            "MN",
+            "MS",
+            "MO",
+            "MT",
+            "NE",
+            "NV",
+            "NH",
+            "NJ",
+            "NY",
+            "NC",
+            "ND",
+            "OH",
+            "OK",
+            "OR",
+            "PA",
+            "RI",
+            "SC",
+            "SD",
+            "TN",
+            "TX",
+            "UT",
+            "VT",
+            "VA",
+            "WA",
+            "WV",
+            "WI",
+            "WY"
+          ]
+        },
+        {
+          "name": "driver_designation",
+          "title": "Driver Designation",
+          "newline": true,
+          "type": "select",
+          "optional": true,
+          "values": [
+            "Primary",
+            "Secondary",
+            "Occasional",
+            "Student away from home over 50 miles",
+            "Excluded - Driver"
+          ]
+        }
+      ],
+      "repeatable": true,
+      "maximum": 6,
+      "condition": {
+        "multiple_drivers": "Yes - Other Drivers"
+      }
+    },
+    {
+      "name": "10_year_felony_conviction",
+      "title": "Has any household member been convicted of a felony in the past 10 years?",
+      "heading": "Preliminary Questions",
+      "type": "select",
+      "values": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "insurance_fraud_conviction",
+      "title": "Has any household member been convicted of activities related to insurance fraud?",
+      "type": "select",
+      "values": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "atfault_claims_past_5_years",
+      "title": "Number of At-fault Claims/Losses in the past 5 years.",
+      "type": "select",
+      "values": [
+        "None",
+        "1",
+        "2",
+        "3",
+        "More than 3"
+      ]
+    },
+    {
+      "name": "run_third_party_reports",
+      "title": "Insurance & Third Party Reports Provide a Better Quote - Can we order them?",
+      "width": 12,
+      "optional": true,
+      "type": "select",
+      "values": [
+        "Yes - Please Run Reports - To Provide the Best Quote",
+        "No - I Do Not Authorize - Just Provide a General Quote"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "displayName": "Policy Schedule",
+      "fileName": "schedule.pdf",
+      "templateName": "schedule.template.liquid"
+    },
+    {
+      "displayName": "Regulatory Disclosure",
+      "fileName": "regulatory_disclosure.pdf",
+      "templateName": "regulatory_disclosure.template.liquid"
+    }
+  ],
+  "defaultPaymentTerms": {
+    "amount": 0,
+    "unit": "day"
+  },
+  "paymentSchedules": [
+    {
+      "type": "total",
+      "name": "upfront",
+      "displayName": "Up Front"
+    },
+    {
+      "type": "monthly",
+      "name": "monthly",
+      "displayName": "Monthly"
+    }
+  ],
+  "lapse": {
+    "gracePeriodDays": 30,
+    "reinstatementPeriodDays": 90
+  }
+}

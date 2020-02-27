@@ -1,0 +1,3 @@
+socotratools==1.3.3
+stripe==1.46.0
+

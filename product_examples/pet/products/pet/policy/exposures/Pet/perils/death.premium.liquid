@@ -1,0 +1,40 @@
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exp_c = data.exposure_characteristics %}
+{% assign exp_v = exp_c.field_values %}
+{% assign peril_c = data.peril_characteristics %}
+
+{% assign base_rate = "pet_base_rates_table" | lookup: exp_v.pet_type %}
+{% assign premium = base_rate | times: 1.0 | round %}
+
+{% comment %} 
+				Included to illustrate understand basic math functions and multiple table calls 
+{% endcomment %}
+{% if exp_v.pet_type == 'Dog' %}
+	{% assign premium = premium | times: 0.8 | round %}
+
+{% comment %} 
+				Created a by the Breed Surcharge 
+{% endcomment %}
+	{% assign base_rate_2 = "breed_dog_table" | lookup: exp_v.pet_breed_dog %}
+    {% assign premium = premium | times: base_rate_2 | round %}
+{% endif %}
+
+{% if exp_v.pet_type == 'Cat' %}
+	{% assign premium = premium | plus: 0.1 | round %}
+{% endif %}
+
+
+{% if policy_v.channel == 'Direct' %}
+	{% assign premium = premium | times: 0.3 | round %}
+{% endif %}
+
+{% comment %}
+			*********************** TECHNICAL PREMIUM & COMMISSION ********* 
+{% endcomment %}
+
+{{ premium | times: 0.3 | round | set_year_technical_premium }}
+{{ premium | times: 0.05 | round | add_year_commission: "Agent1234" }}
+{{ premium | round | set_year_premium }}
+
+
+

@@ -1,0 +1,15 @@
+{% assign exposure_c = data.policy.exposures[0].characteristics[0] %}
+{% assign pet_type = exposure_c.field_values.pet_type %}
+
+{{ "accept" | set_underwriting_decision }}
+
+
+{% if pet_type == "Elephant" %}
+	{{ "reject" | set_underwriting_decision }}
+	{{ "Policy does not meet guidelines for automatic acceptance as the pet is a Elephant" | add_underwriting_note }}
+{% endif %}
+
+{% if pet_type == "Lion" %}
+	{{ "reject" | set_underwriting_decision }}
+	{{ "Policy does not meet guidelines for automatic acceptance as the pet is a Lion" | add_underwriting_note }}
+{% endif %}

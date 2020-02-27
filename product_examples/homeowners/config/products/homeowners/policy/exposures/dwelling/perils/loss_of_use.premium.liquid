@@ -1,0 +1,8 @@
+{% assign peril_v = data.peril_characteristics.field_values %}
+
+{% assign cov_limit = peril_v.coverage_limit | round %}
+{% assign premium = cov_limit | times: 0.0034 | round %} 
+
+{{ premium | set_year_premium }}
+{{ premium | times: 0.8 | set_year_technical_premium }}
+{{ premium | times: 0.05 | add_year_commission: "Agent1234" }}

@@ -1,0 +1,109 @@
+{
+  "name": "dwelling",
+  "displayName": "Dwelling",
+  "fields": [
+    {
+      "name": "dwelling_type",
+      "title": "Dwelling Type",
+      "type": "select",
+      "values": [
+        "Single Family",
+        "Duplex",
+        "Condo"
+      ],
+      "optional": false
+    },
+    {
+      "name": "living_area",
+      "title": "Living Area (sq feet)",
+      "type": "number",
+      "decimalPlaces": 0,
+      "optional": false
+    },
+    {
+      "name": "roof_type",
+      "title": "Roof Type",
+      "type": "select",
+      "values": [
+        "Shingle",
+        "Tile",
+        "Composite",
+        "Metal"
+      ],
+      "optional": false
+    },
+    {
+      "name": "in_foreclosure",
+      "type": "select",
+      "title": "Is this property in foreclosure?",
+      "values": [
+        "No",
+        "Yes"
+      ],
+      "optional": false
+    },
+    {
+      "name": "distance_to_fire_hydrant",
+      "title": "Distance to Fire Hydrant (feet)",
+      "values": [
+        "1000 ft or less",
+        "More than 1000 feet"
+      ],
+      "type": "select",
+      "newline": true,
+      "optional": true
+    },
+    {
+      "name": "distance_to_fire_station",
+      "title": "Distance to Fire Station (miles)",
+      "values": [
+        "1 or less",
+        "2 to 5",
+        "6 to 10",
+        "More than 10"
+      ],
+      "type": "select",
+      "optional": true
+    },
+    {
+      "name": "address_1",
+      "title": "Address Line 1",
+      "type": "string",
+      "newline": true,
+      "optional": true
+    },
+    {
+      "name": "address_2",
+      "title": "Address Line 2",
+      "type": "string",
+      "newline": true,
+      "optional": true
+    },
+    {
+      "name": "city",
+      "title": "City",
+      "type": "string",
+      "optional": true
+    },
+    {
+      "name": "state",
+      "title": "State",
+      "type": "select",
+      "values": [
+        "CA",
+        "FL",
+        "NY",
+        "OH",
+        "TX"
+      ],
+      "optional": false
+    },
+    {
+      "name": "zip",
+      "title": "Zip",
+      "type": "string",
+      "regex": "^\\d{5}(?:[-\\s]\\d{4})?$",
+      "optional": true
+    }
+  ]
+}

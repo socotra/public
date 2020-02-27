@@ -1,0 +1,12 @@
+{
+  "fees": [
+    {
+      "name": "underwriting",
+      "displayName": "Underwriting Fee"
+    },
+    {
+      "name": "transaction",
+      "displayName": "Transaction Fee"
+    }
+  ]
+}

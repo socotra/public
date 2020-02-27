@@ -1,0 +1,10 @@
+{
+  "name": "accident",
+  "displayName": "Accident / Illness",
+  "fields": [],
+  
+  "indemnityPerEvent": "0",
+  "indemnityInAggregate": "10000",
+  "deductible": "100",
+  "lumpSumPayment": "0"
+}

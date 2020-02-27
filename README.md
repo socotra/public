@@ -4,7 +4,7 @@
 
 Socotra's insurance platform is designed to be extended through configuration and its open APIs. While the product handles the "core", there are often many enhancements or extensions that may match your situation.  To ease the learning curve, Socotra provides integrations, code samples, example product configuration, and helpful test utilities that may aid in your processes. Feel free to use as-is or modify to best suit your needs.
 
-Visit docs2.socotra.com or contact us at support@socotra.com
+Visit docs.socotra.com or contact us at support@socotra.com
 
 ## Table of Contents
 
@@ -22,9 +22,11 @@ Visit docs2.socotra.com or contact us at support@socotra.com
 
 **[data_dictionary]:** When developing against the API, it's helpful to have a reference of all the product fields configured in an instance.  This script generates a CSV of all fields and associated data types.
 
-##### Coming Soon
-  - Stripe Integration
-  - Consumer Website Example
+**[stripe]:** This example uses Stripe's payment processor to pay a policyholder's outstanding invoices.
+
+**[cognito]:** These tools show how to use an external directory service to add permissions to Socotra for various API function calls.  The example provided uses the AWS Cognito service.
+
+**[product_examples]:** Socotra can be configured for any line of business.  In this directory, you can find sample product configurations for various lines of business to adapt to your needs.
 
 
 License
@@ -32,8 +34,6 @@ License
 
 GNU Lesser General Public License 
 
-
-**Free Software, Hell Yeah!**
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
@@ -45,3 +45,6 @@ GNU Lesser General Public License
    [premium_test]: <https://github.com/socotra/public/tree/master/premium_test>
    [general_ledger]: <https://github.com/socotra/public/tree/master/general_ledger>
    [data_dictionary]: <https://github.com/socotra/public/tree/master/gen_data_dictionary.py>
+   [stripe]: <https://github.com/socotra/public/tree/master/stripe>
+   [cognito]: <https://github.com/socotra/public/tree/master/cognito>
+   [product_examples]: <https://github.com/socotra/public/tree/master/product_examples>

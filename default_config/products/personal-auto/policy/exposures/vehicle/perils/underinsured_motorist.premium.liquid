@@ -1,23 +1,15 @@
-{% comment %}
-{% assign vehicle_value = data.exposure_characteristics.field_values.vehicle_value %}
-{% assign premium = vehicle_value | times: 0.037 | round %}
-
-{% assign rate = "vehicle_rate_table" | lookup: data.exposure_characteristics.field_values.vehicle_type %}
-{% assign premium = premium | times: rate | round %}
-
-{% endcomment %}
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_c = data.peril_characteristics %}
 
 {% assign premium = 37.33 | times: 0.89 %}
 
-{% if data.policy_characteristics.field_values.channel == 'Direct' %}
+{% if policy_v.channel == 'Direct' %}
 	{% assign premium = premium | times: 0.75 %}
 {% endif %}
-{% if data.policy_characteristics.field_values.channel == 'Agent' %}
+{% if policy_v.channel == 'Agent' %}
 	{% assign premium = premium | times: 0.9 %}
 {% endif %}
-
-
-
 
 {% if data.peril_characteristics.indemnity_in_aggregate > 0 %}
 	{% assign adj = data.peril_characteristics.indemnity_in_aggregate | minus: 100000 %}
@@ -28,21 +20,16 @@
 	{% assign premium = premium | plus: adj %}
 {% endif %}
 
+{{ premium | set_year_premium }}
 
-
-{% comment %} scale premium according to policy duration {% endcomment %}
-
-
-{% assign days_duration = data.peril_characteristics.coverage_start_timestamp | get_30_360_day_count: data.peril_characteristics.coverage_end_timestamp %}
-{% assign scaled_premium = premium | times: days_duration | divided_by: 360.00 %}
-
-{{ scaled_premium | set_peril_premium }}
-
-{{ scaled_premium | times: 0.8 | set_peril_technical_premium }}
+{% assign technical_premium = premium | times: 0.8 %}
+{{ technical_premium | set_year_technical_premium }}
 
 {% comment %} commission at a flat 5% {% endcomment %}
-{% if data.policy_characteristics.field_values.channel == 'Agent' %}
-    {{ scaled_premium | times: 0.05 | add_commission: "Agent1234" }}
-{% elsif data.policy_characteristics.field_values.channel == 'Broker' %}
-    {{ scaled_premium | times: 0.05 | add_commission: "Broker6789" }}
+{% if policy_v.channel == 'Agent' %}
+	{% assign agent_comm = premium | times: 0.05 %}
+    {{ agent_comm | add_year_commission: "Agent1234" }}
+{% elsif policy_v.channel == 'Broker' %}
+	{% assign broker_comm = premium | times: 0.05 %}
+    {{ broker_comm | add_year_commission: "Broker6789" }}
 {% endif %}

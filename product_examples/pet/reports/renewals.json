@@ -1,0 +1,21 @@
+{
+  "title": "Renewals",
+  "query": "renewals",
+  "columns": {
+    "Date": "policy.initializedTimestamp",
+    "Employee": "policy.employeeUsername",
+    "Policyholder ID": "policyholder.id",
+    "Policyholder First Name": "ph_v.firstname",
+    "Policyholder Last Name": "ph_v.lastname",
+    "Policy ID": "policy.id",
+    "Invoice Number": "invoice.id",
+    "Channel": "policy_v.channel",
+    "Product": "policy.productName",
+    "Start Date": "policy.start",
+    "End Date": "policy.end",
+    "Premium": "policy.formula['amount.premium']",
+    "Fees": "policy.formula['amount.fees']",
+    "VAT": "policy.formula['amount.vat']",
+    "Total": "policy.formula.total"
+  }
+}

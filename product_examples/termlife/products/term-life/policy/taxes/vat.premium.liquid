@@ -1,0 +1,2 @@
+{% assign vat_rate = 0.17 %}
+{{ data.peril_characteristics.premium | times: vat_rate | set_peril_tax }}

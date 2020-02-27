@@ -1,33 +1,40 @@
-{% assign policy_c = data.policy.characteristics[0] %}
+{% assign policy_v = data.policy.exposures[0].characteristics[0].field_values %}
 {% assign ph_v = data.policyholder.entity.values %}
-{% assign invoice = data.policy.invoices[0] %}
-{% assign end_display = policy_c.policy_end_timestamp | timestamp_millis_add: "day", -1 %}
+{% assign invoice = data.policy.invoices.last %}
+{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
+{% assign due_display = invoice.due_timestamp | timestamp_millis_add: "day", -1 %}
+{% assign infin = data.invoice_financials %}
 
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
 </head>
 
-<table width="100%" class="header">
-  <tr>
-    <td>
-      <p class="header-contact">
-        Acme Insurance Co.<br>
-        101 Mission Street<br>
-        San Francisco, CA<br>
-        +1 415 555 5555<br>
-        www.socotra.com
-      </p>
-    </td>
-    <td>
-      <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
-    </td>
-  </tr>
-</table>
+{% header %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          Acme Insurance Co.<br>
+          101 Mission Street<br>
+          San Francisco, CA<br>
+          +1 415 555 5555<br>
+          www.socotra.com
+        </p>
+      </td>
+      <td>
+        <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+      </td>
+    </tr>
+  </table>
+{% endheader %}
 
 <h1>Simple Auto Insurance Invoice</h1><br>
 
-Invoice Number: <b>{{invoice.display_id}}</b><br><br>
+Invoice Number: <b>{{invoice.display_id}}</b><br>
+Invoice Date: <b>{{invoice.created_timestamp | timestamp_millis_print: "d MMM YYYY"}}</b><br>
 
 <table class="table border-tops-only content">
   <tr>
@@ -42,44 +49,59 @@ Invoice Number: <b>{{invoice.display_id}}</b><br><br>
     <td>
       <b>ID:</b> {{data.policy.display_id}}<br>
       <b>Effective:</b>
-      From {{policy_c.policy_start_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}
-      to {{end_display | timestamp_millis_print: "MMM dd, YYYY" }}<br>
+      From {{data.policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+      through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
     </td>
   </tr>
   <tr>
     <td>Due date</td>
-    <td>{{invoice.due_timestamp | timestamp_millis_print: "MMM dd, YYYY" }}</td>
+    <td>{{due_display | timestamp_millis_print: "d MMM YYYY" }}</td>
   </tr>
 </table>
 
 <table class="table price-table">
+  {% for fintr in infin.financial_transactions %}
+    {% assign transaction_description = fintr.peril_name %}
+    {% if fintr.type == 'tax' or fintr.type == 'fee' %}
+      {% assign transaction_description = transaction_description | append: " " | append: fintr.tax_name | append: fintr.fee_name %}
+    {% endif %}
+    {% assign transaction_description = transaction_description | append: " " | append: fintr.type %}
+    {% assign transaction_description = transaction_description | strip | capitalize | replace: "_", " " %}
+
+    <tr>
+      <td>{{ transaction_description }}</td>
+      <td>{{ fintr.amount | format_number_currency: 'en', 'US' }}</td>
+    </tr>
+  {% endfor %}
   <tr>
-    <td>Premium</td>
-    <td>{{policy_c.gross_premium | format_number_currency: "en","US" }}</td>
-  </tr>
-  {% for tax in policy_c.tax_groups %}
-    <tr>
-      <td> {{ tax.name | capitalize }} Tax
-      <td> {{ tax.amount | format_number_currency: "en","US" }} </td>
-    <tr>
-  {% endfor %}
-  {% for fee in data.policy.fees %}
-    <tr>
-      <td> {{ fee.name | capitalize }} Fee
-      <td> {{ fee.amount | format_number_currency: "en","US" }} </td>
-    <tr>
-  {% endfor %}
-  <td><b>Total</b></td>
-  <td><b>{{ invoice.total_due | format_number_currency: "en","US" }}</b></td>
+    <td><b>Total Due</b></td>
+    <td><b>{{ infin.total_due | format_number_currency: 'en', 'US' }}</b></td>
   </tr>
 </table>
 
-Invoice Date: {{invoice.created_timestamp | timestamp_millis_print: "MMM dd, YYYY"}}<br><br>
-
-Acme Insurance Co<br><br><br><br>
-____________________________________________<br><br><br>
-
-
 </body>
+
+{% footer %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          Acme - Keep your loved ones secure.
+        </p>
+      </td>
+      <td>
+        <p class="header-contact">
+          Page {{ | page_number }} of {{ | page_count }}
+        </p>
+      </td>
+      <td>
+        <footer></footer>
+      </td>
+    </tr>
+  </table>
+{% endfooter %}
+
 </html>
-<footer>Acme - Keep your loved ones secure.</footer>
+

@@ -1,0 +1,34 @@
+{% assign policy_v = data.policy_characteristics.field_values %}
+{% assign exp_v = data.exposure_characteristics.field_values %}
+{% assign peril_c = data.peril_characteristics %}
+
+{% assign vehicle_value = data.exposure_characteristics.field_values.vehicle_value %}
+
+
+{% assign premium = vehicle_value | times: 0.0119 | round %}
+
+{% assign rate = "vehicle_rate_table_personal_auto" | lookup: data.exposure_characteristics.field_values.vehicle_type %}
+{% assign premium = premium | times: rate | round %}
+
+{% if policy_v.channel == 'Direct' %}
+	{% assign premium = premium | times: 0.9 | round %}
+{% endif %}
+
+{% comment %} scale premium according to policy duration {% endcomment %}
+{% assign days_duration = peril_c.coverage_start_timestamp | get_30_360_day_count: peril_c.coverage_end_timestamp %}
+{% assign scaled_premium = premium | times: days_duration | divided_by: 360.00 %}
+
+{{ scaled_premium | set_peril_premium }}
+
+{% assign technical_premium = scaled_premium | times: 0.8 %}
+{{ technical_premium | set_peril_technical_premium }}
+
+
+{% comment %} commission at a flat 5% {% endcomment %}
+{% if policy_v.channel == 'Agent' %}
+	{% assign agent_comm = scaled_premium | times: 0.05 %}
+    {{ agent_comm | add_commission: "Agent1234" }}
+{% elsif policy_v.channel == 'Broker' %}
+	{% assign broker_comm = scaled_premium | times: 0.05 %}
+    {{ broker_comm | add_commission: "Broker6789" }}
+{% endif %}

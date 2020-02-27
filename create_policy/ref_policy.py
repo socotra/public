@@ -20,9 +20,9 @@ def main(argv):
     parser.add_argument('-p', '--password', default='socotra', required=False)
     args = parser.parse_args(argv)
 
-    with open('../default_config/products/auto/policy/exposures/vehicle/perils/' +
-              'bodily_injury.premium.liquid', "r") as f:
-        calculation = f.read()
+    # with open('../default_config/products/personal-auto/policy/exposures/vehicle/perils/' +
+    #           'a_third_party_liability.premium.liquid', "r") as f:
+    #     calculation = f.read()
 
     print 'Authenticating with tenant: ' + args.hostname
     client = SocotraClient.get_authenticated_client_for_hostname(
@@ -40,47 +40,47 @@ def main(argv):
         exp_values = json.load(f)
     with open('ref_policy.json', 'r') as f:
         policy_values = json.load(f)
-    with open('ref_claim.json', 'r') as f:
-        claim = json.load(f)
+    with open('ref_driver.json', 'r') as f:
+        driver = json.load(f)
 
-    peril = {'name': 'bodily_injury'}
+    peril = {'name': 'a_third_party_liability'}
     exposure = {'exposureName': 'vehicle',
                 'fieldValues': exp_values['required'],
                 'perils': [peril]
                 }
 
     start_timestamp = dates.date_to_millis(
-        '30/11/2017', 'America/Los_Angeles', "%d/%m/%Y"),
+        '01/10/2019', 'America/Los_Angeles', "%d/%m/%Y")
     end_timestamp = dates.date_to_millis(
-        '30/11/2018', 'America/Los_Angeles', "%d/%m/%Y")
-    policy = client.create_policy('auto', ph_locator,
+        '01/10/2020', 'America/Los_Angeles', "%d/%m/%Y")
+    policy = client.create_policy('personal-auto', ph_locator,
                                   policy_start_timestamp=start_timestamp,
                                   policy_end_timestamp=end_timestamp,
                                   field_values=policy_values['required'],
-                                  field_groups=[claim, claim],
                                   exposures=[exposure, exposure],
                                   finalize=False)
 
-    # print json.dumps(policy)
+    print json.dumps(policy)
     policy_locator = policy['locator']
     client.uw_policy(policy_locator)
     client.price_policy(policy_locator)
     client.finalize_policy(policy_locator)
+    client.issue_policy(policy_locator)
 
     # print json.dumps(policy)
-    peril_id = policy['exposures'][0]['perils'][0]['displayId']
-    print 'Policy Locator: ' + policy_locator
-    print '-----'
-    uw_result = client.uw_policy(policy_locator)
-    print json.dumps(uw_result)
-    print '----'
-    price_result = client.price_policy(policy_locator)
-    print json.dumps(price_result)
-    print '----'
-    detailed_price_result = client.check_existing_peril_premium(
-        calculation, peril_id)
-    print json.dumps(detailed_price_result,
-                     sort_keys=True, indent=4, separators=(',', ':')) + "\n"
+    # peril_id = policy['exposures'][0]['perils'][0]['displayId']
+    # print 'Policy Locator: ' + policy_locator
+    # print '-----'
+    # uw_result = client.uw_policy(policy_locator)
+    # print json.dumps(uw_result)
+    # print '----'
+    # price_result = client.price_policy(policy_locator)
+    # print json.dumps(price_result)
+    # print '----'
+    # detailed_price_result = client.check_existing_peril_premium(
+    #     calculation, peril_id)
+    # print json.dumps(detailed_price_result,
+    #                  sort_keys=True, indent=4, separators=(',', ':')) + "\n"
 
 
 if __name__ == "__main__":

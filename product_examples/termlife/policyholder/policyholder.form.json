@@ -1,0 +1,54 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "Primary Policyholder",
+          "fields": [
+            {
+              "name": "first_name",
+              "prompt": "First Name",
+              "required": true,
+              "updateable": true,
+              "width": 4
+            },
+            {
+              "name": "last_name",
+              "prompt": "Last Name",
+              "required": true,
+              "updateable": true,
+              "width": 4
+            },
+            {
+              "name": "date_of_birth",
+              "prompt": "Date of Birth",
+              "required": true,
+              "updateable": true,
+              "width": 4,
+              "newline": true
+            },
+            {
+              "name": "gender",
+              "prompt": "Gender",
+              "updateable": true,
+              "width": 4
+            },
+            {
+              "name": "occupation",
+              "prompt": "Occupation",
+              "updateable": true,
+              "width": 4,
+              "newline": true
+            },
+            {
+              "name": "marital_status",
+              "prompt": "Marital Status",
+              "updateable": true,
+              "width":4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

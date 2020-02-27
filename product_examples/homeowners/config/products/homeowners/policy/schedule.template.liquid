@@ -1,0 +1,118 @@
+{% assign ph_v     = data.policyholder.entity.values %}
+{% assign policy = data.policy %}
+{% assign policy_c = policy.characteristics[0] %}
+{% assign policy_v = policy_c.field_values %}
+{% assign end_display = data.policy.effective_contract_end_timestamp | timestamp_millis_add: "day", -1 %}
+
+{% for exp in data.policy.exposures %}
+	{% if exp.name == 'dwelling' %}
+		{% assign dwelling_v = exp.characteristics[0].field_values %}
+	{% endif %}
+{% endfor %}
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+</head>
+
+{% header %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          ACME Insurance Co.<br>
+          101 Mission Street<br>
+          San Francisco, CA<br>
+          +1 415 555 5555<br>
+          www.socotra.com
+        </p>
+      </td>
+      <td>
+        <img src="http://i.imgur.com/cCB0v64.png" title="Acme Insurance Co" class="logo" height="72px">
+      </td>
+    </tr>
+  </table>
+{% endheader %}
+
+<h1>ACME Homeowners' Insurance Policy Schedule</h1><br>
+
+<h3>Insurance Details</h3>
+
+<table class="table border-tops-only content">
+  <tr>
+    <td>Policyholder</td>
+    <td> 
+      <b>Name:</b> {{ph_v.first_name}} {{ph_v.last_name}}<br>
+      <b>ID:</b> {{data.policyholder.id}}<br>
+    </td>
+  </tr>
+   <tr>
+    <td>Policy</td>
+    <td>
+      <b>Number:</b> {{policy.display_id}}<br>
+      <b>Term:</b> {{policy.original_contract_start_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+      through {{end_display | timestamp_millis_print: "d MMM YYYY" }}<br>
+     </td>
+    </tr>
+    <tr>
+    <td>Qualification Details</td>
+    <td>
+      <b>Household Fraud History Declared as: </b>{{policy_v.insurance_fraud_conviction}}<br>
+      <b>Major Claims History:</b> {{policy_v.major_claims_five_years}} in last five years.<br></td>
+    </tr>
+   <tr>
+    <td>Exposures</td>
+    <td>
+      <b>Dwelling</b><br>
+      <b>Dwelling Type:</b> {{ dwelling_v.dwelling_type }}<br>
+      <b>Living Area:</b> {{ dwelling_v.living_area | format_number: "en", "US" }} square feet<br>
+      <b>Address</b><br>
+      {{ dwelling_v.address_1 }}<br>
+      {{ dwelling_v.address_2 }}<br>
+      {{ dwelling_v.city }} {{ dwelling_v.state }}, {{ dwelling_v.zip }}
+      <b>
+    </td>
+  </tr>
+  <tr>
+    <td>Cost Breakdown</td>
+    <td>
+     <b>Gross Premium:</b>{{policy_c.gross_premium | format_number_currency: "en","US" }}</br>
+     <b>Jurisdictional Taxes: </b>{{policy_c.gross_taxes | format_number_currency: "en","US" }}</br>
+     <b>Underwriting Fees: </b>{{policy.fees[0].amount | format_number_currency: "en","US" }}</br> 
+     <b>Transaction Fees: </b>{{policy.fees[1].amount | format_number_currency: "en","US" }}</br>
+    </td>
+  </tr>
+  <tr>
+  <td>Total Due</td>
+    <td>
+     <b>{{ policy_c.gross_premium | plus: policy_c.gross_taxes  | plus: policy.fees[0].amount | plus: policy.fees[1].amount | format_number_currency: "en","US" }}</br> 
+    </td>
+  </table>
+
+<br>
+
+<b>Authorized on</b> {{policy.issued_timestamp | timestamp_millis_print: "d MMM YYYY" }}
+
+{% footer %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/socotra-static-assets-temp/new-styles.css">
+  <table width="100%">
+    <tr>
+      <td>
+        <p class="header-contact">
+          Acme - Keep your loved ones secure.
+        </p>
+      </td>
+      <td>
+        <p class="header-contact">
+          Page {{ | page_number }} of {{ | page_count }}
+        </p>
+      </td>
+      <td>
+        <footer></footer>
+      </td>
+    </tr>
+  </table>
+{% endfooter %}

@@ -1,0 +1,22 @@
+[
+  {
+    "username": "alice.lee",
+    "name": "Alice Lee",
+    "password": "socotra",
+    "roles": [
+      "underwriter2",
+      "finance",
+      "claim1"
+    ]
+  },
+  {
+    "username": "michael",
+    "name": "Michael",
+    "password": "socotra",
+    "roles": [
+      "underwriter2",
+      "finance",
+      "claim1"
+    ]
+  }
+]
