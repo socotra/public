@@ -1,4 +1,4 @@
-[![N|Solid](https://docs.socotra.com/production/_static/socotraLogo.png)](https://www.socotra.com)
+[![N|Solid](https://docs.socotra.com/production/_images/socotra_logo.png)](https://www.socotra.com)
 
 # Socotra Library
 
