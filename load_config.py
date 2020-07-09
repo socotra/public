@@ -33,6 +33,12 @@ will.barley@socotra.com to talk directly to the maintainer
 Or open an new issue in the repository:
 https://github.com/socotra/public/issues/new?title=issue%20with%20load_config.py
 
+
+Development
+-----------
+Conventional Commits: https://www.conventionalcommits.org/
+Black for deterministic code formatting: https://black.readthedocs.io/
+
 """
 import argparse
 import json
