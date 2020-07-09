@@ -48,7 +48,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-SANDBOX_URL = 'https://api.sandbox.socotra.com'
+SANDBOX_URL = "https://api.sandbox.socotra.com"
 
 
 class BetterArgParser(argparse.ArgumentParser):
@@ -74,29 +74,36 @@ def get_arguments() -> object:
         description="Load Socotra Configuration into a Socotra Tenant."
     )
     parser.add_argument(
-        "--tenant_suffix", "-t",
+        "--tenant_suffix",
+        "-t",
         help="This will be used to create the hostname of your tenant as follows: "
-             "<username>-<tenant_suffix>.co.sandbox.socotra.com. "
-             "Note: 'configeditor' is not allowed.",
-        required=True)
+        "<username>-<tenant_suffix>.co.sandbox.socotra.com. "
+        "Note: 'configeditor' is not allowed.",
+        required=True,
+    )
     parser.add_argument(
-        "--folder", "-f",
+        "--folder",
+        "-f",
         help="The path of the root folder of your Socotra Config that you want to load.",
-        required=True)
+        required=True,
+    )
     parser.add_argument(
-        "--username", "-u",
+        "--username",
+        "-u",
         help="Socotra Config Studio username. "
-             "Uses SOCOTRA_USERNAME env variable if not provided.",
-        required=False)
+        "Uses SOCOTRA_USERNAME env variable if not provided.",
+        required=False,
+    )
     parser.add_argument(
-        "--password", "-p",
+        "--password",
+        "-p",
         help="Socotra Config Studio password. "
-             "Uses SOCOTRA_PASSWORD env variable if not provided.",
-        required=False)
+        "Uses SOCOTRA_PASSWORD env variable if not provided.",
+        required=False,
+    )
     parser.add_argument(
-        "--debug", "-d",
-        help="prints debugging info",
-        action="store_true")
+        "--debug", "-d", help="prints debugging info", action="store_true"
+    )
 
     arg = parser.parse_args()
 
@@ -104,22 +111,31 @@ def get_arguments() -> object:
         try:
             arg.username = os.environ["SOCOTRA_USERNAME"]
         except KeyError:
-            parser.error("No --username provided "
-                         "and no SOCOTRA_USERNAME environment variable found")
+            parser.error(
+                "No --username provided "
+                "and no SOCOTRA_USERNAME environment variable found"
+            )
 
     if arg.password is None:
         try:
             arg.password = os.environ["SOCOTRA_PASSWORD"]
         except KeyError:
-            parser.error("No --password provided "
-                         "and no SOCOTRA_PASSWORD environment variable found")
+            parser.error(
+                "No --password provided "
+                "and no SOCOTRA_PASSWORD environment variable found"
+            )
 
     arg.folder = str(Path(arg.folder).resolve())
     return arg
 
 
-def post_zip_to_server(file: Union[str, Path], tenant_suffix: str, username: str, password: str,
-                       debug: bool = True) -> None:
+def post_zip_to_server(
+    file: Union[str, Path],
+    tenant_suffix: str,
+    username: str,
+    password: str,
+    debug: bool = True,
+) -> None:
     """Loads a zipped Socotra Configuration into a Tenant.
 
     Parameters
@@ -147,7 +163,9 @@ def post_zip_to_server(file: Union[str, Path], tenant_suffix: str, username: str
     url = SANDBOX_URL + "/configuration/deployTest"
     with open(str(file), mode="rb") as binary_data:
         file_data = {"zipFile": binary_data}
-        response = requests.post(url, post_data, files=file_data, verify=False, headers=auth_header)
+        response = requests.post(
+            url, post_data, files=file_data, verify=False, headers=auth_header
+        )
 
     try:
         json_response = json.loads(response.text)
@@ -189,8 +207,7 @@ def get_auth_token(username, password, debug: bool = False):
         The Authorization token
 
     """
-    post_data = {"username": username,
-                 "password": password}
+    post_data = {"username": username, "password": password}
     auth_url = SANDBOX_URL + "/account/authenticate"
     r = requests.post(auth_url, json=post_data, verify=False)
     json_response = json.loads(r.text)
@@ -203,9 +220,11 @@ def get_auth_token(username, password, debug: bool = False):
     status = json_response.get("httpStatus")
     if status == "401":
         raise ValueError(
-            f"HTTP {status}: Unauthorized: Could not authenticate with the provided username and password.")
+            f"HTTP {status}: Unauthorized: Could not authenticate with the provided username and password."
+        )
     raise ValueError(
-        f"HTTP {status}: There was some sort of problem while trying to authenticate the user and password.")
+        f"HTTP {status}: There was some sort of problem while trying to authenticate the user and password."
+    )
 
 
 def log_debug(message: str, debug: bool = False, ):
@@ -226,10 +245,17 @@ if __name__ == "__main__":
 
         print("Zipping")
         log_debug(f"Zipping up: {args.folder}", args.debug)
-        zipped = make_archive(base_name=d / "archive", format="zip", root_dir=args.folder)
+        zipped = make_archive(
+            base_name=d / "archive", format="zip", root_dir=args.folder
+        )
         log_debug(f"Zipped to: {zipped}", args.debug)
 
         print("Uploading")
-        post_zip_to_server(zipped, args.tenant_suffix, args.username, args.password, debug=args.debug)
+        post_zip_to_server(
+            zipped, args.tenant_suffix, args.username, args.password, debug=args.debug
+        )
 
-        log_debug(f"Finishing with temporary directory, which will be removed: {d}", args.debug)
+        log_debug(
+            f"Finishing with temporary directory, which will be removed: {d}",
+            args.debug,
+        )
