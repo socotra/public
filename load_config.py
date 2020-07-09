@@ -56,7 +56,7 @@ class BetterArgParser(argparse.ArgumentParser):
 
     def error(self, message):
         """Prints error message and then the Usage statement for this CLI"""
-        sys.stderr.write('Error: %s\n' % message)
+        sys.stderr.write("Error: %s\n" % message)
         self.print_help()
         sys.exit(2)
 
@@ -71,48 +71,48 @@ def get_arguments() -> object:
     """
 
     parser = BetterArgParser(
-        description='Load Socotra Configuration into a Socotra Tenant.'
+        description="Load Socotra Configuration into a Socotra Tenant."
     )
     parser.add_argument(
-        '--tenant_suffix', '-t',
-        help='This will be used to create the hostname of your tenant as follows: '
-             '<username>-<tenant_suffix>.co.sandbox.socotra.com. '
-             'Note: "configeditor" is not allowed.',
+        "--tenant_suffix", "-t",
+        help="This will be used to create the hostname of your tenant as follows: "
+             "<username>-<tenant_suffix>.co.sandbox.socotra.com. "
+             "Note: 'configeditor' is not allowed.",
         required=True)
     parser.add_argument(
-        '--folder', '-f',
-        help='The path of the root folder of your Socotra Config that you want to load.',
+        "--folder", "-f",
+        help="The path of the root folder of your Socotra Config that you want to load.",
         required=True)
     parser.add_argument(
-        '--username', '-u',
-        help='Socotra Config Studio username. '
-             'Uses SOCOTRA_USERNAME env variable if not provided.',
+        "--username", "-u",
+        help="Socotra Config Studio username. "
+             "Uses SOCOTRA_USERNAME env variable if not provided.",
         required=False)
     parser.add_argument(
-        '--password', '-p',
-        help='Socotra Config Studio password. '
-             'Uses SOCOTRA_PASSWORD env variable if not provided.',
+        "--password", "-p",
+        help="Socotra Config Studio password. "
+             "Uses SOCOTRA_PASSWORD env variable if not provided.",
         required=False)
     parser.add_argument(
-        '--debug', '-d',
+        "--debug", "-d",
         help="prints debugging info",
-        action='store_true')
+        action="store_true")
 
     arg = parser.parse_args()
 
     if arg.username is None:
         try:
-            arg.username = os.environ['SOCOTRA_USERNAME']
+            arg.username = os.environ["SOCOTRA_USERNAME"]
         except KeyError:
-            parser.error('No --username provided '
-                         'and no SOCOTRA_USERNAME environment variable found')
+            parser.error("No --username provided "
+                         "and no SOCOTRA_USERNAME environment variable found")
 
     if arg.password is None:
         try:
-            arg.password = os.environ['SOCOTRA_PASSWORD']
+            arg.password = os.environ["SOCOTRA_PASSWORD"]
         except KeyError:
-            parser.error('No --password provided '
-                         'and no SOCOTRA_PASSWORD environment variable found')
+            parser.error("No --password provided "
+                         "and no SOCOTRA_PASSWORD environment variable found")
 
     arg.folder = str(Path(arg.folder).resolve())
     return arg
@@ -142,34 +142,34 @@ def post_zip_to_server(file: Union[str, Path], tenant_suffix: str, username: str
         sys.exit(2)
 
     # Construct the Request
-    auth_header = {'Authorization': token}
+    auth_header = {"Authorization": token}
     post_data = {"tenantNameSuffix": tenant_suffix}
-    url = SANDBOX_URL + '/configuration/deployTest'
-    with open(str(file), mode='rb') as binary_data:
-        file_data = {'zipFile': binary_data}
+    url = SANDBOX_URL + "/configuration/deployTest"
+    with open(str(file), mode="rb") as binary_data:
+        file_data = {"zipFile": binary_data}
         response = requests.post(url, post_data, files=file_data, verify=False, headers=auth_header)
 
     try:
         json_response = json.loads(response.text)
     except ValueError:
         print("An error happened!\n")
-        print('Headers: %s' % response.headers)
-        print('Status Code: %s' % response.status_code)
-        print('Data: %s' % response.text)
+        print("Headers: %s" % response.headers)
+        print("Status Code: %s" % response.status_code)
+        print("Data: %s" % response.text)
         return
 
-    if json_response.get('success'):
+    if json_response.get("success"):
         print("============== load was successful ==============")
-        print(f'hostname: {json_response["hostname"]}')
-        print(f'url: https://{json_response["hostname"]}')
+        print(f"hostname: {json_response['hostname']}")
+        print(f"url: https://{json_response['hostname']}")
 
     else:
         print("============== load failed ==============")
-        log = json_response.get('logfile')
+        log = json_response.get("logfile")
         if log:
-            print(f'Loading Log:\n {log}')
+            print(f"Loading Log:\n {log}")
         else:
-            print(f'Loading Response:\n {json_response}')
+            print(f"Loading Response:\n {json_response}")
             sys.exit(2)
 
 
@@ -191,21 +191,21 @@ def get_auth_token(username, password, debug: bool = False):
     """
     post_data = {"username": username,
                  "password": password}
-    auth_url = SANDBOX_URL + '/account/authenticate'
+    auth_url = SANDBOX_URL + "/account/authenticate"
     r = requests.post(auth_url, json=post_data, verify=False)
     json_response = json.loads(r.text)
-    log_debug(f'Response from load: {json_response}', debug)
+    log_debug(f"Response from load: {json_response}", debug)
 
-    token = json_response.get('authorizationToken')
+    token = json_response.get("authorizationToken")
     if token:
         return token
 
-    status = json_response.get('httpStatus')
-    if status == '401':
+    status = json_response.get("httpStatus")
+    if status == "401":
         raise ValueError(
-            f'HTTP {status}: Unauthorized: Could not authenticate with the provided username and password.')
+            f"HTTP {status}: Unauthorized: Could not authenticate with the provided username and password.")
     raise ValueError(
-        f'HTTP {status}: There was some sort of problem while trying to authenticate the user and password.')
+        f"HTTP {status}: There was some sort of problem while trying to authenticate the user and password.")
 
 
 def log_debug(message: str, debug: bool = False, ):
@@ -214,22 +214,22 @@ def log_debug(message: str, debug: bool = False, ):
         print(message)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     args = get_arguments()
-    log_debug(f'Arguments: {args}', args.debug)
+    log_debug(f"Arguments: {args}", args.debug)
 
     # Create a temporary directory (that will work on any operating system)
     #  where we will create our zip file, and clean it up when done
     with tempfile.TemporaryDirectory() as dir_name:
         d = Path(dir_name)  # turn into a Path object
-        log_debug(f'Created temporary directory: {d}', args.debug)
+        log_debug(f"Created temporary directory: {d}", args.debug)
 
-        print('Zipping')
-        log_debug(f'Zipping up: {args.folder}', args.debug)
-        zipped = make_archive(base_name=d / 'archive', format='zip', root_dir=args.folder)
-        log_debug(f'Zipped to: {zipped}', args.debug)
+        print("Zipping")
+        log_debug(f"Zipping up: {args.folder}", args.debug)
+        zipped = make_archive(base_name=d / "archive", format="zip", root_dir=args.folder)
+        log_debug(f"Zipped to: {zipped}", args.debug)
 
-        print('Uploading')
+        print("Uploading")
         post_zip_to_server(zipped, args.tenant_suffix, args.username, args.password, debug=args.debug)
 
-        log_debug(f'Finishing with temporary directory, which will be removed: {d}', args.debug)
+        log_debug(f"Finishing with temporary directory, which will be removed: {d}", args.debug)
