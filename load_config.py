@@ -227,7 +227,7 @@ def get_auth_token(username, password, debug: bool = False):
     )
 
 
-def log_debug(message: str, debug: bool = False, ):
+def log_debug(message: str, debug: bool = False):
     """Print out debug messages if the `debug` parameter is True"""
     if debug:
         print(message)
