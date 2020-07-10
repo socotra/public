@@ -63,7 +63,7 @@ class BetterArgParser(argparse.ArgumentParser):
     def error(self, message):
         """Prints the script's usage statement and then the typical error message"""
         self.print_help()
-        sys.exit(2)
+        super().error(message)
 
 
 def get_arguments() -> object:
@@ -163,11 +163,7 @@ def post_zip_to_server(
     """
 
     # Authenticate
-    try:
-        token = get_auth_token(username, password, debug=debug)
-    except ValueError as e:
-        print(e)
-        sys.exit(2)
+    token = get_auth_token(username, password, debug=debug)
 
     # Construct the Request
     auth_header = {"Authorization": token}
@@ -200,7 +196,6 @@ def post_zip_to_server(
             print(f"Loading Log:\n {log}")
         else:
             print(f"Loading Response:\n {json_response}")
-            sys.exit(2)
 
 
 def get_auth_token(username, password, debug: bool = False):
