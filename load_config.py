@@ -227,10 +227,12 @@ def get_auth_token(username, password, debug: bool = False):
     status = json_response.get("httpStatus")
     if status == "401":
         raise ValueError(
-            f"HTTP {status}: Unauthorized: Could not authenticate with the provided username and password."
+            f"HTTP {status}: Unauthorized: Could not authenticate with "
+            f"the provided username and password."
         )
     raise ValueError(
-        f"HTTP {status}: There was some sort of problem while trying to authenticate the user and password."
+        f"HTTP {status}: There was some sort of problem while trying to "
+        f"authenticate the user and password."
     )
 
 
