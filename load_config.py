@@ -61,10 +61,9 @@ class BetterArgParser(argparse.ArgumentParser):
     """Extension to ArgumentParser that prints the usage statement alongside any error"""
 
     def error(self, message):
-        """Prints error message and then the Usage statement for this CLI"""
-        sys.stderr.write("Error: %s\n" % message)
+        """Prints the script's usage statement and then the typical error message"""
         self.print_help()
-        sys.exit(2)
+        super().error(message)
 
 
 def get_arguments() -> object:
@@ -147,21 +146,24 @@ def post_zip_to_server(
     Parameters
     ----------
     file
-        The zip file containing the Socotra Configuration
+        The path to the zip file containing the Socotra Configuration
     tenant_suffix
         The suffix to use to create the hostname of your target Tenant
     username
     password
     debug
 
+    Examples
+    --------
+    Bad User/Password
+    >>> post_zip_to_server('/tmp/file.zip', 'tenant12', 'user', 'pass')
+    Traceback (most recent call last):
+        ...
+    ValueError: HTTP 401: Unauthorized: Could not authenticate with the provided username and password.
     """
 
     # Authenticate
-    try:
-        token = get_auth_token(username, password, debug=debug)
-    except ValueError as e:
-        print(e)
-        sys.exit(2)
+    token = get_auth_token(username, password, debug=debug)
 
     # Construct the Request
     auth_header = {"Authorization": token}
@@ -194,7 +196,6 @@ def post_zip_to_server(
             print(f"Loading Log:\n {log}")
         else:
             print(f"Loading Response:\n {json_response}")
-            sys.exit(2)
 
 
 def get_auth_token(username, password, debug: bool = False):
@@ -226,10 +227,12 @@ def get_auth_token(username, password, debug: bool = False):
     status = json_response.get("httpStatus")
     if status == "401":
         raise ValueError(
-            f"HTTP {status}: Unauthorized: Could not authenticate with the provided username and password."
+            f"HTTP {status}: Unauthorized: Could not authenticate with "
+            f"the provided username and password."
         )
     raise ValueError(
-        f"HTTP {status}: There was some sort of problem while trying to authenticate the user and password."
+        f"HTTP {status}: There was some sort of problem while trying to "
+        f"authenticate the user and password."
     )
 
 
@@ -239,7 +242,19 @@ def log_debug(message: str, debug: bool = False):
         print(message)
 
 
-if __name__ == "__main__":
+def main():
+    """Main! Executed when this script is run from the command line.
+
+    Examples
+    --------
+    Simulate: $ python load_config.py -t myTenant -f . -u myUser -p myPass
+    >>> import sys
+    >>> sys.argv = ['load_config.py', '-t', 'myTenant', '-f', '.', '-u', 'myUser', '-p', 'myPass']
+    >>> main()
+    Traceback (most recent call last):
+        ...
+    ValueError: HTTP 401: Unauthorized: Could not authenticate with the provided username and password.
+    """
     args = get_arguments()
     log_debug(f"Arguments: {args}", args.debug)
 
@@ -265,3 +280,7 @@ if __name__ == "__main__":
             f"Finishing with temporary directory, which will be removed: {d}",
             args.debug,
         )
+
+
+if __name__ == "__main__":
+    main()
