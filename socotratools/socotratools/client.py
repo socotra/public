@@ -167,27 +167,6 @@ class SocotraClient:
             {"Authorization": return_value['authorizationToken']})
         return return_value
 
-    @classmethod
-    def get_authenticated_client_from_token(cls, token, api_url=None, debug=False, identity=None):
-        client = cls(api_url, debug=debug)
-        client.authenticate_from_token(token, identity=identity)
-        return client
-
-    def authenticate_from_token(self, token, identity=None):
-        self.__validate_unauthenticated()
-        if identity is not None:
-            identity.authenticate(username, password)
-            username = identity.get_soc_username()
-            password = identity.get_soc_password()
-            self.perms = identity.get_perms()
-        else:
-            self.perms = 'ALL'
-
-        self.session.headers.update({
-            "Authorization": token
-        })
-        return self.renew()
-
     def get_all_policyholders(self,
                               start_timestamp=None,
                               end_timestamp=None,
@@ -507,7 +486,6 @@ class SocotraClient:
         else:
             return 'created'
 
-<<<<<<< HEAD
     def create_endorsement(self, policy_locator, endorsement_name,
                            effective_timestamp=None,
                            field_values=None,
