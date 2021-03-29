@@ -31,4 +31,4 @@ with open(args.document) as document:
         document.name)
     response = client.add_document_to_policy(
         args.policy_locator, display_name, document_type, document)
-    print json.dumps(response, sort_keys=True, indent=4, separators=(',', ': ')) + '\n'
+    print(json.dumps(response, sort_keys=True, indent=4, separators=(',', ': ')) + '\n')

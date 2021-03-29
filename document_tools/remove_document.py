@@ -21,4 +21,4 @@ client = SocotraClient.get_authenticated_client_for_hostname(
 
 response = client.remove_document_from_policy(args.policy_locator,
                                               args.document_locator)
-print json.dumps(response, sort_keys=True, indent=4, separators=(',', ': ')) + '\n'
+print(json.dumps(response, sort_keys=True, indent=4, separators=(',', ': ')) + '\n')

@@ -25,4 +25,4 @@ with open(args.document_template_file, "r") as f:
 
 response = client.render_policy_document(args.policy_id, template)
 
-print json.dumps(response, sort_keys=True, indent=4, separators=(',', ':')) + "\n"
+print(json.dumps(response, sort_keys=True, indent=4, separators=(',', ':')) + "\n")
