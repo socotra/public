@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "73cd3817-3056-4e5b-a0c0-2250a9d605ab",
+		"name": "Socotra Hello World",
+		"description": "Auth and create a policy holder; template for others.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Service={{API_URL}} Information",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "240a3091-85d0-4f7b-9d81-b259b069aecc",
+						"exec": [
+							"pm.test('returns 200 OK w/ version info', () => {",
+							"    pm.response.to.have.status(200)",
+							"    const body = pm.response.json()",
+							"    pm.expect(body).to.eql(\"api\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/v1/ping",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"v1",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtain JWT (for tenant user)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "76c14495-9f9b-441c-a520-50bbeab816cf",
+						"exec": [
+							"pm.test('returns 200 OK with valid .authorizationToken', () => {",
+							"    pm.response.to.have.status(200)",
+							"",
+							"    const body = pm.response.json()",
+							"    pm.expect(body.authorizationToken).is.a('string')",
+							"    pm.environment.set('API_TOKEN', body.authorizationToken)",
+							"",
+							"    const ping = pm.environment.get('API_URL') + '/v1/ping/authorized'",
+							"    const header = 'JWT ' + body.authorizationToken // or, \"Bearer\" token",
+							"    const req = { header: { Authorization: header }, url: ping } // => api",
+							"    pm.sendRequest(req, (err, res) => pm.expect(res.text()).to.equal('\"api\"'))",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{TENANT_USERNAME}}\",\n    \"password\": \"{{TENANT_PASSWORD}}\",\n    \"hostName\": \"{{TENANT_HOSTNAME}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/account/authenticate",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"account",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate JWT={{API_TOKEN}}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0b95841-9d6c-4310-b39c-ad9cb6b342ea",
+						"exec": [
+							"pm.test('returns 200 OK w/ service name', () => {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.body('\"api\"')",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/v1/ping/authorized",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"v1",
+						"ping",
+						"authorized"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Policy Holder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"values\": {\n\t\t\"first_name\": \"Jane\",\n\t\t\"last_name\": \"Doe\"\n\t},\n\t\"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/policyholder/create",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"policyholder",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{API_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3df4fb9d-0cf2-4c0e-bf31-0c428f334ed0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6893c16f-07dd-4f51-8005-204c8192daec",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
