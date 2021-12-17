@@ -1,0 +1,13 @@
+{
+  "cancellationTypes": [
+    {
+      "name": "Manual Cancellation",
+      "title": "Manual Cancellation",
+      "documents": [],
+      "reinstatement": {
+        "defaultDeadlineDays": 60,
+        "documents": []
+      }
+    }
+  ]
+}

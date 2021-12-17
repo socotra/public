@@ -3,6 +3,7 @@
   "currency": "USD",
   "improvedRating": true,
    "features": {
-    "property.endorsement.renewal.underwriting.enabled": true
-  }
+    "property.endorsement.renewal.underwriting.enabled": true,
+    "property.installments.plugin.enabled": true
+   }
 }

@@ -206,5 +206,10 @@
     "gracePeriodDays": 30,
     "reinstatementPeriodDays": 90
   },
-  "externalRater": "myrater"
+  "plugins": {
+    "createInstallments": {
+      "path": "master/installments.js",
+      "enabled": true
+    }
+  }
 }
