@@ -4,7 +4,7 @@ API endpoint.
 external_rater.py - This file takes care of converting the inputs to a format that can be easily
 processed by an external pricing algorithm and packaging the return value in a format that
 is defined in the Socotra External Rater feature 
-(https://docs.socotra.com/production/features/external_rater.html).
+(https://docs.socotra.com/production/tooling/external-rater.html).
 
 myrater.py - This file implements the pricing logic for the personal-auto policy that ships with
 the Socotra default configuration.  The algorithm is identical and yields identical results as
